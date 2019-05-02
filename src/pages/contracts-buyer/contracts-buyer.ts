@@ -43,8 +43,10 @@ export class ContractsBuyerPage {
     this.buyerService.getMyPendingPurchasesNbr().subscribe(data => {
       this.purchasesNbr = data;
       this.numbers = Array(this.purchasesNbr.length).fill(0).map((x,i)=>i);
-      console.log("line 42 "+this.purchasesNbr);
-      console.log("line 43 "+data);
+      console.log("line 42 ");
+      console.log(this.purchasesNbr);
+      console.log("line 43 ");
+      console.log(data);
       if (this.purchasesNbr.length>0) {
         // this.isThereData = "yes";
         this.getPurchaseAt(0);

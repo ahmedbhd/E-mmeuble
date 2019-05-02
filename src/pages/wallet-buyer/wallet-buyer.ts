@@ -30,11 +30,28 @@ export class WalletBuyerPage {
   updateBalancePosition($event){
     this.amount = $event.value;
   }
+
   exchangeSTT(){
+    if (this.amount<=0){
+      this.sellSTT();
+    }else
+      this.buySTT();
+  }
+  buySTT(){
     this.buyerService.rechargeAcc(this.account, this.amount).subscribe(data => {
       this.presentToast("Successfully recharged you account");
       this.amount = 0;
     })
+  }
+  sellSTT(){
+    console.log(this.amount);
+    if (this.amount !=0)
+      this.buyerService.exchange(this.account,-this.amount).subscribe(data => {
+        this.presentToast("Exchange successful");
+        this.amount = 0;
+      });
+    else
+      this.presentToast("You have no STT");
   }
   resetRange(){
     this.amount = 0;
@@ -51,7 +68,9 @@ export class WalletBuyerPage {
   async presentToast(msg: string) {
     const toast = await this.toastCtrl.create({
       message: msg,
-      duration: 2000
+      duration: 2000,
+      position:'bottom',
+      cssClass:'toastClass'
     });
     toast.present();
   }

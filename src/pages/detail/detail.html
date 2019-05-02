@@ -23,6 +23,20 @@
       <p>
         This house's area is {{house.area}}, with {{house.rooms}} rooms.
       </p>
+      <div [ngSwitch]="house.state">
+        <p style="color:#32db64; " *ngSwitchCase="1" >
+          this house is available.
+        </p>
+        <p style="color:#488aff; " *ngSwitchCase="2" >
+          this house is in pending purchase.
+        </p>
+        <p style="color:#ffce00; " *ngSwitchCase="3" >
+          this house is in a in progress purchase
+        </p>
+        <p style="color:#f53d3d; " *ngSwitchCase="4" >
+          this house has been sold
+        </p>
+      </div>
     </ion-card-content>
     <div [ngSwitch]="isTheBackPageFeeds">
       <button ion-button block color="warning" *ngSwitchCase="'yes'" (click)="buyHouse()">Buy</button>

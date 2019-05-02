@@ -67,12 +67,13 @@ export class ContractsSellerPage {
       console.log("inside purchaseAt");
 
       this.sellerService.getMyInProgressPurchaseAt(this.purchasesNbr[$index]).subscribe(data => {
-        this.thisPurchase = data;
-        console.log("line 69 ");
-        console.log(this.thisPurchase);
-        console.log("line 71 ");
-        console.log(data);
-
+        if (data.date!=0) {
+          this.thisPurchase = data;
+          console.log("line 69 ");
+          console.log(this.thisPurchase);
+          console.log("line 71 ");
+          console.log(data);
+        }
         loading.dismiss();
       })
     }

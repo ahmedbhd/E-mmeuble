@@ -12,8 +12,8 @@ import {Purchase} from "../purchase";
 */
 @Injectable()
 export class BuyerServiceProvider {
-  buyerURL: string ="http://192.168.111.49:3002/";
-  clHouseURL: string ="http://192.168.111.49:3000/";
+  buyerURL: string ="http://192.168.137.1:3002/";
+  clHouseURL: string ="http://192.168.137.1:3000/";
   headers = new HttpHeaders()
     .append("Access-Control-Allow-Origin","*")
     .append("Access-Control-Allow-Methods","GET,POST,PATCH,DELETE,PUT,OPTIONS")
@@ -25,7 +25,9 @@ export class BuyerServiceProvider {
   getMyAccount() : Observable<string>{
     return this.http.get<string>(this.buyerURL+"getMyAccount",{headers: this.headers});
   }
-
+  exchange(myAccount: string,amount: number) : Observable<string>{
+    return this.http.post<string>(this.clHouseURL+"exchange",{"sender":myAccount,"amount":amount},{headers: this.headers});
+  }
   getMyBalance() : Observable<number>{
     return this.http.get<number>(this.buyerURL+"getMyBalance",{headers: this.headers});
   }

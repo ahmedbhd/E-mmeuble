@@ -44,7 +44,7 @@
 
     <div *ngSwitchCase="'exchange'">
       <ion-item>
-        <ion-range  (ionBlur)="updateBalancePosition($event)" [(ngModel)]="amount" min="1" max="{{myBalance}}">
+        <ion-range  (ionBlur)="updateBalancePosition($event)" [(ngModel)]="amount" min="0" max="{{myBalance}}">
           <img range-left  src="../../assets/img/dollar.png" class="img-size">
           <img range-right  src="../../assets/img/dollar_double.png" class="img-size">
         </ion-range>

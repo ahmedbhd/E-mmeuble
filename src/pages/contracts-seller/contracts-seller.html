@@ -87,8 +87,8 @@
                 <p ion-text>STT {{ thisPurchase.amountPerMonthForInsurance }}</p>
               </div>
               <button ion-button (click)="openDetail(thisPurchase.houseIndex)">House details</button>
-
-              <ion-item text-center>
+              <div [ngSwitch]="thisPurchase.sellerConfirmation" style="margin-bottom: 50px">
+              <ion-item text-center *ngSwitchCase="false" >
                 <button  class="small-btn" ion-button icon-only (click)="confirmPurch()">
                   <ion-icon name="done-all"></ion-icon>
                 </button>
@@ -96,6 +96,10 @@
                   <ion-icon name="close"></ion-icon>
                 </button>
               </ion-item>
+                <span *ngSwitchCase="true" style="color: darkred">
+                  This is a closed purchase
+                </span>
+              </div>
             </ion-slide>
 <!--          </div>-->
 <!--          <div *ngSwitchCase="'no'">-->

@@ -1,6 +1,5 @@
 import { HttpClient,HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {TRIPS} from "./mock-trips";
 import {Observable} from "rxjs";
 import {House} from "../house";
 import {Purchase} from "../purchase";
@@ -8,7 +7,9 @@ import {Purchase} from "../purchase";
 @Injectable()
 export class SellerServiceProvider {
 
-  sellerURL: string ="http://192.168.111.49:3001/";
+  sellerURL: string ="http://192.168.137.1:3001/";
+  clHouseURL: string ="http://192.168.137.1:3000/";
+
   headers = new HttpHeaders()
     .append("Access-Control-Allow-Origin","*")
     .append("Access-Control-Allow-Methods","GET,POST,PATCH,DELETE,PUT,OPTIONS")
@@ -18,15 +19,9 @@ export class SellerServiceProvider {
     console.log('Hello SellerServiceProvider Provider');
   }
 
-  // getItem(id) {
-  //   for (var i = 0; i < this.houses.length; i++) {
-  //     if (this.houses[i].id === parseInt(id)) {
-  //       return this.houses[i];
-  //     }
-  //   }
-  //   return null;
-  // }
-
+  exchange(myAccount: string,amount: number) : Observable<string>{
+    return this.http.post<string>(this.clHouseURL+"exchange",{"sender":myAccount,"amount":amount},{headers: this.headers});
+  }
   getMyAccount() : Observable<string>{
     return this.http.get<string>(this.sellerURL+"getMyAccount",{headers: this.headers});
   }

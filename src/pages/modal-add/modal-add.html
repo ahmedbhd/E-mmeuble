@@ -2,6 +2,7 @@
   <ion-grid  style="height: 100%" >
 <!--  <ion-list style=" top:30%">-->
     <ion-row justify-content-center align-items-center style="height: 100%; flex-direction: column">
+<!--      <ion-col>-->
     <ion-item>
       <ion-label fixed>Location</ion-label>
       <ion-input type="text" [(ngModel)]="house.location" value=""></ion-input>
@@ -19,7 +20,7 @@
       <ion-input type="number" [(ngModel)]="house.price"></ion-input>
     </ion-item>
 
-    <ion-item style="background: transparent">
+    <ion-item style="background: transparent ; bottom: 0">
       <ion-row align-items-start>
       <ion-col style="text-align: left" >
         <button ion-button color="secondary"  block (click)="applyModal()">Apply</button>
@@ -29,6 +30,8 @@
       </ion-col>
       </ion-row>
     </ion-item>
+<!--      </ion-col>-->
+
     </ion-row>
 <!--   </ion-list>-->
   </ion-grid>

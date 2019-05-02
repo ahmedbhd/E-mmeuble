@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {NavController, ToastController,App} from 'ionic-angular';
 import { SellerServiceProvider } from '../../providers/seller-service/seller-service';
+import {el} from "@angular/platform-browser/testing/src/browser_util";
 
 @Component({
   selector: 'wallet-seller',
@@ -21,9 +22,7 @@ export class WalletSellerPage {
   updateBalancePosition($event){
     this.amount = $event.value;
   }
-  exchangeSTT(){
-    this.amount = 0;
-  }
+
   resetRange(){
     this.amount = 0;
   }
@@ -35,7 +34,9 @@ export class WalletSellerPage {
   async presentToast(msg: string) {
     const toast = await this.toastCtrl.create({
       message: msg,
-      duration: 2000
+      duration: 2000,
+      position:'bottom',
+      cssClass:'toastClass'
     });
     toast.present();
   }
@@ -48,6 +49,16 @@ export class WalletSellerPage {
     this.sellerService.getMyBalance().subscribe(data => this.myBalance = data);
   }
 
+  exchangeSTT(){
+    console.log(this.amount);
+    if (this.amount !=0)
+      this.sellerService.exchange(this.account,this.amount).subscribe(data => {
+        this.presentToast("Exchange successful");
+        this.amount = 0;
+      });
+    else
+      this.presentToast("You have no STT");
+  }
   logout(){
     this.appCtrl.getRootNav().pop();
   }
