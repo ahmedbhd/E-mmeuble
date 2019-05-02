@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      <span ion-text>My houses</span>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openAddModal()">
+        <img src="../../assets/img/add.png" class="sort-btn">
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+  <!--  -->
+  <ion-toolbar padding >
+    <ion-searchbar animated (ionInput)="filterItems($event)" placeholder="Search for location">
+    </ion-searchbar>
+    <p ion-text no-margin class="text-secondary">
+      <strong>{{resultNbr}}</strong> results!
+    </p>
+<!--    <ion-fab  right top >-->
+<!--      <button ion-fab  color="danger" (click)="openAddModal()"><ion-icon name="add"></ion-icon></button>-->
+<!--    </ion-fab>-->
+
+  </ion-toolbar>
+
+</ion-header>
+
+<<ion-content padding class="trips detail-bg">
+  <!--list of trips-->
+  <ion-refresher (ionRefresh)="refreshList($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="trip card" *ngFor="let trip of houses" tappable  margin-bottom>
+
+    <div class="background border-bottom" [ngStyle]="{'background-image': 'url(assets/img/house/thumb/' + trip.image + ')'}" (click)="openDetail(trip.indexHouse)">
+      <div class="background-filter rlt">
+        <div class="align-bottom" padding-left padding-right>
+          <h6 class="pull-left text-white" ion-text>{{ trip.location }}</h6>
+          <h6 class="pull-right text-white" ion-text>{{ trip.price | currency:'STT ':true }}</h6>
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+    <div class="padding-sm primary-bg" [ngSwitch]="trip.state">
+      <img src="../../assets/img/house/green.png" class="status-icon" *ngSwitchCase="'1'">
+      <img src="../../assets/img/house/blue.png" class="status-icon" *ngSwitchCase="'2'">
+      <img src="../../assets/img/house/gold.png" class="status-icon" *ngSwitchCase="'3'">
+      <img src="../../assets/img/house/red.png" class="status-icon" *ngSwitchCase="'4'">
+<!--      <span ion-text class="text-white">{{ trip.time }}</span>-->
+      <span class="pull-right" ion-text color="light"><strong>{{trip.area}} m²</strong> (House has <span ion-text  class="text-green bold">{{trip.rooms}} rooms</span>)</span>
+    </div>
+  </div>
+</ion-content>

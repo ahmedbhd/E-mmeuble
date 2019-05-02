@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      <span ion-text>My wallet</span>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="logout()">
+        <ion-icon name="exit"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-toolbar>
+    <ion-segment
+      [(ngModel)]="choice">
+      <ion-segment-button
+        value="balance">
+        Balance
+      </ion-segment-button>
+      <ion-segment-button
+        value="exchange">
+        Exchange
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-refresher (ionRefresh)="refreshPage($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div [ngSwitch]="choice">
+    <div *ngSwitchCase="'balance'" >
+    <div class="border-bottom" padding>
+      <span ion-text color="primary" class="bold">PRIVATE ADDRESS</span>
+      <p ion-text>{{ account}}</p>
+    </div>
+
+    <!--address-->
+    <div class="border-bottom" padding>
+      <span ion-text color="primary" class="bold">BALANCE</span>
+      <p ion-text>{{ myBalance }} STT</p>
+    </div>
+    </div>
+
+    <div *ngSwitchCase="'exchange'">
+      <ion-item>
+        <ion-range  (ionBlur)="updateBalancePosition($event)" [(ngModel)]="amount" min="1" max="{{myBalance}}">
+          <img range-left  src="../../assets/img/dollar.png" class="img-size">
+          <img range-right  src="../../assets/img/dollar_double.png" class="img-size">
+        </ion-range>
+      </ion-item>
+      <ion-item>
+        <ion-label style="text-align: center" color="secondary">STT {{amount}}</ion-label>
+      </ion-item>
+      <ion-item text-center="">
+        <button  class="small-btn" ion-button icon-only (click)="exchangeSTT()">
+          <ion-icon name="done-all"></ion-icon>
+        </button>
+        <button class="small-btn" ion-button icon-only color="danger" (click)="resetRange()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-item>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,31 @@
+page-modal-add {
+  .btn {
+    display: block;
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+    border: 1px solid red;
+  }
+
+  .my-popup {
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.7);
+    vertical-align: center
+  }
+
+  .center-flex {
+    //top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .Aligner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .Aligner-item {
+    max-width: 50%;
+  }
+}

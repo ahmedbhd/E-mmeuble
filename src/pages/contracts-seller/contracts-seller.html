@@ -1,0 +1,110 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      <span ion-text>My contracts</span>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content  class="no-scroll">
+  <ion-refresher (ionRefresh)="refreshList($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+<!--    <div [ngSwitch]="isThereData">-->
+
+    <ion-slides pager class="swiper-slide"  (ionSlideDidChange)="slideChanged()">
+<!--      <ion-scroll scrollY="true">-->
+
+      <!--          <div *ngSwitchCase="'yes'">-->
+            <ion-slide *ngFor="let item of numbers">
+              <ion-grid class="border-bottom dark-bg">
+                <ion-row>
+                  <ion-col text-center>
+                    <div class="text-sm">
+                      <div>
+                        <ion-icon name="time" class="text-white"></ion-icon>
+                        <span ion-text color="light">{{ thisPurchase.date | date : 'mediumDate' }}</span>
+                      </div>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+
+              <!--high light-->
+              <div class="border-bottom" padding >
+                <span ion-text color="dark" class="bold">CONFIRMATIONS</span>
+                <ul class="highlight">
+                  <li [ngSwitch]="thisPurchase.buyerConfirmation">
+                    <ion-icon name="checkmark" class="text-green" *ngSwitchCase="true"></ion-icon>
+                    <ion-icon name="close" class="danger" *ngSwitchCase="false"></ion-icon>
+                    <span ion-text color="primary" > BUYER </span>
+                  </li>
+                  <li [ngSwitch]="thisPurchase.sellerConfirmation">
+                    <ion-icon name="checkmark" color="text-green" *ngSwitchCase="true"></ion-icon>
+                    <ion-icon name="close" color="danger" *ngSwitchCase="false"></ion-icon>
+                    <span ion-text color="primary" > HOUSE OWNER</span>
+                  </li>
+                </ul>
+              </div>
+
+              <!--description-->
+              <div class="border-bottom" padding>
+                <span ion-text color="primary" class="bold">SELLER ADDRESS</span>
+                <p ion-text>{{ thisPurchase.owner }}</p>
+              </div>
+              <!--description-->
+              <div class="border-bottom" padding>
+                <span ion-text color="primary" class="bold">BUYER ADDRESS</span>
+                <p ion-text>{{ thisPurchase.buyer }}</p>
+              </div>
+              <!--description-->
+              <div class="border-bottom" padding>
+                <span ion-text color="primary" class="bold">BANK ADDRESS</span>
+                <p ion-text>{{ thisPurchase.bank }}</p>
+              </div>
+              <!--description-->
+              <div class="border-bottom" padding>
+                <span ion-text color="primary" class="bold">INSURANCE ADDRESS</span>
+                <p ion-text>{{ thisPurchase.insurance }}</p>
+              </div>
+              <!--description-->
+              <div class="border-bottom" padding>
+                <span ion-text color="primary" class="bold">LOAN</span>
+                <p ion-text>STT {{ thisPurchase.loan }}</p>
+              </div>
+              <!--address-->
+              <div class="border-bottom" padding>
+                <span ion-text color="primary" class="bold">ADVANCE</span>
+                <p ion-text>STT {{ thisPurchase.advance }}</p>
+              </div>
+              <div class="border-bottom" padding>
+                <span ion-text color="primary" class="bold">PAYMENT FOR BANK MONTHLY</span>
+                <p ion-text>STT {{ thisPurchase.amountPerMonthForBank }}</p>
+              </div>
+              <div class="border-bottom" padding>
+                <span ion-text color="primary" class="bold">PAYMENT FOR INSURANCE MONTHLY</span>
+                <p ion-text>STT {{ thisPurchase.amountPerMonthForInsurance }}</p>
+              </div>
+              <button ion-button (click)="openDetail(thisPurchase.houseIndex)">House details</button>
+
+              <ion-item text-center>
+                <button  class="small-btn" ion-button icon-only (click)="confirmPurch()">
+                  <ion-icon name="done-all"></ion-icon>
+                </button>
+                <button class="small-btn" ion-button icon-only color="danger" (click)="cancelPurch()">
+                  <ion-icon name="close"></ion-icon>
+                </button>
+              </ion-item>
+            </ion-slide>
+<!--          </div>-->
+<!--          <div *ngSwitchCase="'no'">-->
+<!--            <ion-card-header>There is no contracts for you!</ion-card-header>-->
+<!--          </div>-->
+<!--      </ion-scroll>-->
+
+    </ion-slides>
+<!--    </div>-->
+
+
+</ion-content>

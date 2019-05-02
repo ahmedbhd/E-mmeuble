@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-navbar color="danger">
+    <ion-title text-left>Advanced search</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="applyChoice()">
+        <img src="../../assets/img/checked.png" >
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-toolbar>
+    <ion-segment  color="danger"  [(ngModel)]="choice">
+      <ion-segment-button
+        value="sort">
+        Sort by
+      </ion-segment-button>
+      <ion-segment-button
+        value="filter">
+        Filter
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div [ngSwitch]="choice">
+    <div *ngSwitchCase="'sort'">
+      <ion-list radio-group [(ngModel)]="testRadioResult">
+          <ion-item>
+            <ion-label>Area</ion-label>
+            <ion-radio value="area" checked></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Rooms</ion-label>
+            <ion-radio value="rooms"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Price</ion-label>
+            <ion-radio value="price" ></ion-radio>
+          </ion-item>
+      </ion-list>
+    </div>
+
+    <div *ngSwitchCase="'filter'">
+      <ion-list>
+        <ion-item >
+          <ion-label>FILTER BY</ion-label>
+          <ion-select [(ngModel)]="selectedFilter">
+            <ion-option value="area">Area (m²)</ion-option>
+            <ion-option value="rooms">rooms n°</ion-option>
+            <ion-option value="price">Price (STT)</ion-option>
+          </ion-select>
+        </ion-item>
+        <div [ngSwitch]="selectedFilter">
+          <ion-item *ngSwitchCase="'area'">
+            <ion-badge color="danger" item-right>{{areaValues.upper}}</ion-badge>
+            <ion-badge color="danger" item-left>{{areaValues.lower}}</ion-badge>
+            <ion-range dualKnobs="true" [(ngModel)]="areaValues" min="0" max="1000" step="1" snaps="true">
+            </ion-range>
+          </ion-item>
+          <ion-item *ngSwitchCase="'rooms'">
+            <ion-badge color="danger" item-right>{{roomValues.upper}}</ion-badge>
+            <ion-badge color="danger" item-left>{{roomValues.lower}}</ion-badge>
+            <ion-range dualKnobs="true" [(ngModel)]="roomValues" min="1" max="10" step="1" snaps="true">
+            </ion-range>
+          </ion-item>
+
+          <ion-item *ngSwitchCase="'price'">
+            <ion-badge color="danger" item-right>{{priceValues.upper}}</ion-badge>
+            <ion-badge color="danger" item-left>{{priceValues.lower}}</ion-badge>
+            <ion-range dualKnobs="true" [(ngModel)]="priceValues" min="1" max="10000" step="10" snaps="true">
+            </ion-range>
+          </ion-item>
+        </div>
+      </ion-list>
+    </div>
+
+  </div>
+</ion-content>
