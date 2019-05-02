@@ -84,16 +84,16 @@ export class FeedsBuyerPage {
     console.log($values);
     switch (param) {
       case "rooms": {
-        this.houses = this.houses.filter(value => value.rooms>$values.lower && value.rooms<$values.upper);
+        this.houses = this.houses.filter(value => value.rooms>=$values.lower && value.rooms<=$values.upper);
         break;
       }
       case "price":{
-        this.houses = this.houses.filter(value => value.price>$values.lower && value.price<$values.upper);
+        this.houses = this.houses.filter(value => value.price>=$values.lower && value.price<=$values.upper);
         break;
       }
       case "area":{
         console.log("area");
-        this.houses = this.houses.filter(value => parseFloat(value.area)>$values.lower && parseFloat(value.area)<$values.upper);
+        this.houses = this.houses.filter(value => parseFloat(value.area)>=$values.lower && parseFloat(value.area)<=$values.upper);
         break;
       }
     }

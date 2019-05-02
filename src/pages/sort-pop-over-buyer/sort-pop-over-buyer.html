@@ -54,7 +54,7 @@
           <ion-item *ngSwitchCase="'area'">
             <ion-badge color="danger" item-right>{{areaValues.upper}}</ion-badge>
             <ion-badge color="danger" item-left>{{areaValues.lower}}</ion-badge>
-            <ion-range dualKnobs="true" [(ngModel)]="areaValues" min="0" max="1000" step="1" snaps="true">
+            <ion-range dualKnobs="true" [(ngModel)]="areaValues" min="1" max="1000" step="1" snaps="true">
             </ion-range>
           </ion-item>
           <ion-item *ngSwitchCase="'rooms'">
@@ -67,7 +67,7 @@
           <ion-item *ngSwitchCase="'price'">
             <ion-badge color="danger" item-right>{{priceValues.upper}}</ion-badge>
             <ion-badge color="danger" item-left>{{priceValues.lower}}</ion-badge>
-            <ion-range dualKnobs="true" [(ngModel)]="priceValues" min="1" max="10000" step="10" snaps="true">
+            <ion-range dualKnobs="true" [(ngModel)]="priceValues" min="0" max="10000" step="100" snaps="true">
             </ion-range>
           </ion-item>
         </div>
