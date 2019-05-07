@@ -1,3 +1,5 @@
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { MbscModule } from '@mobiscroll/angular-lite';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -16,12 +18,16 @@ import {WalletBuyerPage } from '../pages/wallet-buyer/wallet-buyer';
 import {FeedsBuyerPage } from '../pages/feeds-buyer/feeds-buyer';
 import { SortPopOverBuyerPage } from '../pages/sort-pop-over-buyer/sort-pop-over-buyer';
 import {DetailPage } from '../pages/detail/detail';
+import { PopoverDescriptionPage } from '../pages/popover-description/popover-description';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { SellerServiceProvider } from '../providers/seller-service/seller-service';
 import { BuyerServiceProvider } from '../providers/buyer-service/buyer-service';
+
+import { IonicStepperModule } from 'ionic-stepper';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -37,16 +43,22 @@ import { BuyerServiceProvider } from '../providers/buyer-service/buyer-service';
     WalletBuyerPage,
     FeedsBuyerPage,
     SortPopOverBuyerPage,
-    DetailPage
+    DetailPage,
+    PopoverDescriptionPage
   ],
   imports: [
+    ReactiveFormsModule,
+    FormsModule, 
+    MbscModule,
     HttpClientModule ,
     BrowserModule,
     IonicModule.forRoot(MyApp
     //   , {
     //   popoverEnter: 'custom-popover-enter'
     // }
-    )
+    ),
+    IonicStepperModule,
+    BrowserAnimationsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -62,7 +74,8 @@ import { BuyerServiceProvider } from '../providers/buyer-service/buyer-service';
     WalletBuyerPage,
     FeedsBuyerPage,
     SortPopOverBuyerPage,
-    DetailPage
+    DetailPage,
+    PopoverDescriptionPage
   ],
   providers: [
     StatusBar,

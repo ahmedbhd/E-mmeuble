@@ -7,8 +7,8 @@ import {Purchase} from "../purchase";
 @Injectable()
 export class SellerServiceProvider {
 
-  sellerURL: string ="http://192.168.137.1:3001/";
-  clHouseURL: string ="http://192.168.137.1:3000/";
+  sellerURL: string ="http://192.168.1.11:3001/";
+  clHouseURL: string ="http://192.168.1.11:3000/";
 
   headers = new HttpHeaders()
     .append("Access-Control-Allow-Origin","*")
@@ -50,8 +50,8 @@ export class SellerServiceProvider {
   getMyInProgressPurchaseAt(index:number) : Observable<Purchase>{
     return this.http.post<Purchase>(this.sellerURL+"getMyInProgressPurchaseAt",{"purchaseIndex":index},{headers: this.headers});
   }
-  setAsConfirmed(index){
-    return this.http.post(this.sellerURL+"setConfirmed",{"purchaseIndex":index},{headers: this.headers});
+  setAsConfirmed(purchaseIndex,houseIndex){
+    return this.http.post(this.sellerURL+"setConfirmed",{"purchaseIndex":purchaseIndex,"houseIndex":houseIndex},{headers: this.headers});
   }
   setAsCancelled(indexHouse,indexPurchase){
     return this.http.post(this.sellerURL+"setCanceled",{"houseIndex":indexHouse,"purchaseIndex":indexPurchase},{headers: this.headers});

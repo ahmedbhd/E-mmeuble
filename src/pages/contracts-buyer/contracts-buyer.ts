@@ -88,7 +88,7 @@ export class ContractsBuyerPage {
 
   confirmPurch(){
     let purchaseIndex = this.purchasesNbr[this.slides.getActiveIndex()];
-    this.buyerService.setAsConfirmed(purchaseIndex).subscribe(data => {
+    this.buyerService.setPurchaseAsInProgress(purchaseIndex,this.thisPurchase.houseIndex).subscribe(data => {
       this.chargeSlide();
       this.presentToast("Confirmation success!")
     });
@@ -101,20 +101,23 @@ export class ContractsBuyerPage {
       this.presentToast("cancellation success!")
     });
   }
-  refreshList(refresher){
-    //this.chargeSlide()
+  resetSlides(){
     this.resetValues();
     this.buyerService.getMyPendingPurchasesNbr().subscribe(data => {
       this.purchasesNbr = data;
       this.numbers = Array(this.purchasesNbr.length).fill(0).map((x,i)=>i);
+      console.log("line 42 ");
       console.log(this.purchasesNbr);
-      if (this.purchasesNbr.length>0)
-        this.getPurchaseAt(0 );
-      else {
-        this.resetValues();
+      console.log("line 43 ");
+      console.log(data);
+      if (this.purchasesNbr.length>0) {
+        // this.isThereData = "yes";
+        this.slides.slideTo(0);
+
+      }else {
+        // this.isThereData="no";
         this.presentToast("There are no contracts for you!");
       }
-      refresher.complete();
     });
   }
   openDetail($index){

@@ -3,14 +3,15 @@
     <ion-title>
       <span ion-text>My contracts</span>
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="resetSlides()">
+        <img src="../../assets/img/refresh.png" class="sort-btn">
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content  class="no-scroll">
-  <ion-refresher (ionRefresh)="refreshList($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-
   <!--    <div [ngSwitch]="isThereData">-->
 
   <ion-slides pager class="swiper-slide"  (ionSlideDidChange)="slideChanged()">

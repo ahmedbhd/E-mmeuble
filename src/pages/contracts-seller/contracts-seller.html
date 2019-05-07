@@ -3,13 +3,18 @@
     <ion-title>
       <span ion-text>My contracts</span>
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="resetSlides()">
+        <img src="../../assets/img/refresh.png" class="sort-btn">
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content  class="no-scroll">
-  <ion-refresher (ionRefresh)="refreshList($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
+<!--  <ion-refresher (ionRefresh)="refreshList($event)">-->
+<!--    <ion-refresher-content></ion-refresher-content>-->
+<!--  </ion-refresher>-->
 
 <!--    <div [ngSwitch]="isThereData">-->
 
@@ -17,78 +22,127 @@
 <!--      <ion-scroll scrollY="true">-->
 
       <!--          <div *ngSwitchCase="'yes'">-->
-            <ion-slide *ngFor="let item of numbers">
-              <ion-grid class="border-bottom dark-bg">
-                <ion-row>
-                  <ion-col text-center>
-                    <div class="text-sm">
-                      <div>
-                        <ion-icon name="time" class="text-white"></ion-icon>
-                        <span ion-text color="light">{{ thisPurchase.date | date : 'mediumDate' }}</span>
-                      </div>
-                    </div>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
 
-              <!--high light-->
-              <div class="border-bottom" padding >
-                <span ion-text color="dark" class="bold">CONFIRMATIONS</span>
-                <ul class="highlight">
-                  <li [ngSwitch]="thisPurchase.buyerConfirmation">
-                    <ion-icon name="checkmark" class="text-green" *ngSwitchCase="true"></ion-icon>
-                    <ion-icon name="close" class="danger" *ngSwitchCase="false"></ion-icon>
-                    <span ion-text color="primary" > BUYER </span>
-                  </li>
-                  <li [ngSwitch]="thisPurchase.sellerConfirmation">
-                    <ion-icon name="checkmark" color="text-green" *ngSwitchCase="true"></ion-icon>
-                    <ion-icon name="close" color="danger" *ngSwitchCase="false"></ion-icon>
-                    <span ion-text color="primary" > HOUSE OWNER</span>
-                  </li>
-                </ul>
-              </div>
 
-              <!--description-->
-              <div class="border-bottom" padding>
-                <span ion-text color="primary" class="bold">SELLER ADDRESS</span>
-                <p ion-text>{{ thisPurchase.owner }}</p>
+      <ion-slide *ngFor="let item of numbers">
+
+        <ion-grid class="border-bottom dark-bg">
+          <ion-row>
+            <ion-col text-center>
+              <div class="text-sm">
+                <div>
+                  <ion-icon name="time" class="text-white"></ion-icon>
+                  <span ion-text color="light">{{ thisPurchase.date | date : 'mediumDate' }}</span>
+                </div>
               </div>
-              <!--description-->
-              <div class="border-bottom" padding>
-                <span ion-text color="primary" class="bold">BUYER ADDRESS</span>
-                <p ion-text>{{ thisPurchase.buyer }}</p>
+            </ion-col>
+
+          </ion-row>
+          <ion-fab right top>
+            <button ion-fab icon-only color="dark" (click)="openDetail(thisPurchase.houseIndex)">
+            <img src="../../assets/img/house.png">
+          </button>
+          </ion-fab>
+
+        </ion-grid>
+
+        <ion-stepper [mode]="'horizontal'" #stepper (selectIndexChange)="selectChange($event)">
+
+          <ion-step  [ngSwitch]="thisPurchase.buyerConfirmation">
+            <div *ngSwitchCase="true">
+              <img src="../../assets/img/buyer.png">
+              <p>Buyer confirmed</p>
+            </div>
+            <div *ngSwitchCase="false">
+              <img src="../../assets/img/buyer_f.png">
+              <p>Buyer didn't confirm yet</p>
+            </div>
+            <button ion-button small ionicStepperNext>Next</button>
+          </ion-step>
+          <ion-step   [ngSwitch]="thisPurchase.sellerConfirmation">
+            <div *ngSwitchCase="false">
+            <img src="../../assets/img/seller_f.png">
+            <p>Owner didn't confirm yet</p>
+            </div>
+            <div *ngSwitchCase="true">
+            <img src="../../assets/img/seller.png">
+            <p>Owner confirmed</p>
+            </div>
+            <button ion-button color="light" small ionicStepperPrevious>Previous</button>
+            <button ion-button small ionicStepperNext>Next</button>
+          </ion-step>
+          <ion-step [ngSwitch]="thisPurchase.sellerConfirmation">
+            <div>
+            <img src="../../assets/img/handshake.png" *ngSwitchCase="true">
+            <p *ngSwitchCase="false" >On going purchase</p>
+            </div>
+            <button ion-button color="light" small ionicStepperPrevious>Previous</button>
+          </ion-step>
+        </ion-stepper>
+
+        <mbsc-form class="md-grid-horizontal">
+          <mbsc-form-group>
+            <div class="mbsc-grid">
+              <div class="mbsc-row mbsc-justify-content-between">
+                <div  class="mbsc-col-5"><ion-label left text-wrap color="primary" >Owner</ion-label> </div>
+                <div class="mbsc-col-7"><ion-label ion-text position="floating" (click)="presentPopOver($event, thisPurchase.owner)">{{ thisPurchase.owner }}</ion-label></div>
               </div>
-              <!--description-->
-              <div class="border-bottom" padding>
-                <span ion-text color="primary" class="bold">BANK ADDRESS</span>
-                <p ion-text>{{ thisPurchase.bank }}</p>
+            </div>
+
+            <div class="mbsc-grid">
+              <div class="mbsc-row mbsc-justify-content-between">
+                <div  class="mbsc-col-5"><ion-label left text-wrap color="primary" >Buyer</ion-label> </div>
+                <div class="mbsc-col-7"><ion-label ion-text position="floating" (click)="presentPopOver($event, thisPurchase.buyer)">{{ thisPurchase.buyer }}</ion-label></div>
               </div>
-              <!--description-->
-              <div class="border-bottom" padding>
-                <span ion-text color="primary" class="bold">INSURANCE ADDRESS</span>
-                <p ion-text>{{ thisPurchase.insurance }}</p>
+            </div>
+
+            <div class="mbsc-grid">
+              <div class="mbsc-row mbsc-justify-content-between">
+                <div  class="mbsc-col-5"><ion-label left text-wrap color="primary" >Bank</ion-label> </div>
+                <div class="mbsc-col-7"><ion-label ion-text position="floating" (click)="presentPopOver($event, thisPurchase.bank)">{{ thisPurchase.bank }}</ion-label></div>
               </div>
-              <!--description-->
-              <div class="border-bottom" padding>
-                <span ion-text color="primary" class="bold">LOAN</span>
-                <p ion-text>STT {{ thisPurchase.loan }}</p>
+            </div>
+
+            <div class="mbsc-grid">
+              <div class="mbsc-row mbsc-justify-content-between">
+                <div  class="mbsc-col-5"><ion-label left text-wrap color="primary" >Insurance</ion-label> </div>
+                <div class="mbsc-col-7"><ion-label ion-text position="floating" (click)="presentPopOver($event, thisPurchase.insurance)">{{ thisPurchase.insurance }}</ion-label></div>
               </div>
-              <!--address-->
-              <div class="border-bottom" padding>
-                <span ion-text color="primary" class="bold">ADVANCE</span>
-                <p ion-text>STT {{ thisPurchase.advance }}</p>
+            </div>
+
+            <div class="mbsc-grid">
+              <div class="mbsc-row mbsc-justify-content-between">
+                <div  class="mbsc-col-5"><ion-label left text-wrap color="primary" >Loan</ion-label> </div>
+                <div class="mbsc-col-7"><ion-label ion-text position="floating" >{{ thisPurchase.loan }}</ion-label></div>
               </div>
-              <div class="border-bottom" padding>
-                <span ion-text color="primary" class="bold">PAYMENT FOR BANK MONTHLY</span>
-                <p ion-text>STT {{ thisPurchase.amountPerMonthForBank }}</p>
+            </div>
+
+            <div class="mbsc-grid">
+              <div class="mbsc-row mbsc-justify-content-between">
+                <div  class="mbsc-col-5"><ion-label left text-wrap color="primary" >Advance</ion-label> </div>
+                <div class="mbsc-col-7"><ion-label ion-text position="floating">{{ thisPurchase.advance }}</ion-label></div>
               </div>
-              <div class="border-bottom" padding>
-                <span ion-text color="primary" class="bold">PAYMENT FOR INSURANCE MONTHLY</span>
-                <p ion-text>STT {{ thisPurchase.amountPerMonthForInsurance }}</p>
+            </div>
+
+            <div class="mbsc-grid">
+              <div class="mbsc-row mbsc-justify-content-between">
+                <div  class="mbsc-col-5"><ion-label left text-wrap color="primary" >Monthly payment for bank</ion-label> </div>
+                <div class="mbsc-col-7"><ion-label ion-text position="floating" (click)="presentPopOver($event, thisPurchase.amountPerMonthForInsurance)">
+                  {{ thisPurchase.amountPerMonthForBank }}</ion-label></div>
               </div>
-              <button ion-button (click)="openDetail(thisPurchase.houseIndex)">House details</button>
-              <div [ngSwitch]="thisPurchase.sellerConfirmation" style="margin-bottom: 50px">
-              <ion-item text-center *ngSwitchCase="false" >
+            </div>
+
+            <div class="mbsc-grid">
+              <div class="mbsc-row mbsc-justify-content-between">
+                <div  class="mbsc-col-5"><ion-label left text-wrap color="primary" >Monthly payment for insurance</ion-label> </div>
+                <div class="mbsc-col-7"><ion-label ion-text position="floating" (click)="presentPopOver($event, thisPurchase.amountPerMonthForInsurance)">
+                  {{ thisPurchase.amountPerMonthForInsurance }}</ion-label></div>
+              </div>
+            </div>
+          </mbsc-form-group>
+        </mbsc-form>
+              <div [ngSwitch]="buyerAndSellerConfir" >
+              <ion-item text-center *ngSwitchCase="true" >
                 <button  class="small-btn" ion-button icon-only (click)="confirmPurch()">
                   <ion-icon name="done-all"></ion-icon>
                 </button>
@@ -96,19 +150,13 @@
                   <ion-icon name="close"></ion-icon>
                 </button>
               </ion-item>
+              </div>
+                <div [ngSwitch]="thisPurchase.sellerConfirmation" style="margin-bottom: 50px">
                 <span *ngSwitchCase="true" style="color: darkred">
                   This is a closed purchase
                 </span>
-              </div>
-            </ion-slide>
-<!--          </div>-->
-<!--          <div *ngSwitchCase="'no'">-->
-<!--            <ion-card-header>There is no contracts for you!</ion-card-header>-->
-<!--          </div>-->
-<!--      </ion-scroll>-->
+                </div>
 
+      </ion-slide>
     </ion-slides>
-<!--    </div>-->
-
-
 </ion-content>

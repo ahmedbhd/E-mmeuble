@@ -13,31 +13,57 @@
 <ion-content padding>
   <ion-card>
     <img src="../../assets/img/house/thumb/{{house.image}}"/>
-    <ion-card-header>
-      {{house.price| currency:'STT ':true}}
-    </ion-card-header>
-    <ion-card-content>
-      <ion-card-title>
-        {{house.location}}
-      </ion-card-title>
-      <p>
-        This house's area is {{house.area}}, with {{house.rooms}} rooms.
-      </p>
+
+
+
+
+      <mbsc-form class="md-grid-horizontal">
+        <mbsc-form-group>
+          <div class="mbsc-grid">
+            <div class="mbsc-row mbsc-justify-content-between">
+              <div  class="mbsc-col-4"><img src="../../assets/img/marker.png"> </div>
+              <div text-center class="mbsc-col-8"><ion-label ion-text position="floating" >{{house.location}}</ion-label></div>
+            </div>
+          </div>
+
+          <div class="mbsc-grid">
+            <div class="mbsc-row mbsc-justify-content-between">
+              <div  class="mbsc-col-4"><img src="../../assets/img/house_area.png"></div>
+              <div text-center class="mbsc-col-8"><ion-label ion-text position="floating" >{{house.area}} m²</ion-label></div>
+            </div>
+          </div>
+
+          <div class="mbsc-grid">
+            <div class="mbsc-row mbsc-justify-content-between">
+              <div  class="mbsc-col-4"><img src="../../assets/img/window.png"> </div>
+              <div  text-center class="mbsc-col-8"><ion-label ion-text position="floating" >{{house.rooms}}</ion-label></div>
+            </div>
+          </div>
+
+          <div class="mbsc-grid">
+            <div class="mbsc-row mbsc-justify-content-between">
+              <div  class="mbsc-col-4"><img src="../../assets/img/sale.png"> </div>
+              <div  text-center class="mbsc-col-8"><ion-label ion-text position="floating" >{{house.price| currency:'STT ':true}}</ion-label></div>
+            </div>
+          </div>
+
+        </mbsc-form-group>
+      </mbsc-form>
       <div [ngSwitch]="house.state">
         <p style="color:#32db64; " *ngSwitchCase="1" >
-          this house is available.
+          This house is available.
         </p>
         <p style="color:#488aff; " *ngSwitchCase="2" >
-          this house is in pending purchase.
+          This house is in pending purchase.
         </p>
         <p style="color:#ffce00; " *ngSwitchCase="3" >
-          this house is in a in progress purchase
+          This house is in a in progress purchase.
         </p>
         <p style="color:#f53d3d; " *ngSwitchCase="4" >
-          this house has been sold
+          This house has been sold.
         </p>
+
       </div>
-    </ion-card-content>
     <div [ngSwitch]="isTheBackPageFeeds">
       <button ion-button block color="warning" *ngSwitchCase="'yes'" (click)="buyHouse()">Buy</button>
     </div>

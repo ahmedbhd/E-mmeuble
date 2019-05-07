@@ -68,7 +68,10 @@ export class HousesSellerPage {
       console.log(this.houses);
       this.resultNbr = this.houses.length;
 
-    }, error1 => {},() => loading.dismiss());
+    }, error1 => {
+      this.presentToast("Network Error!");
+      loading.dismiss();
+    },() => loading.dismiss());
   }
   async presentToast(msg: string) {
     const toast = await this.toastCtrl.create({

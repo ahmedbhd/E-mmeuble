@@ -12,8 +12,8 @@ import {Purchase} from "../purchase";
 */
 @Injectable()
 export class BuyerServiceProvider {
-  buyerURL: string ="http://192.168.137.1:3002/";
-  clHouseURL: string ="http://192.168.137.1:3000/";
+  buyerURL: string ="http://192.168.1.11:3002/";
+  clHouseURL: string ="http://192.168.1.11:3000/";
   headers = new HttpHeaders()
     .append("Access-Control-Allow-Origin","*")
     .append("Access-Control-Allow-Methods","GET,POST,PATCH,DELETE,PUT,OPTIONS")
@@ -48,8 +48,8 @@ export class BuyerServiceProvider {
   getMyPendingPurchaseAt(index:number) : Observable<Purchase>{
     return this.http.post<Purchase>(this.buyerURL+"getMyPendingPurchaseAt",{"purchaseIndex":index},{headers: this.headers});
   }
-  setAsConfirmed(index){
-    return this.http.post(this.buyerURL+"setConfirmed",{"purchaseIndex":index},{headers: this.headers});
+  setPurchaseAsInProgress(purchaseIndex,houseIndex){
+    return this.http.post(this.buyerURL+"setPurchaseAsInProgress",{"purchaseIndex":purchaseIndex,"houseIndex":houseIndex},{headers: this.headers});
   }
   setAsCancelled(indexHouse,indexPurchase){
     return this.http.post(this.buyerURL+"setCanceled",{"houseIndex":indexHouse,"purchaseIndex":indexPurchase},{headers: this.headers});

@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import  {StartPage } from '../pages/start/start';
 
-import {PopoverEnterTransition } from './popover-enter.transition';
 
 @Component({
   templateUrl: 'app.html'
