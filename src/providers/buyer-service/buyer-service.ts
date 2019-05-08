@@ -12,8 +12,8 @@ import {Purchase} from "../purchase";
 */
 @Injectable()
 export class BuyerServiceProvider {
-  buyerURL: string ="http://192.168.1.11:3002/";
-  clHouseURL: string ="http://192.168.1.11:3000/";
+  buyerURL: string ="http://192.168.137.1:3002/";
+  clHouseURL: string ="http://192.168.137.1:3000/";
   headers = new HttpHeaders()
     .append("Access-Control-Allow-Origin","*")
     .append("Access-Control-Allow-Methods","GET,POST,PATCH,DELETE,PUT,OPTIONS")

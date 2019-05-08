@@ -83,7 +83,7 @@ export class HousesSellerPage {
     toast.present();
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     console.log('ionViewDidLoad houses-seller');
     this.reloadList();
   }

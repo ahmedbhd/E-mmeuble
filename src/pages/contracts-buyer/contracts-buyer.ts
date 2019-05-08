@@ -1,8 +1,9 @@
 import {Component, ViewChild} from '@angular/core';
-import { NavController, NavParams,ToastController,Slides,LoadingController } from 'ionic-angular';
+import {NavController, NavParams, ToastController, Slides, LoadingController, PopoverController} from 'ionic-angular';
 import {Purchase} from "../../providers/purchase";
 import {BuyerServiceProvider} from "../../providers/buyer-service/buyer-service";
 import {DetailPage} from "../detail/detail";
+import {PopoverDescriptionPage} from "../popover-description/popover-description";
 
 /**
  * Generated class for the ContractsBuyerPage page.
@@ -23,7 +24,9 @@ export class ContractsBuyerPage {
   constructor(public navCtrl: NavController,
               private toastCtrl: ToastController,
               private loadingCtrl: LoadingController,
-              private buyerService: BuyerServiceProvider) {
+              private buyerService: BuyerServiceProvider,
+              private popOverCtrl: PopoverController
+  ) {
     this.resetValues();
 
   }
@@ -33,7 +36,7 @@ export class ContractsBuyerPage {
 
   resetValues(){
     this.purchasesNbr = new Array<number>();
-    this.thisPurchase =  new Purchase(0,"-","-",0,0,"-","-",0,"-","-","-",false,false);
+    this.thisPurchase =  new Purchase(0,"-","-",0,0,"0","0",0,"0","0","0",false,false);
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad ContractsBuyerPage');
@@ -128,6 +131,17 @@ export class ContractsBuyerPage {
       thisIsTheOwner:"no",
       state:5
     });
+  }
+
+  private presentPopOver(myEvent,data){
+    let popOver = this.popOverCtrl.create(PopoverDescriptionPage, {data}, {cssClass: 'contact-popover'});
+    popOver.present({
+      ev:myEvent,
+      animate: true,
+    });
+  }
+  selectChange(e) {
+    console.log(e);
   }
   async presentToast(msg: string) {
     const toast = await this.toastCtrl.create({

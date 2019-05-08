@@ -37,21 +37,22 @@
       <!--address-->
       <div class="border-bottom" padding>
         <span ion-text color="danger" class="bold">BALANCE</span>
-        <p ion-text>{{ myBalance }} STT</p>
+        <p ion-text>{{ myBalance | currency:'STT ':true}} ({{ balanceTND | currency:'TND ':true}})</p>
       </div>
     </div>
 
     <div *ngSwitchCase="'charge'">
 
       <ion-item>
-        <ion-range  (ionBlur)="updateBalancePosition($event)" [(ngModel)]="amount" min="{{-myBalance}}" max="10000">
+        <ion-range  (ionBlur)="updateBalancePosition($event)" [(ngModel)]="amount" min="{{-myBalance}}" max="1000000" step="50">
           <img range-left  src="../../assets/img/dollar.png" class="img-size">
           <img range-right  src="../../assets/img/dollar_double.png" class="img-size">
         </ion-range>
       </ion-item>
       <ion-item>
-        <ion-label style="text-align: center" color="secondary">STT {{amount}}</ion-label>
+        <ion-label style="text-align: center" color="secondary">{{amount | currency:'STT ':true}} ({{amountTND | currency:'TND ':true}})</ion-label>
       </ion-item>
+
       <ion-item text-center="">
         <button  class="small-btn" ion-button icon-only (click)="exchangeSTT()">
           <ion-icon name="done-all"></ion-icon>
@@ -59,6 +60,50 @@
         <button class="small-btn" ion-button icon-only color="danger" (click)="resetRange()">
           <ion-icon name="close"></ion-icon>
         </button>
+      </ion-item>
+
+      <ion-item>
+        <!--      <ion-list   >-->
+        <!--        <ion-grid >-->
+        <!--          <ion-row >-->
+        <!--            <ion-col col-8> <img src="../../assets/img/paypal.png"></ion-col>-->
+        <!--            <ion-col col-3><ion-radio value="paypal" checked> </ion-radio></ion-col>-->
+        <!--          </ion-row>-->
+
+        <!--        <ion-row>-->
+        <!--          <img left src="../../assets/img/visa.png">-->
+        <!--          <ion-radio value="visa"> </ion-radio>-->
+        <!--        </ion-row>-->
+        <!--        </ion-grid>-->
+        <form [formGroup]="composersForm">
+          <ion-list
+            radio-group
+            (ionChange)="onChangeHandler($event)"
+            formControlName="composer"
+          >
+            <!-- ... list items -->
+            <ion-item>
+              <ion-label><img src="../../assets/img/paypal.png"></ion-label>
+              <ion-radio value="paypal" checked> </ion-radio>
+            </ion-item>
+
+
+              <label class="item item-icon-left item-radio">
+                <input type="radio" name="group">
+                <div class="item-content ">
+                  Go 1
+                </div>
+                <i class="radio-icon ion-checkmark"></i>
+              </label>
+              <label class="item item-icon-left item-radio">
+                <input type="radio" name="group">
+                <div class="item-content ">
+                  Go 2
+                </div>
+                <i class="radio-icon ion-checkmark"></i>
+              </label>
+            </ion-list>
+        </form>
       </ion-item>
     </div>
   </div>

@@ -48,7 +48,7 @@
 
         <ion-stepper [mode]="'horizontal'" #stepper (selectIndexChange)="selectChange($event)">
 
-          <ion-step  [ngSwitch]="thisPurchase.buyerConfirmation">
+          <ion-step  [ngSwitch]="thisPurchase.buyerConfirmation"icon="remove" >
             <div *ngSwitchCase="true">
               <img src="../../assets/img/buyer.png">
               <p>Buyer confirmed</p>
@@ -59,7 +59,7 @@
             </div>
             <button ion-button small ionicStepperNext>Next</button>
           </ion-step>
-          <ion-step   [ngSwitch]="thisPurchase.sellerConfirmation">
+          <ion-step   [ngSwitch]="thisPurchase.sellerConfirmation"icon="remove" >
             <div *ngSwitchCase="false">
             <img src="../../assets/img/seller_f.png">
             <p>Owner didn't confirm yet</p>
@@ -71,7 +71,7 @@
             <button ion-button color="light" small ionicStepperPrevious>Previous</button>
             <button ion-button small ionicStepperNext>Next</button>
           </ion-step>
-          <ion-step [ngSwitch]="thisPurchase.sellerConfirmation">
+          <ion-step [ngSwitch]="thisPurchase.sellerConfirmation"icon="remove" >
             <div>
             <img src="../../assets/img/handshake.png" *ngSwitchCase="true">
             <p *ngSwitchCase="false" >On going purchase</p>
@@ -113,14 +113,14 @@
             <div class="mbsc-grid">
               <div class="mbsc-row mbsc-justify-content-between">
                 <div  class="mbsc-col-5"><ion-label left text-wrap color="primary" >Loan</ion-label> </div>
-                <div class="mbsc-col-7"><ion-label ion-text position="floating" >{{ thisPurchase.loan }}</ion-label></div>
+                <div class="mbsc-col-7"><ion-label ion-text position="floating" >{{ thisPurchase.loan | currency:'STT ':true}}</ion-label></div>
               </div>
             </div>
 
             <div class="mbsc-grid">
               <div class="mbsc-row mbsc-justify-content-between">
                 <div  class="mbsc-col-5"><ion-label left text-wrap color="primary" >Advance</ion-label> </div>
-                <div class="mbsc-col-7"><ion-label ion-text position="floating">{{ thisPurchase.advance }}</ion-label></div>
+                <div class="mbsc-col-7"><ion-label ion-text position="floating">{{ thisPurchase.advance | currency:'STT ':true}}</ion-label></div>
               </div>
             </div>
 
@@ -128,7 +128,7 @@
               <div class="mbsc-row mbsc-justify-content-between">
                 <div  class="mbsc-col-5"><ion-label left text-wrap color="primary" >Monthly payment for bank</ion-label> </div>
                 <div class="mbsc-col-7"><ion-label ion-text position="floating" (click)="presentPopOver($event, thisPurchase.amountPerMonthForInsurance)">
-                  {{ thisPurchase.amountPerMonthForBank }}</ion-label></div>
+                  {{ thisPurchase.amountPerMonthForBank | currency:'STT ':true}}</ion-label></div>
               </div>
             </div>
 
@@ -136,7 +136,7 @@
               <div class="mbsc-row mbsc-justify-content-between">
                 <div  class="mbsc-col-5"><ion-label left text-wrap color="primary" >Monthly payment for insurance</ion-label> </div>
                 <div class="mbsc-col-7"><ion-label ion-text position="floating" (click)="presentPopOver($event, thisPurchase.amountPerMonthForInsurance)">
-                  {{ thisPurchase.amountPerMonthForInsurance }}</ion-label></div>
+                  {{ thisPurchase.amountPerMonthForInsurance | currency:'STT ':true}}</ion-label></div>
               </div>
             </div>
           </mbsc-form-group>

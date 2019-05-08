@@ -7,8 +7,8 @@ import {Purchase} from "../purchase";
 @Injectable()
 export class SellerServiceProvider {
 
-  sellerURL: string ="http://192.168.1.11:3001/";
-  clHouseURL: string ="http://192.168.1.11:3000/";
+  sellerURL: string ="http://192.168.137.1:3001/";
+  clHouseURL: string ="http://192.168.137.1:3000/";
 
   headers = new HttpHeaders()
     .append("Access-Control-Allow-Origin","*")
@@ -26,8 +26,8 @@ export class SellerServiceProvider {
     return this.http.get<string>(this.sellerURL+"getMyAccount",{headers: this.headers});
   }
 
-  getMyBalance() : Observable<string>{
-    return this.http.get<string>(this.sellerURL+"getMyBalance",{headers: this.headers});
+  getMyBalance() : Observable<number>{
+    return this.http.get<number>(this.sellerURL+"getMyBalance",{headers: this.headers});
   }
   getMyHouses() : Observable<House[]>{
     return this.http.get<House[]>(this.sellerURL+"getMyHouses",{headers: this.headers});

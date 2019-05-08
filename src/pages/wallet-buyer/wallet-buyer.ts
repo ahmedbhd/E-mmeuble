@@ -2,12 +2,11 @@ import { Component } from '@angular/core';
 import {App, NavController, NavParams, ToastController} from 'ionic-angular';
 import {BuyerServiceProvider} from "../../providers/buyer-service/buyer-service";
 
-/**
- * Generated class for the WalletBuyerPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {
+Validators,
+  FormBuilder,
+  FormGroup
+} from '@angular/forms'; // 1) Import missing classes from Angular
 
 @Component({
   selector: 'page-wallet-buyer',
@@ -18,17 +17,31 @@ export class WalletBuyerPage {
   public myBalance:number;
   public amount:number;
   public choice = "balance";
+  public amountTND:number;
+  public balanceTND:number;
 
+  composersForm: FormGroup; // 2) Define the interface of our form
   constructor(private navCtrl: NavController,
               private navParams: NavParams ,
               private toastCtrl: ToastController,
               private buyerService: BuyerServiceProvider,
+              private formBuilder: FormBuilder,
               private appCtrl: App)
   {
-    this.amount = 0;
+    this.resetRange();
+
+    this.composersForm = this.formBuilder.group({ // 4) Initialize our form
+      composer: ['', Validators.required], // 5) Define 'formControlName' inside form
+    })
+  }
+
+  onChangeHandler(event) {
+    // this.navCtrl.pop(); // 6) Removing page from stack
+    console.log(event)
   }
   updateBalancePosition($event){
     this.amount = $event.value;
+    this.amountTND = this.amount*2;
   }
 
   exchangeSTT(){
@@ -40,7 +53,7 @@ export class WalletBuyerPage {
   buySTT(){
     this.buyerService.rechargeAcc(this.account, this.amount).subscribe(data => {
       this.presentToast("Successfully recharged you account");
-      this.amount = 0;
+      this.resetRange();
     })
   }
   sellSTT(){
@@ -48,18 +61,21 @@ export class WalletBuyerPage {
     if (this.amount !=0)
       this.buyerService.exchange(this.account,-this.amount).subscribe(data => {
         this.presentToast("Exchange successful");
-        this.amount = 0;
+        this.resetRange();
       });
     else
       this.presentToast("You have no STT");
   }
   resetRange(){
-    this.amount = 0;
+    this.amountTND=this.amount = 0;
   }
 
   getData(){
     this.buyerService.getMyAccount().subscribe(data => this.account = data);
-    this.buyerService.getMyBalance().subscribe(data => this.myBalance = data);
+    this.buyerService.getMyBalance().subscribe(data => {
+      this.myBalance = data;
+      this.balanceTND = this.myBalance * 2;
+    });
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad WalletBuyerPage');

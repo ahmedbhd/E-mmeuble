@@ -33,7 +33,7 @@ export class ContractsSellerPage {
 
   private resetValues(){
     this.purchasesNbr = new Array<number>();
-    this.thisPurchase =  new Purchase(0,"-","-",0,0,"-","-",0,"-","-","-",false,false);
+    this.thisPurchase =  new Purchase(0,"-","-",0,0,"-","0",0,"0","0","0",false,false);
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad houses-seller');
@@ -135,10 +135,6 @@ export class ContractsSellerPage {
 
   selectChange(e) {
     console.log(e);
-  }
-  goTo($stepper){
-
-    console.log($stepper)
   }
   private presentPopOver(myEvent,data){
     let popOver = this.popOverCtrl.create(PopoverDescriptionPage, {data}, {cssClass: 'contact-popover'});

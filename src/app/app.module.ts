@@ -48,17 +48,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   imports: [
     ReactiveFormsModule,
-    FormsModule, 
+    FormsModule,
     MbscModule,
-    HttpClientModule ,
+    HttpClientModule,
     BrowserModule,
     IonicModule.forRoot(MyApp
-    //   , {
-    //   popoverEnter: 'custom-popover-enter'
-    // }
+      //   , {
+      //   popoverEnter: 'custom-popover-enter'
+      // }
     ),
     IonicStepperModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    IonicStepperModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

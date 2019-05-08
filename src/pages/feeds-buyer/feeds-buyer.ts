@@ -29,7 +29,7 @@ export class FeedsBuyerPage {
 
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     console.log('ionViewDidLoad FeedsBuyerPage');
     this.reloadList();
   }

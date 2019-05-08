@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {NavController, ToastController,App} from 'ionic-angular';
 import { SellerServiceProvider } from '../../providers/seller-service/seller-service';
-import {el} from "@angular/platform-browser/testing/src/browser_util";
 
 @Component({
   selector: 'wallet-seller',
@@ -9,22 +8,27 @@ import {el} from "@angular/platform-browser/testing/src/browser_util";
 })
 export class WalletSellerPage {
   public account = "";
-  public myBalance:string;
+  public myBalance:number;
   public amount:number;
   public choice = "balance";
+  public amountTND:number;
+  public balanceTND:number;
+
   constructor(private toastCtrl: ToastController,
               private navCtrl: NavController,
               private sellerService: SellerServiceProvider,
               private appCtrl: App)
   {
-    this.amount = 0;
+    this.resetRange();
   }
   updateBalancePosition($event){
     this.amount = $event.value;
+    this.amountTND = this.amount*2;
+
   }
 
   resetRange(){
-    this.amount = 0;
+    this.amountTND=this.amount = 0;
   }
 
   ionViewDidLoad() {
@@ -46,7 +50,10 @@ export class WalletSellerPage {
   }
   getData(){
     this.sellerService.getMyAccount().subscribe(data => this.account = data);
-    this.sellerService.getMyBalance().subscribe(data => this.myBalance = data);
+    this.sellerService.getMyBalance().subscribe(data => {
+      this.myBalance = data;
+      this.balanceTND = this.myBalance * 2;
+    });
   }
 
   exchangeSTT(){
@@ -54,7 +61,7 @@ export class WalletSellerPage {
     if (this.amount !=0)
       this.sellerService.exchange(this.account,this.amount).subscribe(data => {
         this.presentToast("Exchange successful");
-        this.amount = 0;
+       this.resetRange()
       });
     else
       this.presentToast("You have no STT");
