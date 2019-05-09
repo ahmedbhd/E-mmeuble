@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import {NavController, ToastController,App} from 'ionic-angular';
+import {NavController, ToastController, App, ModalController, Modal} from 'ionic-angular';
 import { SellerServiceProvider } from '../../providers/seller-service/seller-service';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {PaymentFormPage} from "../payment-form/payment-form";
 
 @Component({
   selector: 'wallet-seller',
@@ -13,12 +15,20 @@ export class WalletSellerPage {
   public choice = "balance";
   public amountTND:number;
   public balanceTND:number;
+  composersForm: FormGroup; // 2) Define the interface of our form
+  public paymentData:any = null;
+  public myModal: Modal;
 
   constructor(private toastCtrl: ToastController,
               private navCtrl: NavController,
               private sellerService: SellerServiceProvider,
+              private formBuilder: FormBuilder,
+              private modal: ModalController,
               private appCtrl: App)
   {
+    this.composersForm = this.formBuilder.group({ // 4) Initialize our form
+      composer: ['', Validators.required], // 5) Define 'formControlName' inside form
+    });
     this.resetRange();
   }
   updateBalancePosition($event){
@@ -58,13 +68,28 @@ export class WalletSellerPage {
 
   exchangeSTT(){
     console.log(this.amount);
-    if (this.amount !=0)
-      this.sellerService.exchange(this.account,this.amount).subscribe(data => {
-        this.presentToast("Exchange successful");
-       this.resetRange()
-      });
-    else
-      this.presentToast("You have no STT");
+    if (this.paymentData != null) {
+      if (this.amount != 0)
+        this.sellerService.exchange(this.account, this.amount).subscribe(data => {
+          this.presentToast("Exchange successful");
+          this.resetRange()
+        });
+      else
+        this.presentToast("You have no STT");
+    }else{
+      this.presentToast("Please choose a payment method.")
+    }
+  }
+  openPaymentForm() {
+    this.myModal = this.modal.create(PaymentFormPage, {data: this.paymentData});
+    this.myModal.present();
+    this.myModal.onDidDismiss( data => {
+      if (data != null) {
+        console.log(data);
+        this.paymentData = data;
+      }
+    })
+
   }
   logout(){
     this.appCtrl.getRootNav().pop();

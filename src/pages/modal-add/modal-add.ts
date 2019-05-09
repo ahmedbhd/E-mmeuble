@@ -2,12 +2,6 @@ import { Component } from '@angular/core';
 import { NavParams ,ViewController} from 'ionic-angular';
 import {House} from "../../providers/house";
 
-/**
- * Generated class for the ModalAddPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @Component({
   selector: 'page-modal-add',

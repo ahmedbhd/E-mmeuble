@@ -38,7 +38,7 @@
     <!--address-->
     <div class="border-bottom" padding>
       <span ion-text color="primary" class="bold">BALANCE</span>
-      <p ion-text>{{ myBalance | currency:'STT ':true}}({{ balanceTND | currency:'TND ':true}})</p>
+      <p ion-text>{{ myBalance | currency:'STT ':true}} ({{ balanceTND | currency:'TND ':true}})</p>
     </div>
     </div>
 
@@ -52,6 +52,19 @@
       <ion-item>
         <ion-label style="text-align: center" color="secondary">{{amount | currency:'STT ':true}} ({{amountTND | currency:'TND ':true}})</ion-label>
       </ion-item>
+
+      <ion-item>
+        <form [formGroup]="composersForm" text-center>
+          <p ion-text color="primary">Please choose your payment method</p>
+          <div class="cc-selector">
+            <input id="visa" type="radio" name="credit-card" value="visa" (click)="openPaymentForm()"/>
+            <label class="drinkcard-cc visa" for="visa"></label>
+            <input id="mastercard" type="radio" name="credit-card" value="mastercard" (click)="openPaymentForm()"/>
+            <label class="drinkcard-cc mastercard"for="mastercard"></label>
+          </div>
+        </form>
+      </ion-item>
+
       <ion-item text-center="">
         <button  class="small-btn" ion-button icon-only (click)="exchangeSTT()">
           <ion-icon name="done-all"></ion-icon>

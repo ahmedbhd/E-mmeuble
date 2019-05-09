@@ -24,7 +24,7 @@
         "@ionic-native/splash-screen": "~4.20.0",
         "@ionic-native/status-bar": "~4.20.0",
         "@ionic/storage": "2.2.0",
-        "@mobiscroll/angular-lite": "^4.6.3",
+        "@mobiscroll/angular": "https://npm.mobiscroll.com/@mobiscroll/angular-trial/-/angular-trial-4.6.3.tgz",
         "@mobiscroll/cli": "^0.9.2",
         "cordova-android": "8.0.0",
         "ionic-angular": "3.9.5",

@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
-import {App, NavController, NavParams, ToastController} from 'ionic-angular';
+import {App, Modal, ModalController, NavController, NavParams, ToastController} from 'ionic-angular';
 import {BuyerServiceProvider} from "../../providers/buyer-service/buyer-service";
 
-import {
-Validators,
-  FormBuilder,
-  FormGroup
-} from '@angular/forms'; // 1) Import missing classes from Angular
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import {PaymentFormPage} from "../payment-form/payment-form"; // 1) Import missing classes from Angular
 
 @Component({
   selector: 'page-wallet-buyer',
@@ -19,20 +16,23 @@ export class WalletBuyerPage {
   public choice = "balance";
   public amountTND:number;
   public balanceTND:number;
-
+  public myModal: Modal;
+  public paymentData:any = null;
   composersForm: FormGroup; // 2) Define the interface of our form
+
   constructor(private navCtrl: NavController,
               private navParams: NavParams ,
               private toastCtrl: ToastController,
               private buyerService: BuyerServiceProvider,
               private formBuilder: FormBuilder,
-              private appCtrl: App)
-  {
+              private modal: ModalController,
+              private appCtrl: App
+  ) {
     this.resetRange();
 
     this.composersForm = this.formBuilder.group({ // 4) Initialize our form
       composer: ['', Validators.required], // 5) Define 'formControlName' inside form
-    })
+    });
   }
 
   onChangeHandler(event) {
@@ -45,10 +45,14 @@ export class WalletBuyerPage {
   }
 
   exchangeSTT(){
-    if (this.amount<=0){
-      this.sellSTT();
-    }else
-      this.buySTT();
+    if (this.paymentData != null) {
+      if (this.amount <= 0) {
+        this.sellSTT();
+      } else
+        this.buySTT();
+    }else{
+      this.presentToast("Please choose a payment method.")
+    }
   }
   buySTT(){
     this.buyerService.rechargeAcc(this.account, this.amount).subscribe(data => {
@@ -68,6 +72,7 @@ export class WalletBuyerPage {
   }
   resetRange(){
     this.amountTND=this.amount = 0;
+    this.paymentData = null;
   }
 
   getData(){
@@ -96,5 +101,17 @@ export class WalletBuyerPage {
   }
   logout(){
     this.appCtrl.getRootNav().pop();
+  }
+
+  openPaymentForm() {
+      this.myModal = this.modal.create(PaymentFormPage, {data: this.paymentData});
+      this.myModal.present();
+      this.myModal.onDidDismiss( data => {
+        if (data != null) {
+          console.log(data);
+          this.paymentData = data;
+        }
+      })
+
   }
 }

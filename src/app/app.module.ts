@@ -1,5 +1,6 @@
+import { MbscModule } from '@mobiscroll/angular';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
-import { MbscModule } from '@mobiscroll/angular-lite';
+
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -12,13 +13,14 @@ import { HousesSellerPage } from '../pages/houses-seller/houses-seller';
 import { TabsSeller } from '../pages/tabs-seller/tabs-seller';
 import { StartPage } from '../pages/start/start';
 import { ModalAddPage } from '../pages/modal-add/modal-add';
-import {TabsBuyerPage} from '../pages/tabs-buyer/tabs-buyer';
+import { TabsBuyerPage} from '../pages/tabs-buyer/tabs-buyer';
 import { ContractsBuyerPage } from '../pages/contracts-buyer/contracts-buyer';
-import {WalletBuyerPage } from '../pages/wallet-buyer/wallet-buyer';
-import {FeedsBuyerPage } from '../pages/feeds-buyer/feeds-buyer';
+import { WalletBuyerPage } from '../pages/wallet-buyer/wallet-buyer';
+import { FeedsBuyerPage } from '../pages/feeds-buyer/feeds-buyer';
 import { SortPopOverBuyerPage } from '../pages/sort-pop-over-buyer/sort-pop-over-buyer';
-import {DetailPage } from '../pages/detail/detail';
+import { DetailPage } from '../pages/detail/detail';
 import { PopoverDescriptionPage } from '../pages/popover-description/popover-description';
+import { PaymentFormPage } from '../pages/payment-form/payment-form';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -44,12 +46,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FeedsBuyerPage,
     SortPopOverBuyerPage,
     DetailPage,
-    PopoverDescriptionPage
+    PopoverDescriptionPage,
+    PaymentFormPage
   ],
-  imports: [
+  imports: [ 
+    MbscModule,
     ReactiveFormsModule,
     FormsModule,
-    MbscModule,
     HttpClientModule,
     BrowserModule,
     IonicModule.forRoot(MyApp
@@ -76,7 +79,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FeedsBuyerPage,
     SortPopOverBuyerPage,
     DetailPage,
-    PopoverDescriptionPage
+    PopoverDescriptionPage,
+    PaymentFormPage
   ],
   providers: [
     StatusBar,

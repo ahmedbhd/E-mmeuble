@@ -1,0 +1,41 @@
+<!--
+  Generated template for the PaymentFormPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>Payment Form</ion-title>
+<!--    <ion-buttons left>-->
+<!--      <button ion-button icon-only (click)="applyModal()">-->
+<!--        <img src="../../assets/img/save.png">-->
+<!--      </button>-->
+<!--    </ion-buttons>-->
+    <ion-buttons right>
+      <button ion-button icon-only (click)="closeModal()">
+        <img src="../../assets/img/delete.png">
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <mbsc-form [formGroup]="form">
+    <mbsc-form-group >
+      <mbsc-form-group-title>Card Data</mbsc-form-group-title>
+
+      <mbsc-input [(ngModel)]="data.name" placeholder="Your Name" required formControlName="name">Your Name</mbsc-input>
+
+      <mbsc-input [(ngModel)]="data.card" placeholder="Card Number" type="number" required formControlName="card">Card Number</mbsc-input>
+      <mbsc-input [(ngModel)]="data.code" placeholder="VV/CVC" type="number" required formControlName="code" >CVV/CVC</mbsc-input>
+
+      <ion-item>
+        <ion-label position="stacked">Expiration Date</ion-label>
+        <ion-datetime  displayFormat="MM YYYY" min="{{today}}" max="{{future}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="data.date"></ion-datetime>
+      </ion-item>
+    </mbsc-form-group>
+    <button ion-button color="dark" [disabled]="!form.valid" block><span class="fontColor" (click)="applyModal()" >Save</span></button>
+  </mbsc-form>
+</ion-content>

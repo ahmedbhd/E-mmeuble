@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="danger">
     <ion-title>
-      <span ion-text>My wallet</span>
+      <span ion-text>My Wallet</span>
     </ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="logout()">
@@ -53,6 +53,18 @@
         <ion-label style="text-align: center" color="secondary">{{amount | currency:'STT ':true}} ({{amountTND | currency:'TND ':true}})</ion-label>
       </ion-item>
 
+      <ion-item>
+        <form [formGroup]="composersForm" text-center>
+          <p ion-text color="danger">Please choose your payment method</p>
+          <div class="cc-selector">
+            <input id="visa" type="radio" name="credit-card" value="visa" (click)="openPaymentForm()"/>
+            <label class="drinkcard-cc visa" for="visa"></label>
+            <input id="mastercard" type="radio" name="credit-card" value="mastercard" (click)="openPaymentForm()"/>
+            <label class="drinkcard-cc mastercard"for="mastercard"></label>
+          </div>
+        </form>
+      </ion-item>
+
       <ion-item text-center="">
         <button  class="small-btn" ion-button icon-only (click)="exchangeSTT()">
           <ion-icon name="done-all"></ion-icon>
@@ -62,49 +74,7 @@
         </button>
       </ion-item>
 
-      <ion-item>
-        <!--      <ion-list   >-->
-        <!--        <ion-grid >-->
-        <!--          <ion-row >-->
-        <!--            <ion-col col-8> <img src="../../assets/img/paypal.png"></ion-col>-->
-        <!--            <ion-col col-3><ion-radio value="paypal" checked> </ion-radio></ion-col>-->
-        <!--          </ion-row>-->
 
-        <!--        <ion-row>-->
-        <!--          <img left src="../../assets/img/visa.png">-->
-        <!--          <ion-radio value="visa"> </ion-radio>-->
-        <!--        </ion-row>-->
-        <!--        </ion-grid>-->
-        <form [formGroup]="composersForm">
-          <ion-list
-            radio-group
-            (ionChange)="onChangeHandler($event)"
-            formControlName="composer"
-          >
-            <!-- ... list items -->
-            <ion-item>
-              <ion-label><img src="../../assets/img/paypal.png"></ion-label>
-              <ion-radio value="paypal" checked> </ion-radio>
-            </ion-item>
-
-
-              <label class="item item-icon-left item-radio">
-                <input type="radio" name="group">
-                <div class="item-content ">
-                  Go 1
-                </div>
-                <i class="radio-icon ion-checkmark"></i>
-              </label>
-              <label class="item item-icon-left item-radio">
-                <input type="radio" name="group">
-                <div class="item-content ">
-                  Go 2
-                </div>
-                <i class="radio-icon ion-checkmark"></i>
-              </label>
-            </ion-list>
-        </form>
-      </ion-item>
     </div>
   </div>
 </ion-content>
