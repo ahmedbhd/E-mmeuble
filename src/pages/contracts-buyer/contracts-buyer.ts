@@ -21,6 +21,9 @@ export class ContractsBuyerPage {
   public thisPurchase: Purchase ;
   public purchasesNbr:number[];
   public numbers:any;
+  @ViewChild(Slides) slides: Slides;
+  public hideMe: boolean = false;
+
   constructor(public navCtrl: NavController,
               private toastCtrl: ToastController,
               private loadingCtrl: LoadingController,
@@ -28,20 +31,18 @@ export class ContractsBuyerPage {
               private popOverCtrl: PopoverController
   ) {
     this.resetValues();
-
   }
-
-
-  @ViewChild(Slides) slides: Slides;
 
   resetValues(){
     this.purchasesNbr = new Array<number>();
     this.thisPurchase =  new Purchase(0,"-","-",0,0,"0","0",0,"0","0","0",false,false);
   }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad ContractsBuyerPage');
     this.chargeSlide();
   }
+
   chargeSlide(){
     this.buyerService.getMyPendingPurchasesNbr().subscribe(data => {
       this.purchasesNbr = data;
@@ -51,16 +52,13 @@ export class ContractsBuyerPage {
       console.log("line 43 ");
       console.log(data);
       if (this.purchasesNbr.length>0) {
-        // this.isThereData = "yes";
         this.getPurchaseAt(0);
       }else {
-        // this.isThereData="no";
         this.presentToast("There are no contracts for you!");
       }
     });
-    // this.houses = this.sellerService.getAll();
-    // loading.dismiss();
   }
+
   getPurchaseAt($index ){
 
     let currentIndex = this.slides.getActiveIndex();
@@ -96,6 +94,7 @@ export class ContractsBuyerPage {
       this.presentToast("Confirmation success!")
     });
   }
+
   cancelPurch(){
     let purchaseIndex = this.purchasesNbr[this.slides.getActiveIndex()];
     let houseIndex = this.thisPurchase.houseIndex;
@@ -104,6 +103,7 @@ export class ContractsBuyerPage {
       this.presentToast("cancellation success!")
     });
   }
+
   resetSlides(){
     this.resetValues();
     this.buyerService.getMyPendingPurchasesNbr().subscribe(data => {
@@ -123,6 +123,7 @@ export class ContractsBuyerPage {
       }
     });
   }
+
   openDetail($index){
     this.navCtrl.push(DetailPage, {
       houseIndex: $index,
@@ -140,9 +141,11 @@ export class ContractsBuyerPage {
       animate: true,
     });
   }
+
   selectChange(e) {
     console.log(e);
   }
+
   async presentToast(msg: string) {
     const toast = await this.toastCtrl.create({
       message: msg,
@@ -151,5 +154,9 @@ export class ContractsBuyerPage {
       cssClass:'toastClass'
     });
     toast.present();
+  }
+
+  showMe(){
+    this.hideMe = !this.hideMe;
   }
 }

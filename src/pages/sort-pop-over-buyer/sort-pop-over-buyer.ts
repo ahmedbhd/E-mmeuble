@@ -28,7 +28,6 @@ export class SortPopOverBuyerPage {
     upper:10000,
     lower:1
   };
-
   public selectedFilter: string = "area";
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController) {

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>
-      <span ion-text>My wallet</span>
+    <ion-title text-center>
+      <span text-center ion-text>My Wallet</span>
     </ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="logout()">
@@ -11,7 +11,7 @@
   </ion-navbar>
   <ion-toolbar>
     <ion-segment
-      [(ngModel)]="choice">
+      [(ngModel)]="choice" color="primary">
       <ion-segment-button
         value="balance">
         Balance
@@ -55,7 +55,7 @@
 
       <ion-item>
         <form [formGroup]="composersForm" text-center>
-          <p ion-text color="primary">Please choose your payment method</p>
+          <p *ngIf="hideMe" ion-text color="primary">Please choose your payment method</p><br>
           <div class="cc-selector">
             <input id="visa" type="radio" name="credit-card" value="visa" (click)="openPaymentForm()"/>
             <label class="drinkcard-cc visa" for="visa"></label>
@@ -66,7 +66,7 @@
       </ion-item>
 
       <ion-item text-center="">
-        <button  class="small-btn" ion-button icon-only (click)="exchangeSTT()">
+        <button  class="small-btn" ion-button icon-only color="blueColor" (click)="exchangeSTT()">
           <ion-icon name="done-all"></ion-icon>
         </button>
         <button class="small-btn" ion-button icon-only color="danger" (click)="resetRange()">

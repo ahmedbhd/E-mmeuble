@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="danger">
-    <ion-title>
-      <span ion-text>My contracts</span>
+    <ion-title text-center>
+      <span ion-text>My Contracts</span>
     </ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="resetSlides()">
@@ -78,34 +78,7 @@
 
       <mbsc-form class="md-grid-horizontal">
         <mbsc-form-group>
-          <div class="mbsc-grid">
-            <div class="mbsc-row mbsc-justify-content-between">
-              <div  class="mbsc-col-5"><ion-label left text-wrap color="danger" >Owner</ion-label> </div>
-              <div class="mbsc-col-7"><ion-label ion-text position="floating" (click)="presentPopOver($event, thisPurchase.owner)">{{ thisPurchase.owner }}</ion-label></div>
-            </div>
-          </div>
-
-          <div class="mbsc-grid">
-            <div class="mbsc-row mbsc-justify-content-between">
-              <div  class="mbsc-col-5"><ion-label left text-wrap color="danger" >Buyer</ion-label> </div>
-              <div class="mbsc-col-7"><ion-label ion-text position="floating" (click)="presentPopOver($event, thisPurchase.buyer)">{{ thisPurchase.buyer }}</ion-label></div>
-            </div>
-          </div>
-
-          <div class="mbsc-grid">
-            <div class="mbsc-row mbsc-justify-content-between">
-              <div  class="mbsc-col-5"><ion-label left text-wrap color="danger" >Bank</ion-label> </div>
-              <div class="mbsc-col-7"><ion-label ion-text position="floating" (click)="presentPopOver($event, thisPurchase.bank)">{{ thisPurchase.bank }}</ion-label></div>
-            </div>
-          </div>
-
-          <div class="mbsc-grid">
-            <div class="mbsc-row mbsc-justify-content-between">
-              <div  class="mbsc-col-5"><ion-label left text-wrap color="danger" >Insurance</ion-label> </div>
-              <div class="mbsc-col-7"><ion-label ion-text position="floating" (click)="presentPopOver($event, thisPurchase.insurance)">{{ thisPurchase.insurance }}</ion-label></div>
-            </div>
-          </div>
-
+          <mbsc-form-group-title>Contract Payments</mbsc-form-group-title>
           <div class="mbsc-grid">
             <div class="mbsc-row mbsc-justify-content-between">
               <div  class="mbsc-col-5"><ion-label left text-wrap color="danger" >Loan</ion-label> </div>
@@ -135,11 +108,47 @@
                 {{ thisPurchase.amountPerMonthForInsurance | currency:'STT ':true}}</ion-label></div>
             </div>
           </div>
+          <ion-grid >
+            <ion-row text-center>
+              <ion-col align-self-center>
+                <mbsc-form-group-title>Contract Participants</mbsc-form-group-title>
+                <ion-icon name="information-circle" end="true" (click)="showMe()"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <div *ngIf="hideMe" class="mbsc-grid">
+            <div class="mbsc-row mbsc-justify-content-between">
+              <div  class="mbsc-col-5"><ion-label left text-wrap color="danger" >Owner</ion-label> </div>
+              <div class="mbsc-col-7"><ion-label ion-text position="floating" (click)="presentPopOver($event, thisPurchase.owner)">{{ thisPurchase.owner }}</ion-label></div>
+            </div>
+          </div>
+
+          <div *ngIf="hideMe" class="mbsc-grid">
+            <div class="mbsc-row mbsc-justify-content-between">
+              <div  class="mbsc-col-5"><ion-label left text-wrap color="danger" >Buyer</ion-label> </div>
+              <div class="mbsc-col-7"><ion-label ion-text position="floating" (click)="presentPopOver($event, thisPurchase.buyer)">{{ thisPurchase.buyer }}</ion-label></div>
+            </div>
+          </div>
+
+          <div *ngIf="hideMe" class="mbsc-grid">
+            <div class="mbsc-row mbsc-justify-content-between">
+              <div  class="mbsc-col-5"><ion-label left text-wrap color="danger" >Bank</ion-label> </div>
+              <div class="mbsc-col-7"><ion-label ion-text position="floating" (click)="presentPopOver($event, thisPurchase.bank)">{{ thisPurchase.bank }}</ion-label></div>
+            </div>
+          </div>
+
+          <div *ngIf="hideMe" class="mbsc-grid">
+            <div class="mbsc-row mbsc-justify-content-between">
+              <div  class="mbsc-col-5"><ion-label left text-wrap color="danger" >Insurance</ion-label> </div>
+              <div class="mbsc-col-7"><ion-label ion-text position="floating" (click)="presentPopOver($event, thisPurchase.insurance)">{{ thisPurchase.insurance }}</ion-label></div>
+            </div>
+          </div>
+<!--         <ion-icon name="information-circle" end="true"></ion-icon>-->
         </mbsc-form-group>
       </mbsc-form>
       <div [ngSwitch]="thisPurchase.sellerConfirmation" >
         <ion-item text-center *ngSwitchCase="false" >
-          <button  class="small-btn" ion-button icon-only (click)="confirmPurch()">
+          <button  class="small-btn" ion-button icon-only color="blueColor" (click)="confirmPurch()">
             <ion-icon name="done-all"></ion-icon>
           </button>
           <button class="small-btn" ion-button icon-only color="danger" (click)="cancelPurch()">

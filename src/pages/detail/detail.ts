@@ -49,6 +49,7 @@ export class DetailPage {
     this.getHouse();
 
   }
+
   getHouse(){
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
@@ -61,16 +62,19 @@ export class DetailPage {
       loading.dismiss();
     },() => loading.dismiss());
   }
+
   deleteHouse(){
     this.sellerService.deleteHouse(this.houseIndex).subscribe(data => this.presentToast("House deleted!"),error1 => {},()=>{
       this.navCtrl.pop();
     });
   }
+
   buyHouse(){
     this.buyerService.setHouseAsWanted(this.houseIndex).subscribe(data => this.presentToast("House is set as wanted!"),error1 => {},()=>{
       this.navCtrl.pop();
     });
   }
+
   async presentToast(msg: string) {
     const toast = await this.toastCtrl.create({
       message: msg,

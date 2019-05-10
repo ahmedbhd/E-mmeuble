@@ -57,7 +57,6 @@ export class HousesSellerPage {
     // refresher.complete();
   }
 
-
   private reloadList(){
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
@@ -73,6 +72,7 @@ export class HousesSellerPage {
       loading.dismiss();
     },() => loading.dismiss());
   }
+
   async presentToast(msg: string) {
     const toast = await this.toastCtrl.create({
       message: msg,
@@ -87,6 +87,7 @@ export class HousesSellerPage {
     console.log('ionViewDidLoad houses-seller');
     this.reloadList();
   }
+
   openDetail($index){
     this.navCtrl.push(DetailPage, {
       houseIndex: $index,

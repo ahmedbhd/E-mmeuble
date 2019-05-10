@@ -52,7 +52,6 @@ export class FeedsBuyerPage {
     popOver.onDidDismiss( data => {
       if (data!=null) {
         console.log(data);
-        //this.sortList(data);
         if (data.filter == "sort"){
           this.sortList(data.sortResult);
         }else {
@@ -61,6 +60,7 @@ export class FeedsBuyerPage {
       }
     })
   }
+
   private sortList(param: string){
     console.log(param);
     switch (param) {
@@ -110,6 +110,7 @@ export class FeedsBuyerPage {
       this.reloadList();
     }
   }
+
   private reloadList(){
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
@@ -135,6 +136,7 @@ export class FeedsBuyerPage {
     // this.houses = this.sellerService.getMyHouses();
     // refresher.complete();
   }
+
   openDetail($index , $state){
     this.navCtrl.push(DetailPage, {
       houseIndex: $index,
@@ -144,6 +146,7 @@ export class FeedsBuyerPage {
       state:$state
     });
   }
+
   async presentToast(msg: string) {
     const toast = await this.toastCtrl.create({
       message: msg,

@@ -15,16 +15,15 @@ export class ContractsSellerPage {
   public purchasesNbr:number[];
   public numbers:any;
   public buyerAndSellerConfir:boolean=false;
-  // public isThereData:string="yes";
-  //private emptyContrat = new Purchase(0,"-","-",0,0,"-","-",0,"-","-","-",false,false);
+  private hideMe: boolean = false;
+
   constructor(public navCtrl: NavController,
               private sellerService: SellerServiceProvider,
               private toastCtrl: ToastController,
               private loadingCtrl: LoadingController,
               private popOverCtrl: PopoverController)
   {
-    //this.purchase=this.emptyContrat;
-    //this.purchases =  new Array<Purchase>();
+
     this.resetValues();
   }
 
@@ -59,6 +58,7 @@ export class ContractsSellerPage {
     // this.houses = this.sellerService.getAll();
     // loading.dismiss();
   }
+
   getPurchaseAt($index ){
     if (this.purchasesNbr[$index]!=null) {
       let loading = this.loadingCtrl.create({
@@ -94,6 +94,7 @@ export class ContractsSellerPage {
       this.presentToast("Confirmation success!")
     });
   }
+
   cancelPurch(){
     let purchaseIndex = this.purchasesNbr[this.slides.getActiveIndex()];
     let houseIndex = this.thisPurchase.houseIndex;
@@ -104,6 +105,7 @@ export class ContractsSellerPage {
       this.presentToast("cancellation success!")
     });
   }
+
   resetSlides(){
     this.resetValues();
     this.sellerService.getMyInProgressPurchasesNbr().subscribe(data => {
@@ -123,6 +125,7 @@ export class ContractsSellerPage {
       }
     });
   }
+
   openDetail($index){
     this.navCtrl.push(DetailPage, {
       houseIndex: $index,
@@ -136,6 +139,7 @@ export class ContractsSellerPage {
   selectChange(e) {
     console.log(e);
   }
+
   private presentPopOver(myEvent,data){
     let popOver = this.popOverCtrl.create(PopoverDescriptionPage, {data}, {cssClass: 'contact-popover'});
     popOver.present({
@@ -143,6 +147,7 @@ export class ContractsSellerPage {
       animate: true,
     });
   }
+
   async presentToast(msg: string) {
     const toast = await this.toastCtrl.create({
       message: msg,
@@ -151,5 +156,9 @@ export class ContractsSellerPage {
       cssClass:'toastClass'
     });
     toast.present();
+  }
+
+  showMe(){
+    this.hideMe = !this.hideMe;
   }
 }

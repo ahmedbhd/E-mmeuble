@@ -18,6 +18,7 @@ export class WalletSellerPage {
   composersForm: FormGroup; // 2) Define the interface of our form
   public paymentData:any = null;
   public myModal: Modal;
+  public hideMe: boolean= true;
 
   constructor(private toastCtrl: ToastController,
               private navCtrl: NavController,
@@ -31,6 +32,7 @@ export class WalletSellerPage {
     });
     this.resetRange();
   }
+
   updateBalancePosition($event){
     this.amount = $event.value;
     this.amountTND = this.amount*2;
@@ -45,6 +47,7 @@ export class WalletSellerPage {
     console.log('ionViewDidLoad wallet-seller');
     this.getData();
   }
+
   async presentToast(msg: string) {
     const toast = await this.toastCtrl.create({
       message: msg,
@@ -54,10 +57,12 @@ export class WalletSellerPage {
     });
     toast.present();
   }
+
   refreshPage(refresher){
     this.getData();
     refresher.complete();
   }
+
   getData(){
     this.sellerService.getMyAccount().subscribe(data => this.account = data);
     this.sellerService.getMyBalance().subscribe(data => {
@@ -80,17 +85,21 @@ export class WalletSellerPage {
       this.presentToast("Please choose a payment method.")
     }
   }
+
   openPaymentForm() {
+    this.hideMe = false;
     this.myModal = this.modal.create(PaymentFormPage, {data: this.paymentData});
     this.myModal.present();
     this.myModal.onDidDismiss( data => {
       if (data != null) {
         console.log(data);
         this.paymentData = data;
+        this.presentToast("We thank you for trusting us");
       }
     })
 
   }
+
   logout(){
     this.appCtrl.getRootNav().pop();
   }

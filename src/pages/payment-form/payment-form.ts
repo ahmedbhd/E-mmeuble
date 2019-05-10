@@ -60,8 +60,8 @@ export class PaymentFormPage {
 
     this.form = formBuild.group({
       'name': ['', Validators.required],
-      'card': ['', Validators.required],
-      'code': ['0', Validators.required]
+      'card':['', Validators.compose([Validators.minLength(16),Validators.maxLength(16), Validators.pattern('[0-9]*'), Validators.required])],
+      'code': ['', Validators.compose([Validators.minLength(3),Validators.maxLength(3), Validators.pattern('[0-9]*'), Validators.required])]
     });
     let paymentData = this.navParams.get('data');
     console.log(paymentData);
@@ -78,12 +78,16 @@ export class PaymentFormPage {
   }
 
   applyModal(){
-    this.view.dismiss(this.data);
+    if (this.data.date =="")
+      this.presentToast("The expiration date is required");
+    else
+      this.view.dismiss(this.data);
   }
 
   closeModal(){
     this.view.dismiss(null);
   }
+
   async presentToast(msg: string) {
     const toast = await this.toastCtrl.create({
       message: msg,

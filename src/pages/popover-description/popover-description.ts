@@ -14,6 +14,7 @@ import {  NavController, NavParams } from 'ionic-angular';
 })
 export class PopoverDescriptionPage {
   public details:String="";
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.details = this.navParams.get('data');
   }
