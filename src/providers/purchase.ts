@@ -1,10 +1,12 @@
 export class Purchase {
   public purchaseIndex: number;
+  public ref : string;
   public owner : string;
   public buyer : string;
   public bank : number;
   public insurance : number;
   public houseIndex : string;
+  public houseDesc : string;
   public loan : string;
   public date : number;
   public advance : string;

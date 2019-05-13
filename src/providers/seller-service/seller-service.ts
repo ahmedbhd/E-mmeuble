@@ -34,9 +34,10 @@ export class SellerServiceProvider {
     return this.http.get<House[]>(this.sellerURL+"getMyHouses",{headers: this.headers});
   }
 
-  addHouse(location: string, area: string, rooms: number,price: number){
+  addHouse(description:string,location: string, area: string, rooms: number,price: number){
     return this.http.post(this.sellerURL + 'addHouse',
       {
+        description:description,
         location:location,
         area: area,
         rooms:rooms,

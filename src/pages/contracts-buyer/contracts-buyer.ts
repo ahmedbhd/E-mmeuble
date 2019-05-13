@@ -56,12 +56,12 @@ export class ContractsBuyerPage {
       }else {
         this.presentToast("There are no contracts for you!");
       }
-    });
+    },error1 => this.presentToast("Network Error!"));
   }
 
   getPurchaseAt($index ){
 
-    let currentIndex = this.slides.getActiveIndex();
+    // let currentIndex = this.slides.getActiveIndex();
 
     if (this.purchasesNbr[$index]!=null) {
       let loading = this.loadingCtrl.create({
@@ -77,6 +77,9 @@ export class ContractsBuyerPage {
         console.log("line 78 "+data);
 
         loading.dismiss();
+      },error1 => {
+        this.presentToast("Network Error!");
+        loading.dismiss();
       })
     }
   }
@@ -90,18 +93,18 @@ export class ContractsBuyerPage {
   confirmPurch(){
     let purchaseIndex = this.purchasesNbr[this.slides.getActiveIndex()];
     this.buyerService.setPurchaseAsInProgress(purchaseIndex,this.thisPurchase.houseIndex).subscribe(data => {
-      this.chargeSlide();
+      this.resetSlides();
       this.presentToast("Confirmation success!")
-    });
+    },error1 => this.presentToast("Network Error!"));
   }
 
   cancelPurch(){
     let purchaseIndex = this.purchasesNbr[this.slides.getActiveIndex()];
     let houseIndex = this.thisPurchase.houseIndex;
     this.buyerService.setAsCancelled(houseIndex,purchaseIndex).subscribe(data => {
-      this.chargeSlide();
+      this.resetSlides();
       this.presentToast("cancellation success!")
-    });
+    },error1 => this.presentToast("Network Error!"));
   }
 
   resetSlides(){
@@ -121,7 +124,7 @@ export class ContractsBuyerPage {
         // this.isThereData="no";
         this.presentToast("There are no contracts for you!");
       }
-    });
+    },error1 => this.presentToast("Network Error!"));
   }
 
   openDetail($index){

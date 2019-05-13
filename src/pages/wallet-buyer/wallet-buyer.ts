@@ -3,7 +3,8 @@ import {App, Modal, ModalController, NavController, NavParams, ToastController} 
 import {BuyerServiceProvider} from "../../providers/buyer-service/buyer-service";
 
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import {PaymentFormPage} from "../payment-form/payment-form"; // 1) Import missing classes from Angular
+import {PaymentFormPage} from "../payment-form/payment-form";
+import {MbscFormOptions} from "@mobiscroll/angular"; // 1) Import missing classes from Angular
 
 @Component({
   selector: 'page-wallet-buyer',
@@ -20,7 +21,10 @@ export class WalletBuyerPage {
   public paymentData:any = null;
   composersForm: FormGroup; // 2) Define the interface of our form
   public hideMe: boolean= true;
-
+  public myRadio = 'buy';
+  formSettings: MbscFormOptions = {
+    theme: 'ios'
+  };
   constructor(private navCtrl: NavController,
               private navParams: NavParams ,
               private toastCtrl: ToastController,
@@ -45,10 +49,12 @@ export class WalletBuyerPage {
     this.amount = $event.value;
     this.amountTND = this.amount*2;
   }
-
+  changeValue($event){
+    this.amountTND =$event.target.value*2;
+  }
   exchangeSTT(){
     if (this.paymentData != null) {
-      if (this.amount <= 0) {
+      if (this.myRadio =="sell") {
         this.sellSTT();
       } else
         this.buySTT();
@@ -58,19 +64,25 @@ export class WalletBuyerPage {
   }
 
   buySTT(){
-    this.buyerService.rechargeAcc(this.account, this.amount).subscribe(data => {
-      this.presentToast("Successfully recharged you account");
-      this.resetRange();
-    })
+    if (this.amount !=0) {
+      this.buyerService.rechargeAcc(this.account, this.amount).subscribe(data => {
+        this.presentToast("Successfully recharged you account");
+        this.resetRange();
+      }, error1 => this.presentToast("Network Error!"));
+    }else
+      this.presentToast("You have no STT");
   }
 
   sellSTT(){
     console.log(this.amount);
     if (this.amount !=0)
-      this.buyerService.exchange(this.account,-this.amount).subscribe(data => {
-        this.presentToast("Exchange successful");
-        this.resetRange();
-      });
+      this.buyerService.exchange(this.account,-this.amount).subscribe(
+        data => { },
+        error1 => this.presentToast("Network Error!"),
+        () => {
+            this.presentToast("Exchange successful");
+            this.resetRange();
+    });
     else
       this.presentToast("You have no STT");
   }
@@ -85,7 +97,7 @@ export class WalletBuyerPage {
     this.buyerService.getMyBalance().subscribe(data => {
       this.myBalance = data;
       this.balanceTND = this.myBalance * 2;
-    });
+    },error1 => this.presentToast("Network Error!"));
   }
 
   ionViewDidLoad() {

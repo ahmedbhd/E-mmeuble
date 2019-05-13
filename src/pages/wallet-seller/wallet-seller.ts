@@ -68,17 +68,19 @@ export class WalletSellerPage {
     this.sellerService.getMyBalance().subscribe(data => {
       this.myBalance = data;
       this.balanceTND = this.myBalance * 2;
-    });
+    },error1 => this.presentToast("Network Error!"));
   }
 
   exchangeSTT(){
     console.log(this.amount);
     if (this.paymentData != null) {
       if (this.amount != 0)
-        this.sellerService.exchange(this.account, this.amount).subscribe(data => {
-          this.presentToast("Exchange successful");
-          this.resetRange()
-        });
+        this.sellerService.exchange(this.account, this.amount).subscribe(data => {},
+            error1 => this.presentToast("Network Error!"),
+            () => {
+                this.presentToast("Exchange successful");
+                this.resetRange();
+      });
       else
         this.presentToast("You have no STT");
     }else{

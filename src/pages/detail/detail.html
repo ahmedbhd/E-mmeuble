@@ -14,35 +14,59 @@
   <ion-card>
     <img src="../../assets/img/house/thumb/{{house.image}}"/>
 
-
+    <ion-card-title>
+      {{house.description}}
+    </ion-card-title>
 
 
       <mbsc-form class="md-grid-horizontal">
         <mbsc-form-group>
           <div class="mbsc-grid">
             <div class="mbsc-row mbsc-justify-content-between">
-              <div  class="mbsc-col-3"><img src="../../assets/img/marker.png"> </div>
+              <div  class="mbsc-col-3" text-center="true">
+
+                <span style="font-size: 2em; color: darkorange;">
+                  <i class="fas fa-map-marked-alt"></i>
+                    </span>
+              </div>
               <div text-center class="mbsc-col-8"><ion-label ion-text position="floating" >{{house.location}}</ion-label></div>
             </div>
           </div>
 
           <div class="mbsc-grid">
             <div class="mbsc-row mbsc-justify-content-between">
-              <div  class="mbsc-col-3"><img  src="../../assets/img/house_area.png"></div>
+              <div  class="mbsc-col-3" text-center="true" >
+
+                    <span style="font-size: 2em; color: darkorange;">
+                      <i class="fas fa-chart-area" ></i>
+                    </span>
+
+              </div>
               <div text-center class="mbsc-col-8"><ion-label ion-text position="floating" >{{house.area}} m²</ion-label></div>
             </div>
           </div>
 
           <div class="mbsc-grid">
             <div class="mbsc-row mbsc-justify-content-between">
-              <div  class="mbsc-col-3"><img src="../../assets/img/window.png"> </div>
+              <div  class="mbsc-col-3" text-center="true">
+
+                <span style="font-size: 2em; color: darkorange;">
+                  <i class="fas fa-door-open"></i>
+                    </span>
+              </div>
               <div  text-center class="mbsc-col-8"><ion-label ion-text position="floating" >{{house.rooms}}</ion-label></div>
             </div>
           </div>
 
           <div class="mbsc-grid">
             <div class="mbsc-row mbsc-justify-content-between">
-              <div  class="mbsc-col-3"><img  src="../../assets/img/sale.png"> </div>
+<!--              <div  class="mbsc-col-3"><img  src="../../assets/img/sale.png"> </div>-->
+              <div class="mbsc-col-3" text-center="true">
+
+                <span style="font-size: 2em; color: darkorange;">
+                  <i class="fas fa-tags" ></i>
+                    </span>
+              </div>
               <div  text-center class="mbsc-col-8"><ion-label ion-text position="floating" >{{house.price| currency:'STT ':true}}</ion-label></div>
             </div>
           </div>

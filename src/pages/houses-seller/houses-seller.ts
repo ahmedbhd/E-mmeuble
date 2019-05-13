@@ -35,17 +35,18 @@ export class HousesSellerPage {
       if (data != null) {
         console.log(data);
         this.house = data;
-        this.addHouse(this.house.location,this.house.area,this.house.rooms,this.house.price);
+        this.addHouse();
       }
     })
   }
 
-  addHouse (location: string, area: string, rooms: number, price: number){
-    this.sellerService.addHouse(location,area,rooms,price).subscribe(data => {
+  addHouse (){
+    this.sellerService.addHouse(this.house.description,this.house.location,this.house.area,this.house.rooms,this.house.price).subscribe(data => {}
+      ,Error => {this.presentToast("failed while adding new home!")},
+      () => {
         this.presentToast("Successfully Added new home");
         this.reloadList();
-      }
-      ,Error => {this.presentToast("failed while adding new home!")});
+      });
   }
 
   refreshList(refresher){

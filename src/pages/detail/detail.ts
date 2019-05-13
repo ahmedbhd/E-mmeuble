@@ -55,24 +55,28 @@ export class DetailPage {
       content: 'Please wait...'
     });
     loading.present();
-    this.sellerService.getHouseDetail(this.houseIndex).subscribe(data => {
-      this.house=(data);
-    }, error1 => {
-      this.presentToast("Network Error!");
-      loading.dismiss();
+    this.sellerService.getHouseDetail(this.houseIndex).subscribe(
+      data => {
+          this.house=(data);
+      },
+      error1 => {
+          this.presentToast("Network Error!");
+          loading.dismiss();
     },() => loading.dismiss());
   }
 
   deleteHouse(){
-    this.sellerService.deleteHouse(this.houseIndex).subscribe(data => this.presentToast("House deleted!"),error1 => {},()=>{
-      this.navCtrl.pop();
-    });
+    this.sellerService.deleteHouse(this.houseIndex).subscribe(
+      data => this.presentToast("House deleted!"),
+      error1 => this.presentToast("Network Error!"),
+      ()=>this.navCtrl.pop());
   }
 
   buyHouse(){
-    this.buyerService.setHouseAsWanted(this.houseIndex).subscribe(data => this.presentToast("House is set as wanted!"),error1 => {},()=>{
-      this.navCtrl.pop();
-    });
+    this.buyerService.setHouseAsWanted(this.houseIndex).subscribe(
+      data => this.presentToast("House is set as wanted!"),
+      error1 => this.presentToast("Network Error!"),
+      ()=> this.navCtrl.pop());
   }
 
   async presentToast(msg: string) {

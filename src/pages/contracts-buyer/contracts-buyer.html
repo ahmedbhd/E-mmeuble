@@ -144,23 +144,25 @@
             </div>
           </div>
 <!--         <ion-icon name="information-circle" end="true"></ion-icon>-->
-        </mbsc-form-group>
-      </mbsc-form>
-      <div [ngSwitch]="thisPurchase.sellerConfirmation" >
-        <ion-item text-center *ngSwitchCase="false" >
-          <button  class="small-btn" ion-button icon-only color="blueColor" (click)="confirmPurch()">
-            <ion-icon name="done-all"></ion-icon>
-          </button>
-          <button class="small-btn" ion-button icon-only color="danger" (click)="cancelPurch()">
-            <ion-icon name="close"></ion-icon>
-          </button>
-        </ion-item>
-      </div>
-      <div [ngSwitch]="thisPurchase.sellerConfirmation" style="margin-bottom: 50px">
+          <div [ngSwitch]="thisPurchase.sellerConfirmation" >
+            <div text-center *ngSwitchCase="false" >
+              <button *ngIf="!thisPurchase.buyerConfirmation" class="small-btn" ion-button icon-only color="blueColor" (click)="confirmPurch()">
+                <ion-icon name="done-all"></ion-icon>
+              </button>
+              <button class="small-btn" ion-button icon-only color="danger" (click)="cancelPurch()">
+                <ion-icon name="close"></ion-icon>
+              </button>
+            </div>
+          </div>
+          <div [ngSwitch]="thisPurchase.sellerConfirmation" style="margin-bottom: 50px">
                 <span *ngSwitchCase="true" style="color: darkred">
                   This is a closed purchase
                 </span>
-      </div>
+          </div>
+        </mbsc-form-group>
+
+      </mbsc-form>
+
 
     </ion-slide>
   </ion-slides>

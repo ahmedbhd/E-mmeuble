@@ -43,25 +43,41 @@
 
     <div *ngSwitchCase="'charge'">
 
+      <mbsc-form [options]="formSettings">
+        <mbsc-form-group>
+          <mbsc-form-group-title text-center="true">Transfer Type</mbsc-form-group-title>
+          <mbsc-radio-group [(ngModel)]="myRadio">
+            <mbsc-radio value="sell">Sell STT
+              <span class="mbsc-desc">Check this option if you want to sell your STT</span>
+            </mbsc-radio>
+            <mbsc-radio value="buy">Buy STT
+              <span class="mbsc-desc">Check this option if you want to buy some STT</span></mbsc-radio>
+          </mbsc-radio-group>
+        </mbsc-form-group>
+      </mbsc-form>
+
       <ion-item>
-        <ion-range  (ionBlur)="updateBalancePosition($event)" [(ngModel)]="amount" min="{{-myBalance}}" max="1000000" step="50">
+        <ion-range  (ionBlur)="updateBalancePosition($event)" [(ngModel)]="amount" min="0" max="1000000" step="50">
           <img range-left  src="../../assets/img/dollar.png" class="img-size">
           <img range-right  src="../../assets/img/dollar_double.png" class="img-size">
         </ion-range>
       </ion-item>
-      <ion-item>
-        <ion-label style="text-align: center" color="secondary">{{amount | currency:'STT ':true}} ({{amountTND | currency:'TND ':true}})</ion-label>
+      <ion-item text-center="true">
+       <ion-input left [ngModel]="amount" type="number" (change)=changeValue($event) ></ion-input>
+        <ion-label right style="text-align: center" color="secondary">({{amountTND | currency:'TND ':true}})</ion-label>
       </ion-item>
 
       <ion-item>
         <form [formGroup]="composersForm" text-center>
-          <p *ngIf="hideMe" ion-text color="danger">Please choose your payment method</p><br>
+
           <div class="cc-selector">
             <input id="visa" type="radio" name="credit-card" value="visa" (click)="openPaymentForm()"/>
             <label class="drinkcard-cc visa" for="visa"></label>
             <input id="mastercard" type="radio" name="credit-card" value="mastercard" (click)="openPaymentForm()"/>
             <label class="drinkcard-cc mastercard" for="mastercard"></label>
           </div>
+
+          <br><p *ngIf="hideMe" ion-text color="danger">Please choose your payment method</p>
         </form>
       </ion-item>
 

@@ -11,7 +11,7 @@ export class ModalAddPage {
   public house:House = new House();
 
   constructor(public view: ViewController, public navParams: NavParams ,private toastCtrl: ToastController) {
-    this.house.area=this.house.location = "";
+    this.house.description=this.house.area=this.house.location = "";
     this.house.rooms =this.house.price =0;
 
   }

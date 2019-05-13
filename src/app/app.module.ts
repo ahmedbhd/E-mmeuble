@@ -21,6 +21,8 @@ import { SortPopOverBuyerPage } from '../pages/sort-pop-over-buyer/sort-pop-over
 import { DetailPage } from '../pages/detail/detail';
 import { PopoverDescriptionPage } from '../pages/popover-description/popover-description';
 import { PaymentFormPage } from '../pages/payment-form/payment-form';
+import { ContractsListBuyerPage } from '../pages/contracts-list-buyer/contracts-list-buyer';
+import { ContractsListSellerPage } from '../pages/contracts-list-seller/contracts-list-seller';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -47,7 +49,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SortPopOverBuyerPage,
     DetailPage,
     PopoverDescriptionPage,
-    PaymentFormPage
+    PaymentFormPage,
+    ContractsListBuyerPage,
+    ContractsListSellerPage
   ],
   imports: [ 
     MbscModule,
@@ -80,7 +84,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SortPopOverBuyerPage,
     DetailPage,
     PopoverDescriptionPage,
-    PaymentFormPage
+    PaymentFormPage,
+    ContractsListBuyerPage,
+    ContractsListSellerPage
   ],
   providers: [
     StatusBar,

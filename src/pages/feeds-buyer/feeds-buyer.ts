@@ -128,13 +128,16 @@ export class FeedsBuyerPage {
   }
 
   refreshList(refresher){
-    this.buyerService.getHouses().subscribe(data => {
-      this.houses = data;
-      this.resultNbr = this.houses.length;
-      refresher.complete();
-    });
-    // this.houses = this.sellerService.getMyHouses();
-    // refresher.complete();
+    this.buyerService.getHouses().subscribe(
+      data => {
+        this.houses = data;
+        this.resultNbr = this.houses.length;
+      },
+      error1 => {
+        refresher.complete();
+        this.presentToast("Network Error!");
+        },
+      () => refresher.complete());
   }
 
   openDetail($index , $state){
