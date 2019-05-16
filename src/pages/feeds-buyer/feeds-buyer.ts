@@ -16,9 +16,11 @@ import {DetailPage} from "../detail/detail";
   templateUrl: 'feeds-buyer.html',
 })
 export class FeedsBuyerPage {
+  private unfilteredHouses:House[];
   public houses:House[];
   public house: House;
   public resultNbr:number=0;
+
   constructor(public navCtrl: NavController
               , public navParams: NavParams
               ,private buyerService: BuyerServiceProvider,
@@ -84,16 +86,16 @@ export class FeedsBuyerPage {
     console.log($values);
     switch (param) {
       case "rooms": {
-        this.houses = this.houses.filter(value => value.rooms>=$values.lower && value.rooms<=$values.upper);
+        this.houses = this.unfilteredHouses.filter(value => value.rooms>=$values.lower && value.rooms<=$values.upper);
         break;
       }
       case "price":{
-        this.houses = this.houses.filter(value => value.price>=$values.lower && value.price<=$values.upper);
+        this.houses = this.unfilteredHouses.filter(value => value.price>=$values.lower && value.price<=$values.upper);
         break;
       }
       case "area":{
         console.log("area");
-        this.houses = this.houses.filter(value => parseFloat(value.area)>=$values.lower && parseFloat(value.area)<=$values.upper);
+        this.houses = this.unfilteredHouses.filter(value => parseFloat(value.area)>=$values.lower && parseFloat(value.area)<=$values.upper);
         break;
       }
     }
@@ -103,7 +105,7 @@ export class FeedsBuyerPage {
 
     let val = ev.target.value;
     if (val && val.trim() != '') {
-      this.houses = this.houses.filter((item) => {
+      this.houses = this.unfilteredHouses.filter((item) => {
         return (item.location.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }else {
@@ -118,6 +120,7 @@ export class FeedsBuyerPage {
     loading.present();
     this.buyerService.getHouses().subscribe(data => {
       this.houses = data;
+      this.unfilteredHouses=data;
       console.log(this.houses);
       this.resultNbr = this.houses.length;
 
@@ -130,7 +133,7 @@ export class FeedsBuyerPage {
   refreshList(refresher){
     this.buyerService.getHouses().subscribe(
       data => {
-        this.houses = data;
+        this.unfilteredHouses=this.houses = data;
         this.resultNbr = this.houses.length;
       },
       error1 => {

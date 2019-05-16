@@ -56,6 +56,10 @@ export class BuyerServiceProvider {
     return this.http.post<Purchase>(this.buyerURL+"getMyPendingPurchaseAt",{"purchaseIndex":index},{headers: this.headers});
   }
 
+  getMyPendingPurchaseList() : Observable<Purchase[]>{
+    return this.http.get<Purchase[]>(this.buyerURL+"getMyPendingPurchaseList",{headers: this.headers});
+  }
+
   setPurchaseAsInProgress(purchaseIndex,houseIndex){
     return this.http.post(this.buyerURL+"setPurchaseAsInProgress",{"purchaseIndex":purchaseIndex,"houseIndex":houseIndex},{headers: this.headers});
   }

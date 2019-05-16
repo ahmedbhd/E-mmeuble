@@ -27,24 +27,24 @@
   <ion-refresher (ionRefresh)="refreshList($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <div class="trip card" *ngFor="let trip of houses" tappable  margin-bottom>
+  <div class="trip card" *ngFor="let house of houses" tappable  margin-bottom>
 
-    <div class="background border-bottom" [ngStyle]="{'background-image': 'url(assets/img/house/thumb/' + trip.image + ')'}" (click)="openDetail(trip.indexHouse , trip.state)">
+    <div class="background border-bottom" [ngStyle]="{'background-image': 'url(assets/img/house/thumb/' + house.image + ')'}" (click)="openDetail(house.indexHouse , house.state)">
       <div class="background-filter rlt">
         <div class="align-bottom" padding-left padding-right>
-          <h6 class="pull-left text-white" ion-text>{{ trip.location }}</h6>
-          <h6 class="pull-right text-white" ion-text>{{ trip.price | currency:'STT ':true }}</h6>
+          <h6 class="pull-left text-white" ion-text>{{ house.location }}</h6>
+          <h6 class="pull-right text-white" ion-text>{{ house.price | currency:'STT ':true }}</h6>
           <div class="clear"></div>
         </div>
       </div>
     </div>
-    <div class="padding-sm danger-bg" [ngSwitch]="trip.state">
+    <div class="padding-sm danger-bg" [ngSwitch]="house.state">
       <img src="../../assets/img/house/green.png" class="status-icon" *ngSwitchCase="'1'">
       <img src="../../assets/img/house/blue.png" class="status-icon" *ngSwitchCase="'2'">
       <img src="../../assets/img/house/gold.png" class="status-icon" *ngSwitchCase="'3'">
       <img src="../../assets/img/house/red.png" class="status-icon" *ngSwitchCase="'4'">
       <!--      <span ion-text class="text-white">{{ trip.time }}</span>-->
-      <span class="pull-right" ion-text color="light"><strong>{{trip.area}} m²</strong> (House has <span ion-text  class="text-green bold">{{trip.rooms}} rooms</span>)</span>
+      <span class="pull-right" ion-text color="light"><strong>{{house.area}} m²</strong> (House has <span ion-text  class="text-green bold">{{house.rooms}} rooms</span>)</span>
     </div>
   </div>
 </ion-content>

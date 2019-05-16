@@ -1,27 +1,17 @@
 <ion-header>
   <ion-navbar color="danger">
     <ion-title text-center>
-      <span ion-text>My Contracts</span>
+      <span ion-text>REF: {{thisPurchase.ref}}</span>
     </ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="resetSlides()">
+      <button ion-button icon-only (click)="getPurchaseAt()">
         <img src="../../assets/img/refresh.png" class="sort-btn">
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content  class="no-scroll">
-  <!--  <ion-refresher (ionRefresh)="refreshList($event)">-->
-  <!--    <ion-refresher-content></ion-refresher-content>-->
-  <!--  </ion-refresher>-->
-
-  <!--    <div [ngSwitch]="isThereData">-->
-
-  <ion-slides pager class="swiper-slide"  (ionSlideDidChange)="slideChanged()" color="danger">
-
-    <ion-slide *ngFor="let item of numbers">
-
+<ion-content  no-padding>
       <ion-grid class="border-bottom dark-bg">
         <ion-row>
           <ion-col text-center>
@@ -42,7 +32,7 @@
 
       </ion-grid>
 
-      <ion-stepper [mode]="'horizontal'" #stepper (selectIndexChange)="selectChange($event)" >
+      <ion-stepper text-center="true" [mode]="'horizontal'" #stepper (selectIndexChange)="selectChange($event)" >
 
         <ion-step  [ngSwitch]="thisPurchase.buyerConfirmation" icon="remove" >
           <div *ngSwitchCase="true">
@@ -78,7 +68,22 @@
 
       <mbsc-form class="md-grid-horizontal">
         <mbsc-form-group>
-          <mbsc-form-group-title>Contract Payments</mbsc-form-group-title>
+          <mbsc-form-group-title text-center="true">Contract Payments</mbsc-form-group-title>
+
+          <div class="mbsc-grid">
+            <div class="mbsc-row mbsc-justify-content-between">
+              <div  class="mbsc-col-5"><ion-label left text-wrap color="danger" >REF</ion-label> </div>
+              <div class="mbsc-col-7"><ion-label ion-text position="floating" >{{ thisPurchase.ref }}</ion-label></div>
+            </div>
+          </div>
+
+          <div class="mbsc-grid">
+            <div class="mbsc-row mbsc-justify-content-between">
+              <div  class="mbsc-col-5"><ion-label left text-wrap color="danger" >House Description</ion-label> </div>
+              <div class="mbsc-col-7"><ion-label ion-text position="floating" (click)="presentPopOver($event, thisPurchase.houseDesc)">{{ thisPurchase.houseDesc}}</ion-label></div>
+            </div>
+          </div>
+
           <div class="mbsc-grid">
             <div class="mbsc-row mbsc-justify-content-between">
               <div  class="mbsc-col-5"><ion-label left text-wrap color="danger" >Loan</ion-label> </div>
@@ -147,10 +152,10 @@
           <div [ngSwitch]="thisPurchase.sellerConfirmation" >
             <div text-center *ngSwitchCase="false" >
               <button *ngIf="!thisPurchase.buyerConfirmation" class="small-btn" ion-button icon-only color="blueColor" (click)="confirmPurch()">
-                <ion-icon name="done-all"></ion-icon>
+                <i class="fas fa-check-circle"></i>
               </button>
               <button class="small-btn" ion-button icon-only color="danger" (click)="cancelPurch()">
-                <ion-icon name="close"></ion-icon>
+                <i class="fas fa-ban"></i>
               </button>
             </div>
           </div>
@@ -162,8 +167,4 @@
         </mbsc-form-group>
 
       </mbsc-form>
-
-
-    </ion-slide>
-  </ion-slides>
 </ion-content>

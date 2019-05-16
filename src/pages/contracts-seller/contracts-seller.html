@@ -1,30 +1,17 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-title text-center>
-      <span ion-text>My Contracts</span>
+      <span ion-text>REF: {{thisPurchase.ref}}</span>
     </ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="resetSlides()">
+      <button ion-button icon-only (click)="getPurchaseAt()">
         <img src="../../assets/img/refresh.png" class="sort-btn">
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content  class="no-scroll">
-<!--  <ion-refresher (ionRefresh)="refreshList($event)">-->
-<!--    <ion-refresher-content></ion-refresher-content>-->
-<!--  </ion-refresher>-->
-
-<!--    <div [ngSwitch]="isThereData">-->
-
-    <ion-slides pager class="swiper-slide"  (ionSlideDidChange)="slideChanged()">
-<!--      <ion-scroll scrollY="true">-->
-
-      <!--          <div *ngSwitchCase="'yes'">-->
-
-
-      <ion-slide *ngFor="let item of numbers">
+<ion-content no-padding>
 
         <ion-grid class="border-bottom dark-bg">
           <ion-row>
@@ -46,7 +33,7 @@
 
         </ion-grid>
 
-        <ion-stepper [mode]="'horizontal'" #stepper (selectIndexChange)="selectChange($event)">
+        <ion-stepper text-center="true" [mode]="'horizontal'" #stepper (selectIndexChange)="selectChange($event)">
 
           <ion-step  [ngSwitch]="thisPurchase.buyerConfirmation"icon="remove" >
             <div *ngSwitchCase="true">
@@ -152,10 +139,10 @@
             <div [ngSwitch]="buyerAndSellerConfir" >
               <div text-center *ngSwitchCase="true" >
                 <button  class="small-btn" ion-button icon-only color="blueColor" (click)="confirmPurch()">
-                  <ion-icon name="done-all"></ion-icon>
+                  <i class="fas fa-check-circle"></i>
                 </button>
                 <button class="small-btn" ion-button icon-only color="danger" (click)="cancelPurch()">
-                  <ion-icon name="close"></ion-icon>
+                  <i class="fas fa-ban"></i>
                 </button>
               </div>
             </div>
@@ -167,7 +154,4 @@
           </mbsc-form-group>
         </mbsc-form>
 
-
-      </ion-slide>
-    </ion-slides>
 </ion-content>

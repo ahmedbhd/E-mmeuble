@@ -26,7 +26,7 @@ export class ModalAddPage {
       this.presentToast("Rooms number doesn't look right");
     else if (parseFloat(this.house.area)>1000)
       this.presentToast("House area doesn't look right");
-    else if (this.house.area=="" || this.house.rooms==0 || this.house.price==0 || this.house.location=="" ) {
+    else if (this.house.area=="" || this.house.rooms==0 || this.house.price==0 || this.house.location=="" || this.house.description=="" ) {
       this.presentToast("All the details are required"); console.log(this.house)
     }
     else

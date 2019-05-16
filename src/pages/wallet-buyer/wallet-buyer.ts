@@ -25,6 +25,7 @@ export class WalletBuyerPage {
   formSettings: MbscFormOptions = {
     theme: 'ios'
   };
+
   constructor(private navCtrl: NavController,
               private navParams: NavParams ,
               private toastCtrl: ToastController,
@@ -75,8 +76,8 @@ export class WalletBuyerPage {
 
   sellSTT(){
     console.log(this.amount);
-    if (this.amount !=0)
-      this.buyerService.exchange(this.account,-this.amount).subscribe(
+    if (this.amount !=0 && this.amount < this.myBalance)
+      this.buyerService.exchange(this.account,this.amount).subscribe(
         data => { },
         error1 => this.presentToast("Network Error!"),
         () => {
@@ -84,7 +85,7 @@ export class WalletBuyerPage {
             this.resetRange();
     });
     else
-      this.presentToast("You have no STT");
+      this.presentToast("No enough STT");
   }
 
   resetRange(){

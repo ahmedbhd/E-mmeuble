@@ -105,4 +105,8 @@ export class WalletSellerPage {
   logout(){
     this.appCtrl.getRootNav().pop();
   }
+
+  changeValue($event){
+    this.amountTND =$event.target.value*2;
+  }
 }

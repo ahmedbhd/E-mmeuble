@@ -53,7 +53,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ContractsListBuyerPage,
     ContractsListSellerPage
   ],
-  imports: [ 
+  imports: [
     MbscModule,
     ReactiveFormsModule,
     FormsModule,
@@ -66,6 +66,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ),
     IonicStepperModule,
     BrowserAnimationsModule,
+    IonicStepperModule,
+    IonicStepperModule,
     IonicStepperModule
   ],
   bootstrap: [IonicApp],

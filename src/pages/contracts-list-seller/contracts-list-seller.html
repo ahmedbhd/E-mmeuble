@@ -1,15 +1,36 @@
-<!--
-  Generated template for the ContractsListSellerPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-  <ion-navbar>
-    <ion-title>contractsListSeller</ion-title>
+  <ion-navbar color="primary">
+    <ion-title text-center>
+      <span ion-text>Contracts List</span>
+    </ion-title>
   </ion-navbar>
+  <ion-searchbar animated (ionInput)="filterItems($event)" placeholder="Search for location">
+  </ion-searchbar>
 </ion-header>
 
 <ion-content padding>
+
+  <ion-refresher (ionRefresh)="refreshList($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-card *ngFor="let purchase of purchases" (click)="openContract(purchase.purchaseIndex)">
+
+    <ion-title class="titleLab">
+
+<!--        <span>REF: {{ purchase.ref }}<img class="icon" src="../../assets/img/house/green.png"></span>-->
+     <ion-label ion-text >REF: {{ purchase.ref }}</ion-label>
+<!--      <div class="padding-sm">-->
+<!--        <img item-right src="../../assets/img/house/green.png" class="status-icon" *ngIf="!purchase.sellerConfirmation">-->
+<!--        <img item-right src="../../assets/img/house/red.png" class="status-icon" *ngIf="purchase.sellerConfirmation">-->
+<!--      </div>-->
+    </ion-title>
+
+    <div padding-horizontal>
+      <ion-label left text-wrap color="primary" >House Description:</ion-label>
+      <ion-label  ion-text>{{ purchase.houseDesc }}</ion-label>
+
+    </div>
+
+  </ion-card>
 
 </ion-content>

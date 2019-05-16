@@ -3,6 +3,8 @@ import {LoadingController, Navbar, NavController, NavParams, ToastController} fr
 import {House} from "../../providers/house";
 import {SellerServiceProvider} from "../../providers/seller-service/seller-service";
 import {BuyerServiceProvider} from "../../providers/buyer-service/buyer-service";
+import {ContractsBuyerPage} from "../contracts-buyer/contracts-buyer";
+import {ContractsSellerPage} from "../contracts-seller/contracts-seller";
 
 
 @Component({
@@ -29,23 +31,26 @@ export class DetailPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailPage');
     this.backPage = this.navParams.get('thisPage');
-    this.houseIndex = this.navParams.get('houseIndex');
-    let feeds = this.navParams.get('thisIsFeeds');
-    let status = this.navParams.get('state');
-    this.isTheBackPageHouses = this.navParams.get('thisIsTheOwner');
-    if (status == 1 && feeds == "yes")
-      this.isTheBackPageFeeds = "yes";
 
-    console.log(status);
-    this.navBar.backButtonClick = () => {
-      // you can set a full custom history here if you want
-      let pages = [
-        {
-          page: this.backPage
-        }
-      ];
-      this.navCtrl.setPages(pages);
-    };
+      this.houseIndex = this.navParams.get('houseIndex');
+      let feeds = this.navParams.get('thisIsFeeds');
+      let status = this.navParams.get('state');
+      this.isTheBackPageHouses = this.navParams.get('thisIsTheOwner');
+      if (status == 1 && feeds == "yes")
+        this.isTheBackPageFeeds = "yes";
+
+      console.log(status);
+    if (this.backPage != ContractsBuyerPage && this.backPage != ContractsSellerPage) {
+      this.navBar.backButtonClick = () => {
+        // you can set a full custom history here if you want
+        let pages = [
+          {
+            page: this.backPage
+          }
+        ];
+        this.navCtrl.setPages(pages);
+      };
+    }
     this.getHouse();
 
   }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
 import { WalletSellerPage } from '../wallet-seller/wallet-seller';
-import { ContractsSellerPage } from '../contracts-seller/contracts-seller';
 import { HousesSellerPage } from '../houses-seller/houses-seller';
+import {ContractsListSellerPage} from "../contracts-list-seller/contracts-list-seller";
 
 @Component({
   templateUrl: 'tabs-seller.html'
@@ -10,7 +10,7 @@ import { HousesSellerPage } from '../houses-seller/houses-seller';
 export class TabsSeller {
 
   tab1Root = HousesSellerPage;
-  tab2Root = ContractsSellerPage;
+  tab2Root = ContractsListSellerPage;
   tab3Root = WalletSellerPage;
 
   constructor() {

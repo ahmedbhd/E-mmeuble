@@ -4,6 +4,7 @@ import {Purchase} from "../../providers/purchase";
 import {BuyerServiceProvider} from "../../providers/buyer-service/buyer-service";
 import {DetailPage} from "../detail/detail";
 import {PopoverDescriptionPage} from "../popover-description/popover-description";
+import {ContractsListBuyerPage} from "../contracts-list-buyer/contracts-list-buyer";
 
 /**
  * Generated class for the ContractsBuyerPage page.
@@ -18,13 +19,12 @@ import {PopoverDescriptionPage} from "../popover-description/popover-description
   templateUrl: 'contracts-buyer.html',
 })
 export class ContractsBuyerPage {
+  public purchaseIndex:any;
   public thisPurchase: Purchase ;
-  public purchasesNbr:number[];
-  public numbers:any;
-  @ViewChild(Slides) slides: Slides;
   public hideMe: boolean = false;
 
   constructor(public navCtrl: NavController,
+              public navParams: NavParams ,
               private toastCtrl: ToastController,
               private loadingCtrl: LoadingController,
               private buyerService: BuyerServiceProvider,
@@ -34,97 +34,50 @@ export class ContractsBuyerPage {
   }
 
   resetValues(){
-    this.purchasesNbr = new Array<number>();
     this.thisPurchase =  new Purchase(0,"-","-",0,0,"0","0",0,"0","0","0",false,false);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ContractsBuyerPage');
-    this.chargeSlide();
+    this.purchaseIndex = this.navParams.get('purchaseIndex');
+    this.getPurchaseAt();
   }
 
-  chargeSlide(){
-    this.buyerService.getMyPendingPurchasesNbr().subscribe(data => {
-      this.purchasesNbr = data;
-      this.numbers = Array(this.purchasesNbr.length).fill(0).map((x,i)=>i);
-      console.log("line 42 ");
-      console.log(this.purchasesNbr);
-      console.log("line 43 ");
-      console.log(data);
-      if (this.purchasesNbr.length>0) {
-        this.getPurchaseAt(0);
-      }else {
-        this.presentToast("There are no contracts for you!");
-      }
-    },error1 => this.presentToast("Network Error!"));
-  }
-
-  getPurchaseAt($index ){
-
-    // let currentIndex = this.slides.getActiveIndex();
-
-    if (this.purchasesNbr[$index]!=null) {
+  getPurchaseAt( ){
       let loading = this.loadingCtrl.create({
         content: 'Please wait...',
         showBackdrop: true
       });
       loading.present();
       console.log("inside purchaseAt");
-      console.log("line 72 "+this.purchasesNbr[$index]);
-      this.buyerService.getMyPendingPurchaseAt(this.purchasesNbr[$index]).subscribe(data => {
+      console.log("line 72 "+this.purchaseIndex);
+      this.buyerService.getMyPendingPurchaseAt(this.purchaseIndex).subscribe(data => {
         this.thisPurchase = data;
-        console.log("line 76 "+this.thisPurchase);
-        console.log("line 78 "+data);
-
+        console.log(data);
+        console.log("line 69 ");
+        console.log(this.thisPurchase);
         loading.dismiss();
       },error1 => {
         this.presentToast("Network Error!");
         loading.dismiss();
       })
-    }
+
   }
 
-  slideChanged() {
-    let currentIndex = this.slides.getActiveIndex();
-    console.log('Current index is', currentIndex);
-    this.getPurchaseAt(currentIndex)
-  }
 
   confirmPurch(){
-    let purchaseIndex = this.purchasesNbr[this.slides.getActiveIndex()];
-    this.buyerService.setPurchaseAsInProgress(purchaseIndex,this.thisPurchase.houseIndex).subscribe(data => {
-      this.resetSlides();
+    this.buyerService.setPurchaseAsInProgress(this.purchaseIndex,this.thisPurchase.houseIndex).subscribe(data => {
+      this.getPurchaseAt();
       this.presentToast("Confirmation success!")
     },error1 => this.presentToast("Network Error!"));
   }
 
   cancelPurch(){
-    let purchaseIndex = this.purchasesNbr[this.slides.getActiveIndex()];
     let houseIndex = this.thisPurchase.houseIndex;
-    this.buyerService.setAsCancelled(houseIndex,purchaseIndex).subscribe(data => {
-      this.resetSlides();
+    this.buyerService.setAsCancelled(houseIndex,this.purchaseIndex).subscribe(data => {
       this.presentToast("cancellation success!")
-    },error1 => this.presentToast("Network Error!"));
-  }
-
-  resetSlides(){
-    this.resetValues();
-    this.buyerService.getMyPendingPurchasesNbr().subscribe(data => {
-      this.purchasesNbr = data;
-      this.numbers = Array(this.purchasesNbr.length).fill(0).map((x,i)=>i);
-      console.log("line 42 ");
-      console.log(this.purchasesNbr);
-      console.log("line 43 ");
-      console.log(data);
-      if (this.purchasesNbr.length>0) {
-        // this.isThereData = "yes";
-        this.slides.slideTo(0);
-
-      }else {
-        // this.isThereData="no";
-        this.presentToast("There are no contracts for you!");
-      }
-    },error1 => this.presentToast("Network Error!"));
+    },error1 => this.presentToast("Network Error!"),
+      ()=> this.navCtrl.pop());
   }
 
   openDetail($index){

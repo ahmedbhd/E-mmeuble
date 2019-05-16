@@ -55,6 +55,10 @@ export class SellerServiceProvider {
     return this.http.post<Purchase>(this.sellerURL+"getMyInProgressPurchaseAt",{"purchaseIndex":index},{headers: this.headers});
   }
 
+  getMyInProgressPurchaseList() : Observable<Purchase[]>{
+    return this.http.get<Purchase[]>(this.sellerURL+"getMyInProgressPurchaseList",{headers: this.headers});
+  }
+
   setAsConfirmed(purchaseIndex,houseIndex){
     return this.http.post(this.sellerURL+"setConfirmed",{"purchaseIndex":purchaseIndex,"houseIndex":houseIndex},{headers: this.headers});
   }
