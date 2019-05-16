@@ -3,10 +3,12 @@ page-contracts-buyer {
     overflow-y: scroll;
     display: block;
   }
+
   .no-scroll .scroll-content {
     overflow: hidden;
     background-color: #FAFBFC;
   }
+
   .trip-detail {
 
     ul.highlight {
@@ -48,6 +50,7 @@ page-contracts-buyer {
       }
     }
   }
+
   .md-grid-horizontal [class*="mbsc-col"] {
     padding-top: .2em;
     padding-bottom: .2em;

@@ -5,20 +5,24 @@ page-start {
     background-position: center;
     background-size: cover;
   }
-  .text-align-center{
+
+  .text-align-center {
     position: fixed;
     text-align: center;
     align-content: center;
     bottom: 10px;
   }
+
   .center-flex {
     display: flex;
     align-items: center;
     justify-content: center;
   }
+
   .footer-div {
-    margin-top:auto;
+    margin-top: auto;
   }
+
   .text-on-bottom > .button-inner {
     flex-direction: column;
     color: #56AEF0;

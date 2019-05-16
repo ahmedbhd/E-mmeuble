@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
-
-import { WalletSellerPage } from '../wallet-seller/wallet-seller';
-import { HousesSellerPage } from '../houses-seller/houses-seller';
+import {Component} from '@angular/core';
+import {WalletSellerPage} from '../wallet-seller/wallet-seller';
+import {HousesSellerPage} from '../houses-seller/houses-seller';
 import {ContractsListSellerPage} from "../contracts-list-seller/contracts-list-seller";
 
 @Component({

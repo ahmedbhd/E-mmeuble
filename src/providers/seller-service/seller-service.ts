@@ -1,77 +1,86 @@
-import { HttpClient,HttpHeaders} from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {House} from "../house";
 import {Purchase} from "../purchase";
 
 @Injectable()
 export class SellerServiceProvider {
-  sellerURL: string ="http://192.168.137.1:3001/";
-  clHouseURL: string ="http://192.168.137.1:3000/";
+  sellerURL: string = "http://192.168.137.1:3001/";
+  clHouseURL: string = "http://192.168.137.1:3000/";
 
   headers = new HttpHeaders()
-    .append("Access-Control-Allow-Origin","*")
-    .append("Access-Control-Allow-Methods","GET,POST,PATCH,DELETE,PUT,OPTIONS")
-    .append("Access-Control-Allow-Headers","Origin, Content-Type, X-Auth-Token, content-type");
+    .append("Access-Control-Allow-Origin", "*")
+    .append("Access-Control-Allow-Methods", "GET,POST,PATCH,DELETE,PUT,OPTIONS")
+    .append("Access-Control-Allow-Headers", "Origin, Content-Type, X-Auth-Token, content-type");
 
   constructor(public http: HttpClient) {
     console.log('Hello SellerServiceProvider Provider');
   }
 
-  exchange(myAccount: string,amount: number) : Observable<string>{
-    return this.http.post<string>(this.clHouseURL+"exchange",{"sender":myAccount,"amount":amount},{headers: this.headers});
+  exchange(myAccount: string, amount: number): Observable<string> {
+    return this.http.post<string>(this.clHouseURL + "exchange", {
+      "sender": myAccount,
+      "amount": amount
+    }, {headers: this.headers});
   }
 
-  getMyAccount() : Observable<string>{
-    return this.http.get<string>(this.sellerURL+"getMyAccount",{headers: this.headers});
+  getMyAccount(): Observable<string> {
+    return this.http.get<string>(this.sellerURL + "getMyAccount", {headers: this.headers});
   }
 
-  getMyBalance() : Observable<number>{
-    return this.http.get<number>(this.sellerURL+"getMyBalance",{headers: this.headers});
+  getMyBalance(): Observable<number> {
+    return this.http.get<number>(this.sellerURL + "getMyBalance", {headers: this.headers});
   }
 
-  getMyHouses() : Observable<House[]>{
-    return this.http.get<House[]>(this.sellerURL+"getMyHouses",{headers: this.headers});
+  getMyHouses(): Observable<House[]> {
+    return this.http.get<House[]>(this.sellerURL + "getMyHouses", {headers: this.headers});
   }
 
-  addHouse(description:string,location: string, area: string, rooms: number,price: number){
+  addHouse(description: string, location: string, area: string, rooms: number, price: number) {
     return this.http.post(this.sellerURL + 'addHouse',
       {
-        description:description,
-        location:location,
+        description: description,
+        location: location,
         area: area,
-        rooms:rooms,
-        price:price
+        rooms: rooms,
+        price: price
       }
-      ,{ headers: this.headers});
+      , {headers: this.headers});
   }
 
-  getMyInProgressPurchasesNbr() : Observable<number[]>{
+  getMyInProgressPurchasesNbr(): Observable<number[]> {
     console.log("get purch nbr");
-    return this.http.get<number[]>(this.sellerURL+"getPurchasesNbr",{headers: this.headers});
+    return this.http.get<number[]>(this.sellerURL + "getPurchasesNbr", {headers: this.headers});
   }
 
-  getMyInProgressPurchaseAt(index:number) : Observable<Purchase>{
-    return this.http.post<Purchase>(this.sellerURL+"getMyInProgressPurchaseAt",{"purchaseIndex":index},{headers: this.headers});
+  getMyInProgressPurchaseAt(index: number): Observable<Purchase> {
+    return this.http.post<Purchase>(this.sellerURL + "getMyInProgressPurchaseAt", {"purchaseIndex": index}, {headers: this.headers});
   }
 
-  getMyInProgressPurchaseList() : Observable<Purchase[]>{
-    return this.http.get<Purchase[]>(this.sellerURL+"getMyInProgressPurchaseList",{headers: this.headers});
+  getMyInProgressPurchaseList(): Observable<Purchase[]> {
+    return this.http.get<Purchase[]>(this.sellerURL + "getMyInProgressPurchaseList", {headers: this.headers});
   }
 
-  setAsConfirmed(purchaseIndex,houseIndex){
-    return this.http.post(this.sellerURL+"setConfirmed",{"purchaseIndex":purchaseIndex,"houseIndex":houseIndex},{headers: this.headers});
+  setAsConfirmed(purchaseIndex, houseIndex) {
+    return this.http.post(this.sellerURL + "setConfirmed", {
+      "purchaseIndex": purchaseIndex,
+      "houseIndex": houseIndex
+    }, {headers: this.headers});
   }
 
-  setAsCancelled(indexHouse,indexPurchase){
-    return this.http.post(this.sellerURL+"setCanceled",{"houseIndex":indexHouse,"purchaseIndex":indexPurchase},{headers: this.headers});
+  setAsCancelled(indexHouse, indexPurchase) {
+    return this.http.post(this.sellerURL + "setCanceled", {
+      "houseIndex": indexHouse,
+      "purchaseIndex": indexPurchase
+    }, {headers: this.headers});
   }
 
-  getHouseDetail($houseIndex): Observable<House>{
-    return this.http.post<House>(this.sellerURL+"getHouseAt",{"houseIndex":$houseIndex},{headers:this.headers});
+  getHouseDetail($houseIndex): Observable<House> {
+    return this.http.post<House>(this.sellerURL + "getHouseAt", {"houseIndex": $houseIndex}, {headers: this.headers});
   }
 
-  deleteHouse($houseIndex){
-    return this.http.post(this.sellerURL+"deleteHouse",{"houseIndex":$houseIndex},{headers:this.headers});
+  deleteHouse($houseIndex) {
+    return this.http.post(this.sellerURL + "deleteHouse", {"houseIndex": $houseIndex}, {headers: this.headers});
   }
 }

@@ -4,7 +4,7 @@
       <span ion-text>Contracts List</span>
     </ion-title>
   </ion-navbar>
-  <ion-searchbar animated (ionInput)="filterItems($event)" placeholder="Search for location">
+  <ion-searchbar (ionInput)="filterItems($event)" animated placeholder="Search for location">
   </ion-searchbar>
 </ion-header>
 
@@ -13,24 +13,27 @@
   <ion-refresher (ionRefresh)="refreshList($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-card *ngFor="let purchase of purchases" (click)="openContract(purchase.purchaseIndex)">
+  <ion-card (click)="openContract(purchase.purchaseIndex)" *ngFor="let purchase of purchases">
 
     <ion-title class="titleLab">
-
-<!--        <span>REF: {{ purchase.ref }}<img class="icon" src="../../assets/img/house/green.png"></span>-->
-     <ion-label ion-text >REF: {{ purchase.ref }}</ion-label>
-<!--      <div class="padding-sm">-->
-<!--        <img item-right src="../../assets/img/house/green.png" class="status-icon" *ngIf="!purchase.sellerConfirmation">-->
-<!--        <img item-right src="../../assets/img/house/red.png" class="status-icon" *ngIf="purchase.sellerConfirmation">-->
-<!--      </div>-->
+      <ion-label ion-text text-center="true">REF: {{ purchase.ref }}</ion-label>
     </ion-title>
 
     <div padding-horizontal>
-      <ion-label left text-wrap color="primary" >House Description:</ion-label>
-      <ion-label  ion-text>{{ purchase.houseDesc }}</ion-label>
+      <ion-label color="primary" left text-wrap>House Description:</ion-label>
+      <ion-label ion-text>{{ purchase.houseDesc }}</ion-label>
 
     </div>
+    <div class="padding-sm ">
+      <span class="pull-right text-green bold" ion-text
+            style="padding-bottom: auto;"><strong>{{ purchase.date | date : 'mediumDate' }}</strong></span>
 
+      <img *ngIf="!purchase.buyerConfirmation" class="status-icon" src="../../assets/img/house/green.png">
+      <img *ngIf="purchase.buyerConfirmation&&!purchase.sellerConfirmation" class="status-icon"
+           src="../../assets/img/house/gold.png">
+      <img *ngIf="purchase.buyerConfirmation&&purchase.sellerConfirmation" class="status-icon"
+           src="../../assets/img/house/red.png">
+    </div>
   </ion-card>
 
 </ion-content>

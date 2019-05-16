@@ -1,17 +1,22 @@
 import {Component, ViewChild} from '@angular/core';
 import {LoadingController, Navbar, NavController, NavParams, ToastController} from 'ionic-angular';
 import {House} from "../../providers/house";
-import {SellerServiceProvider} from "../../providers/seller-service/seller-service";
 import {BuyerServiceProvider} from "../../providers/buyer-service/buyer-service";
 import {ContractsBuyerPage} from "../contracts-buyer/contracts-buyer";
 import {ContractsSellerPage} from "../contracts-seller/contracts-seller";
 
+/**
+ * Generated class for the DetailsBuyerPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 
 @Component({
-  selector: 'page-detail',
-  templateUrl: 'detail.html',
+  selector: 'page-details-buyer',
+  templateUrl: 'details-buyer.html',
 })
-export class DetailPage {
+export class DetailsBuyerPage {
   @ViewChild(Navbar) navBar: Navbar;
   backPage: any;
   houseIndex: number;
@@ -21,7 +26,6 @@ export class DetailPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private sellerService: SellerServiceProvider,
               private buyerService: BuyerServiceProvider,
               private loadingCtrl: LoadingController,
               private toastCtrl: ToastController) {
@@ -60,7 +64,7 @@ export class DetailPage {
       content: 'Please wait...'
     });
     loading.present();
-    this.sellerService.getHouseDetail(this.houseIndex).subscribe(
+    this.buyerService.getHouseDetail(this.houseIndex).subscribe(
       data => {
         this.house = (data);
       },
@@ -68,13 +72,6 @@ export class DetailPage {
         this.presentToast("Network Error!");
         loading.dismiss();
       }, () => loading.dismiss());
-  }
-
-  deleteHouse() {
-    this.sellerService.deleteHouse(this.houseIndex).subscribe(
-      data => this.presentToast("House deleted!"),
-      error1 => this.presentToast("Network Error!"),
-      () => this.navCtrl.pop());
   }
 
   buyHouse() {

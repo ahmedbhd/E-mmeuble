@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import {LoadingController, PopoverController, NavController, NavParams, ToastController} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {LoadingController, NavController, NavParams, PopoverController, ToastController} from 'ionic-angular';
 import {House} from "../../providers/house";
 import {BuyerServiceProvider} from "../../providers/buyer-service/buyer-service";
-import {SortPopOverBuyerPage } from '../sort-pop-over-buyer/sort-pop-over-buyer' ;
-import {DetailPage} from "../detail/detail";
+import {SortPopOverBuyerPage} from '../sort-pop-over-buyer/sort-pop-over-buyer';
+import {DetailsBuyerPage} from "../details-buyer/details-buyer";
+
 /**
  * Generated class for the FeedsBuyerPage page.
  *
@@ -16,89 +17,23 @@ import {DetailPage} from "../detail/detail";
   templateUrl: 'feeds-buyer.html',
 })
 export class FeedsBuyerPage {
-  private unfilteredHouses:House[];
-  public houses:House[];
+  public houses: House[];
   public house: House;
-  public resultNbr:number=0;
+  public resultNbr: number = 0;
+  private unfilteredHouses: House[];
 
   constructor(public navCtrl: NavController
-              , public navParams: NavParams
-              ,private buyerService: BuyerServiceProvider,
+    , public navParams: NavParams
+    , private buyerService: BuyerServiceProvider,
               private toastCtrl: ToastController,
               private loadingCtrl: LoadingController,
-              private popOverCtrl: PopoverController)
-  {
+              private popOverCtrl: PopoverController) {
 
   }
 
   ionViewDidEnter() {
     console.log('ionViewDidLoad FeedsBuyerPage');
     this.reloadList();
-  }
-
-  private presentPopOver(myEvent){
-    let popOver = this.popOverCtrl.create(SortPopOverBuyerPage, {}, {cssClass: 'contact-popover'});
-    let ev = {
-      target : {
-        getBoundingClientRect : () => {
-          return {
-            top: 100
-          };
-        }
-      }
-    };
-    popOver.present({
-      ev:ev,
-      animate: true
-    });
-    popOver.onDidDismiss( data => {
-      if (data!=null) {
-        console.log(data);
-        if (data.filter == "sort"){
-          this.sortList(data.sortResult);
-        }else {
-          this.filterList(data.selectedFilter, data.values);
-        }
-      }
-    })
-  }
-
-  private sortList(param: string){
-    console.log(param);
-    switch (param) {
-      case "rooms": {
-        this.houses.sort((a,b) => (a.rooms > b.rooms) ? 1 : ((b.rooms > a.rooms) ? -1 : 0));
-        break;
-      }
-      case "price":{
-        this.houses.sort((a,b) => (a.price > b.price) ? 1 : ((b.price > a.price) ? -1 : 0));
-        break;
-      }
-      case "area":{
-        this.houses.sort((a,b) => (parseFloat(a.area )> parseFloat(b.area)) ? 1 : (( parseFloat(b.area) > parseFloat(a.area)) ? -1 : 0));
-        break;
-      }
-    }
-  }
-
-  private filterList(param: string, $values){
-    console.log(param);
-    console.log($values);
-    switch (param) {
-      case "rooms": {
-        this.houses = this.unfilteredHouses.filter(value => value.rooms>=$values.lower && value.rooms<=$values.upper);
-        break;
-      }
-      case "price":{
-        this.houses = this.unfilteredHouses.filter(value => value.price>=$values.lower && value.price<=$values.upper);
-        break;
-      }
-      case "area":{
-        console.log("area");
-        this.houses = this.unfilteredHouses.filter(value => parseFloat(value.area)>=$values.lower && parseFloat(value.area)<=$values.upper);
-        break;
-      }
-    }
   }
 
   filterItems(ev: any) {
@@ -108,48 +43,31 @@ export class FeedsBuyerPage {
       this.houses = this.unfilteredHouses.filter((item) => {
         return (item.location.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
-    }else {
+    } else {
       this.reloadList();
     }
   }
 
-  private reloadList(){
-    let loading = this.loadingCtrl.create({
-      content: 'Please wait...'
-    });
-    loading.present();
-    this.buyerService.getHouses().subscribe(data => {
-      this.houses = data;
-      this.unfilteredHouses=data;
-      console.log(this.houses);
-      this.resultNbr = this.houses.length;
-
-    }, error1 => {
-      this.presentToast("Network Error!");
-      loading.dismiss();
-    },() => loading.dismiss());
-  }
-
-  refreshList(refresher){
+  refreshList(refresher) {
     this.buyerService.getHouses().subscribe(
       data => {
-        this.unfilteredHouses=this.houses = data;
+        this.unfilteredHouses = this.houses = data;
         this.resultNbr = this.houses.length;
       },
       error1 => {
         refresher.complete();
         this.presentToast("Network Error!");
-        },
+      },
       () => refresher.complete());
   }
 
-  openDetail($index , $state){
-    this.navCtrl.push(DetailPage, {
+  openDetail($index, $state) {
+    this.navCtrl.push(DetailsBuyerPage, {
       houseIndex: $index,
       thisPage: FeedsBuyerPage,
-      thisIsFeeds:"yes",
-      thisIsTheOwner:"no",
-      state:$state
+      thisIsFeeds: "yes",
+      thisIsTheOwner: "no",
+      state: $state
     });
   }
 
@@ -157,9 +75,91 @@ export class FeedsBuyerPage {
     const toast = await this.toastCtrl.create({
       message: msg,
       duration: 2000,
-      position:'bottom',
-      cssClass:'toastClass'
+      position: 'bottom',
+      cssClass: 'toastClass'
     });
     toast.present();
+  }
+
+  private presentPopOver(myEvent) {
+    let popOver = this.popOverCtrl.create(SortPopOverBuyerPage, {}, {cssClass: 'contact-popover'});
+    let ev = {
+      target: {
+        getBoundingClientRect: () => {
+          return {
+            top: 100
+          };
+        }
+      }
+    };
+    popOver.present({
+      ev: ev,
+      animate: true
+    });
+    popOver.onDidDismiss(data => {
+      if (data != null) {
+        console.log(data);
+        if (data.filter == "sort") {
+          this.sortList(data.sortResult);
+        } else {
+          this.filterList(data.selectedFilter, data.values);
+        }
+      }
+    })
+  }
+
+  private sortList(param: string) {
+    console.log(param);
+    switch (param) {
+      case "rooms": {
+        this.houses.sort((a, b) => (a.rooms > b.rooms) ? 1 : ((b.rooms > a.rooms) ? -1 : 0));
+        break;
+      }
+      case "price": {
+        this.houses.sort((a, b) => (a.price > b.price) ? 1 : ((b.price > a.price) ? -1 : 0));
+        break;
+      }
+      case "area": {
+        this.houses.sort((a, b) => (parseFloat(a.area) > parseFloat(b.area)) ? 1 : ((parseFloat(b.area) > parseFloat(a.area)) ? -1 : 0));
+        break;
+      }
+    }
+  }
+
+  private filterList(param: string, $values) {
+    console.log(param);
+    console.log($values);
+    switch (param) {
+      case "rooms": {
+        this.houses = this.unfilteredHouses.filter(value => value.rooms >= $values.lower && value.rooms <= $values.upper);
+        break;
+      }
+      case "price": {
+        this.houses = this.unfilteredHouses.filter(value => value.price >= $values.lower && value.price <= $values.upper);
+        break;
+      }
+      case "area": {
+        console.log("area");
+        this.houses = this.unfilteredHouses.filter(value => parseFloat(value.area) >= $values.lower && parseFloat(value.area) <= $values.upper);
+        break;
+      }
+    }
+  }
+
+  private reloadList() {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loading.present();
+    this.buyerService.getHouses().subscribe(data => {
+      this.houses = data;
+      this.unfilteredHouses = data;
+      console.log(this.houses);
+      this.resultNbr = this.houses.length;
+
+    }, error1 => {
+      this.presentToast("Network Error!");
+      loading.dismiss();
+    }, () => loading.dismiss());
   }
 }

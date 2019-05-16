@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 import {BuyerServiceProvider} from "../../providers/buyer-service/buyer-service";
 import {Purchase} from "../../providers/purchase";
@@ -10,7 +10,7 @@ import {ContractsBuyerPage} from "../contracts-buyer/contracts-buyer";
   templateUrl: 'contracts-list-buyer.html',
 })
 export class ContractsListBuyerPage {
-  public purchases:Purchase[];
+  public purchases: Purchase[];
   private unfilteredHouses: Purchase[];
 
 
@@ -18,51 +18,51 @@ export class ContractsListBuyerPage {
               public navParams: NavParams,
               private toastCtrl: ToastController,
               private loadingCtrl: LoadingController,
-              private buyerService: BuyerServiceProvider)
-  {
+              private buyerService: BuyerServiceProvider) {
 
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     console.log('ionViewDidLoad ContractsListBuyerPage');
     this.loadData();
   }
 
-  loadData(){
+  loadData() {
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
     loading.present();
     this.buyerService.getMyPendingPurchaseList().subscribe(data => {
-        this.unfilteredHouses=this.purchases = data;
-        if (this.unfilteredHouses.length==0){
+        this.unfilteredHouses = this.purchases = data;
+        if (this.unfilteredHouses.length == 0) {
           this.presentToast("This list is empty");
         }
-    },error1 => {
+      }, error1 => {
         loading.dismiss();
         this.presentToast("Network Error!");
       },
-      () =>loading.dismiss());
+      () => loading.dismiss());
   }
 
   refreshList(refresher) {
     this.buyerService.getMyPendingPurchaseList().subscribe(data => {
-        this.unfilteredHouses=this.purchases = data;
-        if (this.unfilteredHouses.length==0){
+        this.unfilteredHouses = this.purchases = data;
+        if (this.unfilteredHouses.length == 0) {
           this.presentToast("This list is empty");
         }
-      },error1 => {
+      }, error1 => {
         refresher.complete();
         this.presentToast("Network Error!");
       },
       () => refresher.complete());
   }
+
   async presentToast(msg: string) {
     const toast = await this.toastCtrl.create({
       message: msg,
       duration: 2000,
-      position:'bottom',
-      cssClass:'toastClass'
+      position: 'bottom',
+      cssClass: 'toastClass'
     });
     toast.present();
   }
@@ -80,7 +80,7 @@ export class ContractsListBuyerPage {
       this.purchases = this.unfilteredHouses.filter((item) => {
         return (item.houseDesc.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
-    }else {
+    } else {
       this.loadData();
     }
   }

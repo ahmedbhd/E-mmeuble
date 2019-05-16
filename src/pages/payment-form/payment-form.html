@@ -7,13 +7,13 @@
 <ion-header>
   <ion-navbar>
     <ion-title text-center>Payment Form</ion-title>
-<!--    <ion-buttons left>-->
-<!--      <button ion-button icon-only (click)="applyModal()">-->
-<!--        <img src="../../assets/img/save.png">-->
-<!--      </button>-->
-<!--    </ion-buttons>-->
+    <!--    <ion-buttons left>-->
+    <!--      <button ion-button icon-only (click)="applyModal()">-->
+    <!--        <img src="../../assets/img/save.png">-->
+    <!--      </button>-->
+    <!--    </ion-buttons>-->
     <ion-buttons right>
-      <button ion-button icon-only (click)="closeModal()">
+      <button (click)="closeModal()" icon-only ion-button>
         <img src="../../assets/img/delete.png">
       </button>
     </ion-buttons>
@@ -23,21 +23,28 @@
 
 <ion-content padding>
   <mbsc-form [formGroup]="form">
-    <mbsc-form-group >
+    <mbsc-form-group>
       <mbsc-form-group-title>Card Data</mbsc-form-group-title>
 
-      <mbsc-input [(ngModel)]="data.name" placeholder="Your Name" required formControlName="name" >Your Name</mbsc-input>
+      <mbsc-input [(ngModel)]="data.name" formControlName="name" placeholder="Your Name" required>Your Name</mbsc-input>
 
-      <mbsc-input [(ngModel)]="data.card" placeholder="Card Number" type="number" required formControlName="card" maxlength="16">Card Number</mbsc-input>
+      <mbsc-input [(ngModel)]="data.card" formControlName="card" maxlength="16" placeholder="Card Number" required
+                  type="number">Card Number
+      </mbsc-input>
       <p class="redColor">The credit card number is 16 numbers</p>
-      <mbsc-input [(ngModel)]="data.code" placeholder="CVV/CVC" type="number" required formControlName="code" maxlength="3">CVV/CVC</mbsc-input>
+      <mbsc-input [(ngModel)]="data.code" formControlName="code" maxlength="3" placeholder="CVV/CVC" required
+                  type="number">CVV/CVC
+      </mbsc-input>
       <p class="redColor">The check number is 3 numbers</p>
       <ion-item>
-        <ion-label color="dark">Expiration Date</ion-label><br>
-        <ion-datetime color="dark" displayFormat="MM YYYY" min="{{today}}" max="{{future}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="data.date"></ion-datetime>
+        <ion-label color="dark">Expiration Date</ion-label>
+        <br>
+        <ion-datetime [(ngModel)]="data.date" [ngModelOptions]="{standalone: true}" color="dark" displayFormat="MM YYYY"
+                      max="{{future}}" min="{{today}}"></ion-datetime>
       </ion-item>
       <p class="redColor">Expiration date is formatted MM YYYY</p>
     </mbsc-form-group>
-    <button ion-button color="dark" [disabled]="!form.valid" block><span class="fontColor" (click)="applyModal()" >Save</span></button>
+    <button [disabled]="!form.valid" block color="dark" ion-button><span (click)="applyModal()"
+                                                                         class="fontColor">Save</span></button>
   </mbsc-form>
 </ion-content>

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { NavController ,ModalController,Modal,ModalOptions,ToastController,LoadingController}  from 'ionic-angular';
+import {Component} from '@angular/core';
+import {LoadingController, Modal, ModalController, ModalOptions, NavController, ToastController} from 'ionic-angular';
 import {ModalAddPage} from '../modal-add/modal-add';
-import { SellerServiceProvider } from '../../providers/seller-service/seller-service';
+import {SellerServiceProvider} from '../../providers/seller-service/seller-service';
 import {House} from "../../providers/house";
 import {DetailPage} from "../detail/detail";
 
@@ -10,12 +10,12 @@ import {DetailPage} from "../detail/detail";
   templateUrl: 'houses-seller.html'
 })
 export class HousesSellerPage {
-  public houses:House[];
+  public houses: House[];
   public house: House;
-  public resultNbr:number=0;
+  public resultNbr: number = 0;
   public myModal: Modal;
-  private myModalOptions:ModalOptions ={
-    enableBackdropDismiss:false,
+  private myModalOptions: ModalOptions = {
+    enableBackdropDismiss: false,
     showBackdrop: false
   };
 
@@ -28,10 +28,10 @@ export class HousesSellerPage {
     this.house = new House();
   }
 
-  openAddModal(){
-    this.myModal = this.modal.create(ModalAddPage,this.myModalOptions);
+  openAddModal() {
+    this.myModal = this.modal.create(ModalAddPage, this.myModalOptions);
     this.myModal.present();
-    this.myModal.onDidDismiss( data => {
+    this.myModal.onDidDismiss(data => {
       if (data != null) {
         console.log(data);
         this.house = data;
@@ -40,25 +40,65 @@ export class HousesSellerPage {
     })
   }
 
-  addHouse (){
-    this.sellerService.addHouse(this.house.description,this.house.location,this.house.area,this.house.rooms,this.house.price).subscribe(data => {}
-      ,Error => {this.presentToast("failed while adding new home!")},
+  addHouse() {
+    this.sellerService.addHouse(this.house.description, this.house.location, this.house.area, this.house.rooms, this.house.price).subscribe(data => {
+      }
+      , Error => {
+        this.presentToast("failed while adding new home!")
+      },
       () => {
         this.presentToast("Successfully Added new home");
         this.reloadList();
       });
   }
 
-  refreshList(refresher){
+  refreshList(refresher) {
     this.sellerService.getMyHouses().subscribe(data => {
       this.houses = data;
       this.resultNbr = this.houses.length;
-    }, error1 => {},() => refresher.complete());
+    }, error1 => {
+    }, () => refresher.complete());
     // this.houses = this.sellerService.getMyHouses();
     // refresher.complete();
   }
 
-  private reloadList(){
+  async presentToast(msg: string) {
+    const toast = await this.toastCtrl.create({
+      message: msg,
+      duration: 2000,
+      position: 'bottom',
+      cssClass: 'toastClass'
+    });
+    toast.present();
+  }
+
+  ionViewDidEnter() {
+    console.log('ionViewDidLoad houses-seller');
+    this.reloadList();
+  }
+
+  openDetail($index) {
+    this.navCtrl.push(DetailPage, {
+      houseIndex: $index,
+      thisPage: HousesSellerPage,
+      thisIsFeeds: "no",
+      thisIsTheOwner: "yes",
+      state: 5
+    });
+  }
+
+  filterItems(ev: any) {
+    let val = ev.target.value;
+    if (val && val.trim() != '') {
+      this.houses = this.houses.filter((item) => {
+        return (item.location.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    } else {
+      this.reloadList();
+    }
+  }
+
+  private reloadList() {
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
@@ -71,42 +111,6 @@ export class HousesSellerPage {
     }, error1 => {
       this.presentToast("Network Error!");
       loading.dismiss();
-    },() => loading.dismiss());
-  }
-
-  async presentToast(msg: string) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 2000,
-      position:'bottom',
-      cssClass:'toastClass'
-    });
-    toast.present();
-  }
-
-  ionViewDidEnter() {
-    console.log('ionViewDidLoad houses-seller');
-    this.reloadList();
-  }
-
-  openDetail($index){
-    this.navCtrl.push(DetailPage, {
-      houseIndex: $index,
-      thisPage: HousesSellerPage,
-      thisIsFeeds:"no",
-      thisIsTheOwner:"yes",
-      state:5
-    });
-  }
-
-  filterItems(ev: any) {
-    let val = ev.target.value;
-    if (val && val.trim() != '') {
-      this.houses = this.houses.filter((item) => {
-        return (item.location.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    }else {
-      this.reloadList();
-    }
+    }, () => loading.dismiss());
   }
 }

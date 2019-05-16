@@ -4,13 +4,13 @@
       <span ion-text>My Wallet</span>
     </ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="logout()">
+      <button (click)="logout()" icon-only ion-button>
         <ion-icon name="exit"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
   <ion-toolbar>
-    <ion-segment    color="danger"  [(ngModel)]="choice">
+    <ion-segment [(ngModel)]="choice" color="danger">
       <ion-segment-button
         value="balance">
         Balance
@@ -28,15 +28,15 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <div [ngSwitch]="choice">
-    <div *ngSwitchCase="'balance'" >
+    <div *ngSwitchCase="'balance'">
       <div class="border-bottom" padding>
-        <span ion-text color="danger" class="bold">PRIVATE ADDRESS</span>
+        <span class="bold" color="danger" ion-text>PRIVATE ADDRESS</span>
         <p ion-text>{{ account}}</p>
       </div>
 
       <!--address-->
       <div class="border-bottom" padding>
-        <span ion-text color="danger" class="bold">BALANCE</span>
+        <span class="bold" color="danger" ion-text>BALANCE</span>
         <p ion-text>{{ myBalance | currency:'STT ':true}} ({{ balanceTND | currency:'TND ':true}})</p>
       </div>
     </div>
@@ -59,41 +59,43 @@
       <ion-grid>
         <ion-row text-center="true">
           <ion-col text-center="true">
-        <ion-range  (ionBlur)="updateBalancePosition($event)" [(ngModel)]="amount" min="0" max="1000000" step="50">
-          <img range-left  src="../../assets/img/dollar.png" class="img-size">
-          <img range-right  src="../../assets/img/dollar_double.png" class="img-size">
-        </ion-range>
+            <ion-range (ionBlur)="updateBalancePosition($event)" [(ngModel)]="amount" max="1000000" min="0" step="50">
+              <img class="img-size" range-left src="../../assets/img/dollar.png">
+              <img class="img-size" range-right src="../../assets/img/dollar_double.png">
+            </ion-range>
           </ion-col>
         </ion-row>
-      <ion-row >
-        <ion-col right>
-          <ion-label right style="text-align: center" color="secondary">({{amountTND | currency:'TND ':true}})</ion-label>
-        </ion-col>
-         <ion-col text-center="true" vertical-align-top>
-          <ion-input  [ngModel]="amount" type="number" (change)=changeValue($event) ></ion-input>
-        </ion-col>
+        <ion-row>
+          <ion-col right>
+            <ion-label color="secondary" right style="text-align: center">({{amountTND | currency:'TND ':true}})
+            </ion-label>
+          </ion-col>
+          <ion-col text-center="true" vertical-align-top>
+            <ion-input (change)=changeValue($event) [ngModel]="amount" type="number"></ion-input>
+          </ion-col>
 
-      </ion-row>
+        </ion-row>
       </ion-grid>
       <ion-item>
         <form [formGroup]="composersForm" text-center>
 
           <div class="cc-selector">
-            <input id="visa" type="radio" name="credit-card" value="visa" (click)="openPaymentForm()"/>
+            <input (click)="openPaymentForm()" id="visa" name="credit-card" type="radio" value="visa"/>
             <label class="drinkcard-cc visa" for="visa"></label>
-            <input id="mastercard" type="radio" name="credit-card" value="mastercard" (click)="openPaymentForm()"/>
+            <input (click)="openPaymentForm()" id="mastercard" name="credit-card" type="radio" value="mastercard"/>
             <label class="drinkcard-cc mastercard" for="mastercard"></label>
           </div>
 
-          <br><p *ngIf="hideMe" ion-text color="danger">Please choose your payment method</p>
+          <br>
+          <p *ngIf="hideMe" color="danger" ion-text>Please choose your payment method</p>
         </form>
       </ion-item>
 
       <ion-item text-center="">
-        <button  class="small-btn" ion-button icon-only color="blueColor" (click)="exchangeSTT()">
+        <button (click)="exchangeSTT()" class="small-btn" color="blueColor" icon-only ion-button>
           <ion-icon name="done-all"></ion-icon>
         </button>
-        <button class="small-btn" ion-button icon-only color="danger" (click)="resetRange()">
+        <button (click)="resetRange()" class="small-btn" color="danger" icon-only ion-button>
           <ion-icon name="close"></ion-icon>
         </button>
       </ion-item>

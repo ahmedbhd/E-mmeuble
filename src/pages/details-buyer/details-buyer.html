@@ -1,11 +1,5 @@
-<!--
-  Generated template for the DetailPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-  <ion-navbar color="primary" text-center>
+  <ion-navbar color="danger" text-center>
     <ion-title text-center>House Details</ion-title>
   </ion-navbar>
 </ion-header>
@@ -85,7 +79,7 @@
       <p *ngSwitchCase="1" style="padding:1em; color:#32db64; ">
         This house is available.
       </p>
-      <p *ngSwitchCase="2" style="color:#488aff; padding:1em;">
+      <p *ngSwitchCase="2" style="padding:1em; color:#488aff; ">
         This house is in pending purchase.
       </p>
       <p *ngSwitchCase="3" style="color:#ffce00; padding:1em;">
@@ -96,8 +90,8 @@
       </p>
 
     </div>
-    <div [ngSwitch]="isTheBackPageHouses">
-      <button (click)="deleteHouse()" *ngSwitchCase="'yes'" block color="primary" ion-button>Delete</button>
+    <div [ngSwitch]="isTheBackPageFeeds">
+      <button (click)="buyHouse()" *ngSwitchCase="'yes'" block color="danger" ion-button>Buy</button>
     </div>
   </ion-card>
 </ion-content>

@@ -4,17 +4,17 @@
       <span ion-text>Feeds</span>
     </ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="presentPopOver($event)">
-        <img src="../../assets/img/sort.png" class="sort-btn">
+      <button (click)="presentPopOver($event)" icon-only ion-button>
+        <img class="sort-btn" src="../../assets/img/sort.png">
       </button>
     </ion-buttons>
   </ion-navbar>
 
   <!--  -->
-  <ion-toolbar padding >
-    <ion-searchbar animated (ionInput)="filterItems($event)" placeholder="Search for location">
+  <ion-toolbar padding>
+    <ion-searchbar (ionInput)="filterItems($event)" animated placeholder="Search for location">
     </ion-searchbar>
-    <p ion-text no-margin class="text-secondary">
+    <p class="text-secondary" ion-text no-margin>
       <strong>{{resultNbr}}</strong> results!
     </p>
 
@@ -22,14 +22,17 @@
 
 </ion-header>
 
-<<ion-content padding class="trips detail-bg">
+<
+<ion-content class="trips detail-bg" padding>
   <!--list of trips-->
   <ion-refresher (ionRefresh)="refreshList($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <div class="trip card" *ngFor="let house of houses" tappable  margin-bottom>
+  <div *ngFor="let house of houses" class="trip card" margin-bottom tappable>
 
-    <div class="background border-bottom" [ngStyle]="{'background-image': 'url(assets/img/house/thumb/' + house.image + ')'}" (click)="openDetail(house.indexHouse , house.state)">
+    <div (click)="openDetail(house.indexHouse , house.state)"
+         [ngStyle]="{'background-image': 'url(assets/img/house/thumb/' + house.image + ')'}"
+         class="background border-bottom">
       <div class="background-filter rlt">
         <div class="align-bottom" padding-left padding-right>
           <h6 class="pull-left text-white" ion-text>{{ house.location }}</h6>
@@ -38,13 +41,15 @@
         </div>
       </div>
     </div>
-    <div class="padding-sm danger-bg" [ngSwitch]="house.state">
-      <img src="../../assets/img/house/green.png" class="status-icon" *ngSwitchCase="'1'">
-      <img src="../../assets/img/house/blue.png" class="status-icon" *ngSwitchCase="'2'">
-      <img src="../../assets/img/house/gold.png" class="status-icon" *ngSwitchCase="'3'">
-      <img src="../../assets/img/house/red.png" class="status-icon" *ngSwitchCase="'4'">
+    <div [ngSwitch]="house.state" class="padding-sm danger-bg">
+      <img *ngSwitchCase="'1'" class="status-icon" src="../../assets/img/house/green.png">
+      <img *ngSwitchCase="'2'" class="status-icon" src="../../assets/img/house/blue.png">
+      <img *ngSwitchCase="'3'" class="status-icon" src="../../assets/img/house/gold.png">
+      <img *ngSwitchCase="'4'" class="status-icon" src="../../assets/img/house/red.png">
       <!--      <span ion-text class="text-white">{{ trip.time }}</span>-->
-      <span class="pull-right" ion-text color="light"><strong>{{house.area}} m²</strong> (House has <span ion-text  class="text-green bold">{{house.rooms}} rooms</span>)</span>
+      <span class="pull-right " color="light" ion-text><strong>{{house.area}} m²</strong> (House has <span class="text-green bold"
+                                                                                                           ion-text>{{house.rooms}}
+        rooms</span>)</span>
     </div>
   </div>
 </ion-content>
