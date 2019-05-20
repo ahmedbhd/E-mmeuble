@@ -11,6 +11,7 @@ import {DetailPage} from "../detail/detail";
 })
 export class HousesSellerPage {
   public houses: House[];
+  public unfilteredHouses: House[];
   public house: House;
   public resultNbr: number = 0;
   public myModal: Modal;
@@ -54,10 +55,10 @@ export class HousesSellerPage {
 
   refreshList(refresher) {
     this.sellerService.getMyHouses().subscribe(data => {
-      this.houses = data;
+      this.unfilteredHouses=this.houses = data;
       this.resultNbr = this.houses.length;
-    }, error1 => {
-    }, () => refresher.complete());
+    }, error1 => refresher.complete(),
+      () => refresher.complete());
     // this.houses = this.sellerService.getMyHouses();
     // refresher.complete();
   }
@@ -77,9 +78,10 @@ export class HousesSellerPage {
     this.reloadList();
   }
 
-  openDetail($index) {
+  openDetail(index) {
+    console.log(index);
     this.navCtrl.push(DetailPage, {
-      houseIndex: $index,
+      indexHouse: index,
       thisPage: HousesSellerPage,
       thisIsFeeds: "no",
       thisIsTheOwner: "yes",
@@ -90,7 +92,7 @@ export class HousesSellerPage {
   filterItems(ev: any) {
     let val = ev.target.value;
     if (val && val.trim() != '') {
-      this.houses = this.houses.filter((item) => {
+      this.houses = this.unfilteredHouses.filter((item) => {
         return (item.location.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     } else {
@@ -104,7 +106,8 @@ export class HousesSellerPage {
     });
     loading.present();
     this.sellerService.getMyHouses().subscribe(data => {
-      this.houses = data;
+      this.unfilteredHouses=this.houses = data;
+      console.log(data);
       console.log(this.houses);
       this.resultNbr = this.houses.length;
 

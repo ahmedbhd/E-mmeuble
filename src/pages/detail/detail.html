@@ -11,9 +11,19 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-fab right top>
+    <button color="dark" icon-only ion-fab (click)="openTimeLine()"><i class="fas fa-stream"></i></button>
+  </ion-fab>
   <ion-card>
     <img src="../../assets/img/house/thumb/{{house.image}}"/>
-
+    <ionic3-star-rating
+      activeIcon = "ios-star"
+      defaultIcon = "ios-star-outline"
+      activeColor = "#488aff"
+      defaultColor = "#f4f4f4"
+      readonly="false"
+      [rating]="rating">
+    </ionic3-star-rating>
     <ion-card-title padding>
       {{house.description}}
     </ion-card-title>

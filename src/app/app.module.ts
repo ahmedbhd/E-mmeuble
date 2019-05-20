@@ -23,6 +23,7 @@ import {PopoverDescriptionPage} from '../pages/popover-description/popover-descr
 import {PaymentFormPage} from '../pages/payment-form/payment-form';
 import {ContractsListBuyerPage} from '../pages/contracts-list-buyer/contracts-list-buyer';
 import {ContractsListSellerPage} from '../pages/contracts-list-seller/contracts-list-seller';
+import {DetailsBuyerPage} from "../pages/details-buyer/details-buyer";
 
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
@@ -32,7 +33,8 @@ import {BuyerServiceProvider} from '../providers/buyer-service/buyer-service';
 
 import {IonicStepperModule} from 'ionic-stepper';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {DetailsBuyerPage} from "../pages/details-buyer/details-buyer";
+import {StarRatingModule} from "ionic3-star-rating";
+import {TimelinePage} from "../pages/timeline/timeline";
 
 @NgModule({
   declarations: [
@@ -53,9 +55,11 @@ import {DetailsBuyerPage} from "../pages/details-buyer/details-buyer";
     PaymentFormPage,
     ContractsListBuyerPage,
     ContractsListSellerPage,
-    DetailsBuyerPage
+    DetailsBuyerPage,
+    TimelinePage
   ],
   imports: [
+    StarRatingModule,
     MbscModule,
     ReactiveFormsModule,
     FormsModule,
@@ -91,7 +95,8 @@ import {DetailsBuyerPage} from "../pages/details-buyer/details-buyer";
     PaymentFormPage,
     ContractsListBuyerPage,
     ContractsListSellerPage,
-    DetailsBuyerPage
+    DetailsBuyerPage,
+    TimelinePage
   ],
   providers: [
     StatusBar,

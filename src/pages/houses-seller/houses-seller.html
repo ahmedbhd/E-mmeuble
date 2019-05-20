@@ -31,27 +31,28 @@
   <ion-refresher (ionRefresh)="refreshList($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <div *ngFor="let trip of houses" class="trip card" margin-bottom tappable>
+  <div *ngFor="let house of houses" class="trip card" margin-bottom tappable>
 
-    <div (click)="openDetail(trip.indexHouse)"
-         [ngStyle]="{'background-image': 'url(assets/img/house/thumb/' + trip.image + ')'}"
+    <div (click)="openDetail(house.indexHouse)"
+         [ngStyle]="{'background-image': 'url(assets/img/house/thumb/' + house.image + ')'}"
          class="background border-bottom">
       <div class="background-filter rlt">
         <div class="align-bottom" padding-left padding-right>
-          <h6 class="pull-left text-white" ion-text>{{ trip.location }}</h6>
-          <h6 class="pull-right text-white" ion-text>{{ trip.price | currency:'STT ':true }}</h6>
+          <h6 class="pull-left text-white" ion-text>{{ house.location }}</h6>
+          <h6 class="pull-right text-white" ion-text>{{ house.price | currency:'STT ':true }}</h6>
           <div class="clear"></div>
         </div>
       </div>
     </div>
-    <div [ngSwitch]="trip.state" class="padding-sm primary-bg">
+    <div [ngSwitch]="house.state" class="padding-sm primary-bg">
       <img *ngSwitchCase="'1'" class="status-icon" src="../../assets/img/house/green.png">
       <img *ngSwitchCase="'2'" class="status-icon" src="../../assets/img/house/blue.png">
       <img *ngSwitchCase="'3'" class="status-icon" src="../../assets/img/house/gold.png">
       <img *ngSwitchCase="'4'" class="status-icon" src="../../assets/img/house/red.png">
       <!--      <span ion-text class="text-white">{{ trip.time }}</span>-->
-      <span class="pull-right" color="light" ion-text><strong>{{trip.area}} m²</strong> (House has <span class="text-green bold"
-                                                                                                         ion-text>{{trip.rooms}}
+      <span class="pull-right" color="light" ion-text><strong>{{house.area}} m²</strong> (House has <span class="text-green bold"
+                                                                                                         ion-text>{{house.rooms}}  {{house.indexHouse}}
+
         rooms</span>)</span>
     </div>
   </div>

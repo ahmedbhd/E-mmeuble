@@ -1,10 +1,20 @@
 import {Component, ViewChild} from '@angular/core';
-import {LoadingController, Navbar, NavController, NavParams, ToastController} from 'ionic-angular';
+import {
+  Events,
+  LoadingController,
+  ModalController,
+  Navbar,
+  NavController,
+  NavParams,
+  ToastController
+} from 'ionic-angular';
 import {House} from "../../providers/house";
 import {SellerServiceProvider} from "../../providers/seller-service/seller-service";
 import {BuyerServiceProvider} from "../../providers/buyer-service/buyer-service";
 import {ContractsBuyerPage} from "../contracts-buyer/contracts-buyer";
 import {ContractsSellerPage} from "../contracts-seller/contracts-seller";
+import {TimelinePage} from "../timeline/timeline";
+import {PaymentFormPage} from "../payment-form/payment-form";
 
 
 @Component({
@@ -14,25 +24,30 @@ import {ContractsSellerPage} from "../contracts-seller/contracts-seller";
 export class DetailPage {
   @ViewChild(Navbar) navBar: Navbar;
   backPage: any;
-  houseIndex: number;
+  indexHouse: number;
   public house: House;
   public isTheBackPageFeeds: string = "no";
   public isTheBackPageHouses: string = "no";
+  public rating:any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private sellerService: SellerServiceProvider,
               private buyerService: BuyerServiceProvider,
               private loadingCtrl: LoadingController,
-              private toastCtrl: ToastController) {
+              private toastCtrl: ToastController,
+              private modal: ModalController,
+              public events: Events) {
     this.house = new House();
+    events.subscribe('star-rating:changed', (starRating) => {console.log(starRating)});
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailPage');
     this.backPage = this.navParams.get('thisPage');
 
-    this.houseIndex = this.navParams.get('houseIndex');
+    this.indexHouse = this.navParams.get('indexHouse');
     let feeds = this.navParams.get('thisIsFeeds');
     let status = this.navParams.get('state');
     this.isTheBackPageHouses = this.navParams.get('thisIsTheOwner');
@@ -40,6 +55,7 @@ export class DetailPage {
       this.isTheBackPageFeeds = "yes";
 
     console.log(status);
+    console.log(this.indexHouse );
     if (this.backPage != ContractsBuyerPage && this.backPage != ContractsSellerPage) {
       this.navBar.backButtonClick = () => {
         // you can set a full custom history here if you want
@@ -60,9 +76,10 @@ export class DetailPage {
       content: 'Please wait...'
     });
     loading.present();
-    this.sellerService.getHouseDetail(this.houseIndex).subscribe(
+    this.sellerService.getHouseDetail(this.indexHouse).subscribe(
       data => {
         this.house = (data);
+        this.showRating();
       },
       error1 => {
         this.presentToast("Network Error!");
@@ -71,19 +88,11 @@ export class DetailPage {
   }
 
   deleteHouse() {
-    this.sellerService.deleteHouse(this.houseIndex).subscribe(
+    this.sellerService.deleteHouse(this.indexHouse).subscribe(
       data => this.presentToast("House deleted!"),
       error1 => this.presentToast("Network Error!"),
       () => this.navCtrl.pop());
   }
-
-  buyHouse() {
-    this.buyerService.setHouseAsWanted(this.houseIndex).subscribe(
-      data => this.presentToast("House is set as wanted!"),
-      error1 => this.presentToast("Network Error!"),
-      () => this.navCtrl.pop());
-  }
-
   async presentToast(msg: string) {
     const toast = await this.toastCtrl.create({
       message: msg,
@@ -94,4 +103,15 @@ export class DetailPage {
     toast.present();
   }
 
+  showRating(){
+    let _reviewTab = this.house.review.split("/");
+    let _rate = parseFloat(_reviewTab[0]);
+    if (_rate ==0)
+      this.rating = _rate;
+  }
+
+  openTimeLine() {
+    let myModal = this.modal.create(TimelinePage, {data: this.house.indexHouse});
+    myModal.present();
+  }
 }

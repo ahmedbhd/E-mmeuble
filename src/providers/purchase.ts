@@ -5,8 +5,9 @@ export class Purchase {
   public buyer : string;
   public bank : number;
   public insurance : number;
-  public houseIndex : string;
+  public indexHouse : string;
   public houseDesc : string;
+  public history : string;
   public loan : string;
   public date : number;
   public advance : string;
@@ -16,12 +17,12 @@ export class Purchase {
   public buyerConfirmation : boolean;
 
   constructor($index,$owner,$buyer,$bank,$insurance,$house,$loan,$date,$advance,$forbank,$forins,$sc,$bc){
-    this.houseIndex = $index;
+    this.indexHouse = $index;
     this.owner = $owner;
     this.buyer=$buyer;
     this.bank = $bank;
     this.insurance = $insurance;
-    this.houseIndex = $house;
+    this.indexHouse = $house;
     this.loan = $loan;
     this.date = $date;
     this.advance = $advance;

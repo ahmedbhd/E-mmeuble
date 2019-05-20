@@ -63,7 +63,7 @@ export class FeedsBuyerPage {
 
   openDetail($index, $state) {
     this.navCtrl.push(DetailsBuyerPage, {
-      houseIndex: $index,
+      indexHouse: $index,
       thisPage: FeedsBuyerPage,
       thisIsFeeds: "yes",
       thisIsTheOwner: "no",

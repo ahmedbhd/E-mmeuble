@@ -1,16 +1,19 @@
 import {Component, ViewChild} from '@angular/core';
-import {LoadingController, Navbar, NavController, NavParams, ToastController} from 'ionic-angular';
+import {
+  Events,
+  LoadingController,
+  ModalController,
+  Navbar,
+  NavController,
+  NavParams,
+  ToastController
+} from 'ionic-angular';
 import {House} from "../../providers/house";
 import {BuyerServiceProvider} from "../../providers/buyer-service/buyer-service";
 import {ContractsBuyerPage} from "../contracts-buyer/contracts-buyer";
 import {ContractsSellerPage} from "../contracts-seller/contracts-seller";
+import {TimelinePage} from "../timeline/timeline";
 
-/**
- * Generated class for the DetailsBuyerPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @Component({
   selector: 'page-details-buyer',
@@ -23,20 +26,29 @@ export class DetailsBuyerPage {
   public house: House;
   public isTheBackPageFeeds: string = "no";
   public isTheBackPageHouses: string = "no";
+  public rating:any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private buyerService: BuyerServiceProvider,
               private loadingCtrl: LoadingController,
-              private toastCtrl: ToastController) {
+              private toastCtrl: ToastController,
+              private modal: ModalController,
+              public events: Events)
+  {
     this.house = new House();
+    events.subscribe('star-rating:changed', (starRating) => {
+      console.log(starRating);
+      this.rateHouse(starRating);
+    });
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailPage');
     this.backPage = this.navParams.get('thisPage');
 
-    this.houseIndex = this.navParams.get('houseIndex');
+    this.houseIndex = this.navParams.get('indexHouse');
     let feeds = this.navParams.get('thisIsFeeds');
     let status = this.navParams.get('state');
     this.isTheBackPageHouses = this.navParams.get('thisIsTheOwner');
@@ -67,6 +79,7 @@ export class DetailsBuyerPage {
     this.buyerService.getHouseDetail(this.houseIndex).subscribe(
       data => {
         this.house = (data);
+        this.showRating();
       },
       error1 => {
         this.presentToast("Network Error!");
@@ -75,7 +88,7 @@ export class DetailsBuyerPage {
   }
 
   buyHouse() {
-    this.buyerService.setHouseAsWanted(this.houseIndex).subscribe(
+    this.buyerService.setHouseAsWanted(this.houseIndex,this.house.history).subscribe(
       data => this.presentToast("House is set as wanted!"),
       error1 => this.presentToast("Network Error!"),
       () => this.navCtrl.pop());
@@ -91,4 +104,43 @@ export class DetailsBuyerPage {
     toast.present();
   }
 
+  rateHouse(rating){
+    setTimeout(3000);
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loading.present();
+    this.buyerService.getMyAccount().subscribe(acc => {
+      this.buyerService.rateHouseAt(this.houseIndex,rating,acc,this.house.descLocationAreaRoomsReview).subscribe(()=> {},
+        error1 => {
+          this.presentToast("Network Error!");
+          loading.dismiss();
+        }, () => {
+          loading.dismiss();
+          this.presentToast("Rating updated");
+        });
+    });
+
+  }
+
+  showRating(){
+    let _reviewTab = this.house.review.split("/");
+    let _rates = _reviewTab[0].split(";");
+    console.log(_rates);
+    if (_rates.length==0)
+      this.rating = 0;
+    else {
+      let _rateSum=0;
+      _rates.forEach( r => {
+        _rateSum=+r;
+      });
+      this.rating = _rateSum/_rates.length;
+      console.log(_rateSum);
+      console.log(this.rating);
+    }
+  }
+  openTimeLine() {
+    let myModal = this.modal.create(TimelinePage, {data: this.house.indexHouse});
+    myModal.present();
+  }
 }

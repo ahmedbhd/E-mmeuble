@@ -62,25 +62,25 @@ export class SellerServiceProvider {
     return this.http.get<Purchase[]>(this.sellerURL + "getMyInProgressPurchaseList", {headers: this.headers});
   }
 
-  setAsConfirmed(purchaseIndex, houseIndex) {
+  setAsConfirmed(purchaseIndex, indexHouse) {
     return this.http.post(this.sellerURL + "setConfirmed", {
       "purchaseIndex": purchaseIndex,
-      "houseIndex": houseIndex
+      "indexHouse": indexHouse
     }, {headers: this.headers});
   }
 
   setAsCancelled(indexHouse, indexPurchase) {
     return this.http.post(this.sellerURL + "setCanceled", {
-      "houseIndex": indexHouse,
+      "indexHouse": indexHouse,
       "purchaseIndex": indexPurchase
     }, {headers: this.headers});
   }
 
-  getHouseDetail($houseIndex): Observable<House> {
-    return this.http.post<House>(this.sellerURL + "getHouseAt", {"houseIndex": $houseIndex}, {headers: this.headers});
+  getHouseDetail(indexHouse): Observable<House> {
+    return this.http.post<House>(this.sellerURL + "getHouseAt", {"indexHouse": indexHouse}, {headers: this.headers});
   }
 
-  deleteHouse($houseIndex) {
-    return this.http.post(this.sellerURL + "deleteHouse", {"houseIndex": $houseIndex}, {headers: this.headers});
+  deleteHouse(indexHouse) {
+    return this.http.post(this.sellerURL + "deleteHouse", {"indexHouse": indexHouse}, {headers: this.headers});
   }
 }

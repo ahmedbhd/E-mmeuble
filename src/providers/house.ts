@@ -5,8 +5,11 @@ export class House{
   public area : string;
   public price : number;
   public rooms : number;
+  public history : string;
   public state : number;
   public image : string;
+  public review : string;
   public owner : string;
   public buyer : string;
+  public descLocationAreaRoomsReview:string
 }
