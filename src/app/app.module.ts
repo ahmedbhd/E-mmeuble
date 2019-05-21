@@ -33,8 +33,9 @@ import {BuyerServiceProvider} from '../providers/buyer-service/buyer-service';
 
 import {IonicStepperModule} from 'ionic-stepper';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {StarRatingModule} from "ionic3-star-rating";
+// import {StarRatingModule} from "ionic3-star-rating";
 import {TimelinePage} from "../pages/timeline/timeline";
+import { Ionic2RatingModule } from 'ionic2-rating';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,7 @@ import {TimelinePage} from "../pages/timeline/timeline";
     TimelinePage
   ],
   imports: [
-    StarRatingModule,
+    Ionic2RatingModule,
     MbscModule,
     ReactiveFormsModule,
     FormsModule,

@@ -63,12 +63,12 @@ export class ContractsSellerPage {
 
   cancelPurch() {
     let houseIndex = this.thisPurchase.indexHouse;
-    this.sellerService.setAsCancelled(houseIndex, this.purchaseIndex).subscribe(
+    this.sellerService.setAsCancelled(houseIndex, this.purchaseIndex,this.thisPurchase.history).subscribe(
       data => {
       },
       error1 => this.presentToast("Network Error!"),
       () => {
-        this.presentToast("cancellation success!");
+        this.presentToast("Cancellation success!");
         this.navCtrl.pop();
       });
   }

@@ -104,9 +104,18 @@ export class DetailPage {
 
   showRating(){
     let _reviewTab = this.house.review.split("/");
-    let _rate = parseFloat(_reviewTab[0]);
-    if (_rate ==0)
-      this.rating = _rate;
+    let _rates = _reviewTab[0].split(";");
+    console.log(_rates);
+    console.log(_rates.length);
+    if (_rates.length==1)
+      this.rating = 0;
+    else {
+      let _rateSum=0;
+      for (let i =0;i<_rates.length-1;i++) {
+        _rateSum=+_rates[i];
+      }
+      this.rating = _rateSum/(_rates.length-1);
+    }
   }
 
   openTimeLine() {

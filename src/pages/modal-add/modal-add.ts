@@ -23,6 +23,8 @@ export class ModalAddPage {
 
   applyModal() {
     let area = parseFloat(this.house.area);
+    if (this.house.description.indexOf("|")>0 || this.house.location.indexOf("|")>0)
+      this.presentToast("Description or location input contains unrecognized symbol");
     if (this.house.rooms > 10 || this.house.rooms <= 0)
       this.presentToast("Rooms number doesn't look right");
     else if (area > 1000 || area <= 0)

@@ -68,10 +68,11 @@ export class BuyerServiceProvider {
     }, {headers: this.headers});
   }
 
-  setAsCancelled(indexHouse, indexPurchase) {
+  setAsCancelled(indexHouse, indexPurchase,history) {
     return this.http.post(this.buyerURL + "setCanceled", {
       "indexHouse": indexHouse,
-      "purchaseIndex": indexPurchase
+      "purchaseIndex": indexPurchase,
+      "history":history
     }, {headers: this.headers});
   }
 

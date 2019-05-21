@@ -28,6 +28,8 @@ export class DetailsBuyerPage {
   public isTheBackPageHouses: string = "no";
   public rating:any;
   private canRate:boolean=true;
+  private myAccount: string;
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private buyerService: BuyerServiceProvider,
@@ -37,16 +39,16 @@ export class DetailsBuyerPage {
               public events: Events)
   {
     this.house = new House();
-    events.subscribe('star-rating:changed', (starRating) => {
-      if (this.canRate) {
-        console.log(starRating);
-        this.rateHouse(starRating);
-      }
-    });
+
 
   }
-
   ionViewDidLoad() {
+    this.events.subscribe('star-rating:changed', (starRating) => {
+
+      console.log(starRating);
+      this.rateHouse(starRating);
+
+    });
     console.log('ionViewDidLoad DetailPage');
     this.backPage = this.navParams.get('thisPage');
 
@@ -106,29 +108,37 @@ export class DetailsBuyerPage {
     toast.present();
   }
 
-  rateHouse(rating){
-    // setTimeout(3000);
-
-      this.rating = false;
+  rateHouse($rating){
 
       let loading = this.loadingCtrl.create({
         content: 'Please wait...'
       });
       loading.present();
-      this.buyerService.getMyAccount().subscribe(acc => {
-        this.buyerService.rateHouseAt(this.indexHouse, rating, acc, this.house.descLocationAreaRoomsReview).subscribe(() => {
-          },
-          error1 => {
-            this.presentToast("Network Error!");
-            loading.dismiss();
-            this.canRate =true;
-          }, () => {
-            loading.dismiss();
-            this.canRate =true;
-            this.presentToast("Rating updated");
-          });
-      });
+      this.buyerService.getMyAccount().subscribe(acc => this.myAccount = acc,
+        error1 => {
+          this.presentToast("Network Error!");
+          loading.dismiss();
+        },
+        ()=> {
+          this.buyerService.rateHouseAt(this.indexHouse, $rating, this.myAccount, this.house.descLocationAreaRoomsReview).subscribe(() => {
+            },
+            error1 => {
+              this.presentToast("Network Error!");
+              loading.dismiss();
+            }, () => {
+              this.buyerService.getHouseDetail(this.indexHouse).subscribe(
+                data => {
+                  this.house = (data);
+                  this.showRating();
+                },
+                error1 => {
+                  this.presentToast("Network Error!");
+                  loading.dismiss();
+                }, () => loading.dismiss());
 
+              this.presentToast("Rating updated");
+            });
+        });
   }
 
   showRating(){
@@ -143,12 +153,12 @@ export class DetailsBuyerPage {
       for (let i =0;i<_rates.length-1;i++) {
         _rateSum=+_rates[i];
       }
-      // this.rating = _rateSum/(_rates.length-1);
-      this.rating = 3.5;
+      this.rating = _rateSum/(_rates.length-1);
     }
   }
   openTimeLine() {
     let myModal = this.modal.create(TimelinePage, {data: this.house.indexHouse});
     myModal.present();
   }
+
 }
