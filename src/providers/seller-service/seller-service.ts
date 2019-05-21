@@ -83,4 +83,7 @@ export class SellerServiceProvider {
   deleteHouse(indexHouse) {
     return this.http.post(this.sellerURL + "deleteHouse", {"indexHouse": indexHouse}, {headers: this.headers});
   }
+  sellHouseAt(indexHouse,history) {
+    return this.http.post(this.sellerURL + "sellHouseAt", {"indexHouse": indexHouse,"history":history}, {headers: this.headers});
+  }
 }

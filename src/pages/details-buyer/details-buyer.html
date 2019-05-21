@@ -87,6 +87,9 @@
       </mbsc-form-group>
     </mbsc-form>
     <div [ngSwitch]="house.state">
+      <p *ngSwitchCase="0" style="padding:1em; color:#444444; ">
+        This house is not for sale.
+      </p>
       <p *ngSwitchCase="1" style="padding:1em; color:#32db64; ">
         This house is available.
       </p>
@@ -102,7 +105,13 @@
 
     </div>
     <div [ngSwitch]="isTheBackPageFeeds">
-      <button (click)="buyHouse()" *ngSwitchCase="'yes'" block color="danger" ion-button>Buy</button>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <button (click)="buyHouse()" *ngSwitchCase="'yes'" block color="danger" ion-button>Buy</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </div>
   </ion-card>
 </ion-content>

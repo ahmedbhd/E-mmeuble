@@ -8,6 +8,11 @@
         <img class="sort-btn" src="../../assets/img/sort.png">
       </button>
     </ion-buttons>
+    <ion-buttons left>
+      <button (click)="logout()" icon-only ion-button>
+        <ion-icon name="exit"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
   <!--  -->
@@ -42,6 +47,7 @@
       </div>
     </div>
     <div [ngSwitch]="house.state" class="padding-sm danger-bg">
+      <img *ngSwitchCase="'0'" class="status-icon" src="../../assets/img/house/grey.png">
       <img *ngSwitchCase="'1'" class="status-icon" src="../../assets/img/house/green.png">
       <img *ngSwitchCase="'2'" class="status-icon" src="../../assets/img/house/blue.png">
       <img *ngSwitchCase="'3'" class="status-icon" src="../../assets/img/house/gold.png">

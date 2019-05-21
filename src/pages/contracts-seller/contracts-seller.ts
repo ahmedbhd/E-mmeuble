@@ -55,14 +55,14 @@ export class ContractsSellerPage {
   }
 
   confirmPurch() {
-    this.sellerService.setAsConfirmed(this.purchaseIndex, this.thisPurchase.houseIndex).subscribe(data => {
+    this.sellerService.setAsConfirmed(this.purchaseIndex, this.thisPurchase.indexHouse).subscribe(data => {
       this.getPurchaseAt();
       this.presentToast("Confirmation success!")
     }, error1 => this.presentToast("Network Error!"));
   }
 
   cancelPurch() {
-    let houseIndex = this.thisPurchase.houseIndex;
+    let houseIndex = this.thisPurchase.indexHouse;
     this.sellerService.setAsCancelled(houseIndex, this.purchaseIndex).subscribe(
       data => {
       },
@@ -75,7 +75,7 @@ export class ContractsSellerPage {
 
   openDetail($index) {
     this.navCtrl.push(DetailPage, {
-      houseIndex: $index,
+      indexHouse: $index,
       thisPage: ContractsSellerPage,
       thisIsFeeds: "no",
       thisIsTheOwner: "no",

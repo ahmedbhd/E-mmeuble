@@ -1,5 +1,13 @@
 import {Component} from '@angular/core';
-import {LoadingController, Modal, ModalController, ModalOptions, NavController, ToastController} from 'ionic-angular';
+import {
+  App,
+  LoadingController,
+  Modal,
+  ModalController,
+  ModalOptions,
+  NavController,
+  ToastController
+} from 'ionic-angular';
 import {ModalAddPage} from '../modal-add/modal-add';
 import {SellerServiceProvider} from '../../providers/seller-service/seller-service';
 import {House} from "../../providers/house";
@@ -24,7 +32,8 @@ export class HousesSellerPage {
               private sellerService: SellerServiceProvider,
               private modal: ModalController,
               private toastCtrl: ToastController,
-              private loadingCtrl: LoadingController
+              private loadingCtrl: LoadingController,
+              private appCtrl: App
   ) {
     this.house = new House();
   }
@@ -115,5 +124,9 @@ export class HousesSellerPage {
       this.presentToast("Network Error!");
       loading.dismiss();
     }, () => loading.dismiss());
+  }
+
+  logout() {
+    this.appCtrl.getRootNav().pop();
   }
 }

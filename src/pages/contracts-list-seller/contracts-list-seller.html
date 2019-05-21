@@ -3,6 +3,11 @@
     <ion-title text-center>
       <span ion-text>Contracts List</span>
     </ion-title>
+    <ion-buttons left>
+      <button (click)="logout()" icon-only ion-button>
+        <ion-icon name="exit"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
   <ion-searchbar (ionInput)="filterItems($event)" animated placeholder="Search by description">
   </ion-searchbar>

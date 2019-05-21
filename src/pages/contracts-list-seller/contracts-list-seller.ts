@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
+import {App, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 import {SellerServiceProvider} from "../../providers/seller-service/seller-service";
 import {Purchase} from "../../providers/purchase";
 import {ContractsSellerPage} from "../contracts-seller/contracts-seller";
@@ -17,7 +17,8 @@ export class ContractsListSellerPage {
               public navParams: NavParams,
               private toastCtrl: ToastController,
               private loadingCtrl: LoadingController,
-              private sellerService: SellerServiceProvider) {
+              private sellerService: SellerServiceProvider,
+              private appCtrl: App) {
 
   }
 
@@ -83,5 +84,9 @@ export class ContractsListSellerPage {
     } else {
       this.loadData();
     }
+  }
+
+  logout() {
+    this.appCtrl.getRootNav().pop();
   }
 }

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {LoadingController, NavController, NavParams, PopoverController, ToastController} from 'ionic-angular';
+import {App, LoadingController, NavController, NavParams, PopoverController, ToastController} from 'ionic-angular';
 import {House} from "../../providers/house";
 import {BuyerServiceProvider} from "../../providers/buyer-service/buyer-service";
 import {SortPopOverBuyerPage} from '../sort-pop-over-buyer/sort-pop-over-buyer';
@@ -27,6 +27,7 @@ export class FeedsBuyerPage {
     , private buyerService: BuyerServiceProvider,
               private toastCtrl: ToastController,
               private loadingCtrl: LoadingController,
+              private appCtrl: App,
               private popOverCtrl: PopoverController) {
 
   }
@@ -162,4 +163,9 @@ export class FeedsBuyerPage {
       loading.dismiss();
     }, () => loading.dismiss());
   }
+
+  logout() {
+    this.appCtrl.getRootNav().pop();
+  }
+
 }

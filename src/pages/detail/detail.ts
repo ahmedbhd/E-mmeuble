@@ -14,7 +14,6 @@ import {BuyerServiceProvider} from "../../providers/buyer-service/buyer-service"
 import {ContractsBuyerPage} from "../contracts-buyer/contracts-buyer";
 import {ContractsSellerPage} from "../contracts-seller/contracts-seller";
 import {TimelinePage} from "../timeline/timeline";
-import {PaymentFormPage} from "../payment-form/payment-form";
 
 
 @Component({
@@ -113,5 +112,13 @@ export class DetailPage {
   openTimeLine() {
     let myModal = this.modal.create(TimelinePage, {data: this.house.indexHouse});
     myModal.present();
+  }
+
+  saleHouse() {
+    console.log(this.house.history);
+    this.sellerService.sellHouseAt(this.indexHouse,this.house.history).subscribe(
+      data => this.presentToast("House has been put for sale"),
+      error1 => this.presentToast("Network Error!"),
+      () => this.navCtrl.pop());
   }
 }

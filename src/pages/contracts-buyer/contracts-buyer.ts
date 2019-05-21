@@ -60,14 +60,14 @@ export class ContractsBuyerPage {
 
 
   confirmPurch() {
-    this.buyerService.setPurchaseAsInProgress(this.purchaseIndex, this.thisPurchase.houseIndex).subscribe(data => {
+    this.buyerService.setPurchaseAsInProgress(this.purchaseIndex, this.thisPurchase.indexHouse).subscribe(data => {
       this.getPurchaseAt();
       this.presentToast("Confirmation success!")
     }, error1 => this.presentToast("Network Error!"));
   }
 
   cancelPurch() {
-    let houseIndex = this.thisPurchase.houseIndex;
+    let houseIndex = this.thisPurchase.indexHouse;
     this.buyerService.setAsCancelled(houseIndex, this.purchaseIndex).subscribe(data => {
         this.presentToast("cancellation success!")
       }, error1 => this.presentToast("Network Error!"),
@@ -76,7 +76,7 @@ export class ContractsBuyerPage {
 
   openDetail($index) {
     this.navCtrl.push(DetailsBuyerPage, {
-      houseIndex: $index,
+      indexHouse: $index,
       thisPage: ContractsBuyerPage,
       thisIsFeeds: "no",
       thisIsTheOwner: "no",
