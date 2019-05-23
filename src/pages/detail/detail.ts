@@ -27,7 +27,7 @@ export class DetailPage {
   public house: House;
   public isTheBackPageFeeds: string = "no";
   public isTheBackPageHouses: string = "no";
-  public rating:any;
+  public rating: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -38,7 +38,9 @@ export class DetailPage {
               private modal: ModalController,
               public events: Events) {
     this.house = new House();
-    events.subscribe('star-rating:changed', (starRating) => {console.log(starRating)});
+    events.subscribe('star-rating:changed', (starRating) => {
+      console.log(starRating)
+    });
 
   }
 
@@ -54,7 +56,7 @@ export class DetailPage {
       this.isTheBackPageFeeds = "yes";
 
     console.log(status);
-    console.log(this.indexHouse );
+    console.log(this.indexHouse);
     if (this.backPage != ContractsBuyerPage && this.backPage != ContractsSellerPage) {
       this.navBar.backButtonClick = () => {
         // you can set a full custom history here if you want
@@ -92,6 +94,7 @@ export class DetailPage {
       error1 => this.presentToast("Network Error!"),
       () => this.navCtrl.pop());
   }
+
   async presentToast(msg: string) {
     const toast = await this.toastCtrl.create({
       message: msg,
@@ -102,19 +105,19 @@ export class DetailPage {
     toast.present();
   }
 
-  showRating(){
+  showRating() {
     let _reviewTab = this.house.review.split("/");
     let _rates = _reviewTab[0].split(";");
     console.log(_rates);
     console.log(_rates.length);
-    if (_rates.length==1)
+    if (_rates.length == 1)
       this.rating = 0;
     else {
-      let _rateSum=0;
-      for (let i =0;i<_rates.length-1;i++) {
-        _rateSum=+_rates[i];
+      let _rateSum = 0;
+      for (let i = 0; i < _rates.length - 1; i++) {
+        _rateSum = +_rates[i];
       }
-      this.rating = _rateSum/(_rates.length-1);
+      this.rating = _rateSum / (_rates.length - 1);
     }
   }
 
@@ -125,7 +128,7 @@ export class DetailPage {
 
   saleHouse() {
     console.log(this.house.history);
-    this.sellerService.sellHouseAt(this.indexHouse,this.house.history).subscribe(
+    this.sellerService.sellHouseAt(this.indexHouse, this.house.history).subscribe(
       data => this.presentToast("House has been put for sale"),
       error1 => this.presentToast("Network Error!"),
       () => this.navCtrl.pop());

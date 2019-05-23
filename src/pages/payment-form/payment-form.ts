@@ -14,20 +14,6 @@ mobiscroll.settings = {
 })
 export class PaymentFormPage {
   mobile: Date;
-
-  // mobileSettings: MbscDatetimeOptions = {
-  //   display: 'bubble'
-  // };
-  //
-  // desktopSettings: MbscDatetimeOptions = {
-  //   display: 'bubble',
-  //   touchUi: false
-  // };
-  //
-  // formSettings: MbscFormOptions = {
-  //   inputStyle: 'box'
-  // };
-
   public data: any = {
     name: "",
     card: "",

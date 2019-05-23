@@ -1,10 +1,11 @@
+<script src="timeline.ts"></script>
 <ion-header>
   <ion-navbar>
     <ion-title text-center>House Timeline</ion-title>
     <ion-buttons right>
-      <button (click)="closeModal()" icon-only ion-button >
-        <span style="font-size: 3em; ">
-         <i class="fas fa-times" ></i>
+      <button (click)="closeModal()" icon-only ion-button>
+        <span style="font-size: 2em; ">
+         <i class="fas fa-times"></i>
         </span>
       </button>
     </ion-buttons>
@@ -12,24 +13,21 @@
 </ion-header>
 
 <ion-content padding>
-  <section id="cd-timeline" class="cd-container">
+  <section class="cd-container" id="cd-timeline">
     <div *ngFor="let activity of items">
       <div class="cd-timeline-block">
         <!-- CUSTOMIZE YOUR STYLE USING DEFAULT IONIC VALUES SUCH AS POSITIVE, CALM, BALANCED,... -->
-<!--        <div *ngIf="activity.id<items.length">-->
-          <div class="cd-timeline-icon energized" >
-            <i class="ion-image timelineIcon far fa-calendar-alt"></i>
-          </div>
-          <!-- CUSTOMIZE YOUR STYLE USING DEFAULT IONIC VALUES SUCH AS POSITIVE, CALM, BALANCED,... -->
-          <div class="cd-timeline-content energized">
-            <h5 class="marginBottom0 marginTop0">{{activity.title}}</h5>
-            <p class="marginTop5" style="font-size: small; color: #17706E">{{activity.time | date: "yyyy-MM-dd HH:mm Z"}}</p>
-            <p class="timelineText" style="font-size: medium">{{activity.content}}</p>
-          </div>
-<!--      </div>-->
-<!--        <div class="cd-timeline-icon energized">-->
-<!--          <i class="ion-image timelineIcon fas fa-infinity"></i>-->
-<!--        </div>-->
+        <div class="cd-timeline-icon energized">
+          <i class="ion-image timelineIcon far fa-calendar-alt"></i>
+        </div>
+        <!-- CUSTOMIZE YOUR STYLE USING DEFAULT IONIC VALUES SUCH AS POSITIVE, CALM, BALANCED,... -->
+        <div class="cd-timeline-content energized">
+          <h5 class="marginBottom0 marginTop0">{{activity.title}}</h5>
+          <p class="marginTop5"
+             style="font-size: small; color: #17706E">{{activity.time | date: "yyyy-MM-dd HH:mm Z"}}</p>
+          <p class="timelineText" style="font-size: medium">{{activity.content}}</p>
+        </div>
+
       </div>
     </div>
   </section>

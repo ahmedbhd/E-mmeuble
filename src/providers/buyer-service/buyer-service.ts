@@ -44,8 +44,11 @@ export class BuyerServiceProvider {
     return this.http.get<House[]>(this.buyerURL + "getHouses", {headers: this.headers});
   }
 
-  setHouseAsWanted(homeIndex: number ,history:string) {
-    return this.http.post(this.buyerURL + "setWanted", {"indexHouse": homeIndex,"history":history}, {headers: this.headers});
+  setHouseAsWanted(homeIndex: number, history: string) {
+    return this.http.post(this.buyerURL + "setWanted", {
+      "indexHouse": homeIndex,
+      "history": history
+    }, {headers: this.headers});
   }
 
   getMyPendingPurchasesNbr(): Observable<number[]> {
@@ -68,11 +71,11 @@ export class BuyerServiceProvider {
     }, {headers: this.headers});
   }
 
-  setAsCancelled(indexHouse, indexPurchase,history) {
+  setAsCancelled(indexHouse, indexPurchase, history) {
     return this.http.post(this.buyerURL + "setCanceled", {
       "indexHouse": indexHouse,
       "purchaseIndex": indexPurchase,
-      "history":history
+      "history": history
     }, {headers: this.headers});
   }
 
@@ -80,7 +83,12 @@ export class BuyerServiceProvider {
     return this.http.post<House>(this.buyerURL + "getHouseAt", {"indexHouse": indexHouse}, {headers: this.headers});
   }
 
-  rateHouseAt(indexHouse,rate,acc,infos): Observable<string> {
-    return this.http.post<string>(this.buyerURL + "rateHouseAt", {"indexHouse":indexHouse,"rate": rate,"infos":infos,"account":acc}, {headers: this.headers});
+  rateHouseAt(indexHouse, rate, acc, infos): Observable<string> {
+    return this.http.post<string>(this.buyerURL + "rateHouseAt", {
+      "indexHouse": indexHouse,
+      "rate": rate,
+      "infos": infos,
+      "account": acc
+    }, {headers: this.headers});
   }
 }

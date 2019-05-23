@@ -7,12 +7,15 @@ Paddings and margins
   .marginBottom0 {
     margin-bottom: 0;
   }
+
   .marginTop0 {
     margin-top: 0;
   }
+
   .marginTop5 {
     margin-top: 5px !important;
   }
+
   /* --------------------------------
 
   Modules - reusable parts of our design
@@ -24,6 +27,7 @@ Paddings and margins
     max-width: 1170px;
     margin: 0 auto;
   }
+
   .cd-container::after {
     /* clearfix */
     content: '';
@@ -39,19 +43,23 @@ Paddings and margins
   .timelineText {
     color: black;
   }
+
   .timelineIcon {
     font-size: 25px;
     color: white;
   }
+
   .cd-author {
-    color:gray;
+    color: gray;
   }
+
   #cd-timeline {
     position: relative;
     margin-top: 2em;
     margin-bottom: 2em;
     margin-left: 10px !important;
   }
+
   #cd-timeline::before {
     /* this is the vertical line */
     content: '';
@@ -67,14 +75,17 @@ Paddings and margins
     position: relative;
     margin: 2em 0;
   }
+
   .cd-timeline-block:after {
     content: "";
     display: table;
     clear: both;
   }
+
   .cd-timeline-block:first-child {
     margin-top: 0;
   }
+
   .cd-timeline-block:last-child {
     margin-bottom: 0;
   }
@@ -89,13 +100,15 @@ Paddings and margins
     border-color: #4a87ee;
     border-style: solid;
     border-width: 2px;
-    padding-top:5px;
+    padding-top: 5px;
     background: white;
     text-align: center;
   }
+
   .cd-timeline-icon i {
     color: #4a87ee;
   }
+
   .cd-timeline-picture {
     position: absolute;
     top: 0;
@@ -108,6 +121,7 @@ Paddings and margins
     border-width: 2px;
     background: white;
   }
+
   .cd-timeline-picture img {
     display: block;
     width: 100%;
@@ -127,20 +141,25 @@ Paddings and margins
     margin-bottom: 10px;
     padding: 10px;
   }
+
   .cd-timeline-content:after {
     content: "";
     display: table;
     clear: both;
   }
+
   .cd-timeline-content h2 {
     color: #303e49;
   }
+
   .cd-timeline-content p, .cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
     font-size: 15px;
   }
+
   .cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
     display: inline-block;
   }
+
   .cd-timeline-content p {
     margin: 1em 0;
     line-height: 1.6;
@@ -162,48 +181,61 @@ Paddings and margins
   .positive {
     border-color: #4a87ee;
   }
+
   .positive i {
     color: #4a87ee;
   }
+
   /*CALM*/
   .calm {
     border-color: #43cee6;
   }
+
   .calm i {
     color: #43cee6;
   }
+
   /*BALANCED*/
   .balanced {
     border-color: #66cc33;
   }
+
   .balanced i {
     color: #66cc33;
   }
+
   /*ENERGIZED*/
   .energized {
     border-color: #FB9334;
   }
+
   .energized i {
     color: #f0b840;
   }
+
   /*ASSERTIVE*/
   .assertive {
     border-color: #ef4e3a;
   }
+
   .assertive i {
     color: #ef4e3a;
   }
+
   /*ROYAL*/
   .royal {
     border-color: #8a6de9;
   }
+
   .royal i {
     color: #8a6de9;
   }
+
   /*DARK*/
   .dark {
     border-color: #444;
   }
+
   .dark i {
     color: #444;
   }

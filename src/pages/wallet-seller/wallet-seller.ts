@@ -108,5 +108,7 @@ export class WalletSellerPage {
 
   changeValue($event) {
     this.amountTND = $event.target.value * 2;
+    this.amount = $event.target.value
+
   }
 }

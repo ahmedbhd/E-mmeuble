@@ -12,8 +12,6 @@ export class ModalAddPage {
 
   constructor(public view: ViewController, public navParams: NavParams, private toastCtrl: ToastController) {
     this.house.description = this.house.area = this.house.location = "";
-    // this.house.rooms =this.house.price =0;
-
   }
 
   closeModal() {
@@ -23,7 +21,7 @@ export class ModalAddPage {
 
   applyModal() {
     let area = parseFloat(this.house.area);
-    if (this.house.description.indexOf("|")>0 || this.house.location.indexOf("|")>0)
+    if (this.house.description.indexOf("|") > 0 || this.house.location.indexOf("|") > 0)
       this.presentToast("Description or location input contains unrecognized symbol");
     if (this.house.rooms > 10 || this.house.rooms <= 0)
       this.presentToast("Rooms number doesn't look right");

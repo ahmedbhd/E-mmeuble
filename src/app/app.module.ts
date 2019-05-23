@@ -33,9 +33,8 @@ import {BuyerServiceProvider} from '../providers/buyer-service/buyer-service';
 
 import {IonicStepperModule} from 'ionic-stepper';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-// import {StarRatingModule} from "ionic3-star-rating";
 import {TimelinePage} from "../pages/timeline/timeline";
-import { Ionic2RatingModule } from 'ionic2-rating';
+import {Ionic2RatingModule} from 'ionic2-rating';
 
 @NgModule({
   declarations: [
@@ -67,9 +66,6 @@ import { Ionic2RatingModule } from 'ionic2-rating';
     HttpClientModule,
     BrowserModule,
     IonicModule.forRoot(MyApp
-      //   , {
-      //   popoverEnter: 'custom-popover-enter'
-      // }
     ),
     IonicStepperModule,
     BrowserAnimationsModule,

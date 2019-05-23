@@ -26,8 +26,8 @@ export class DetailsBuyerPage {
   public house: House;
   public isTheBackPageFeeds: string = "no";
   public isTheBackPageHouses: string = "no";
-  public rating:any;
-  private canRate:boolean=true;
+  public rating: any;
+  private canRate: boolean = true;
   private myAccount: string;
 
   constructor(public navCtrl: NavController,
@@ -36,12 +36,12 @@ export class DetailsBuyerPage {
               private loadingCtrl: LoadingController,
               private toastCtrl: ToastController,
               private modal: ModalController,
-              public events: Events)
-  {
+              public events: Events) {
     this.house = new House();
 
 
   }
+
   ionViewDidLoad() {
     this.events.subscribe('star-rating:changed', (starRating) => {
 
@@ -92,7 +92,7 @@ export class DetailsBuyerPage {
   }
 
   buyHouse() {
-    this.buyerService.setHouseAsWanted(this.indexHouse,this.house.history).subscribe(
+    this.buyerService.setHouseAsWanted(this.indexHouse, this.house.history).subscribe(
       data => this.presentToast("House is set as wanted!"),
       error1 => this.presentToast("Network Error!"),
       () => this.navCtrl.pop());
@@ -108,54 +108,55 @@ export class DetailsBuyerPage {
     toast.present();
   }
 
-  rateHouse($rating){
+  rateHouse($rating) {
 
-      let loading = this.loadingCtrl.create({
-        content: 'Please wait...'
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loading.present();
+    this.buyerService.getMyAccount().subscribe(acc => this.myAccount = acc,
+      error1 => {
+        this.presentToast("Network Error!");
+        loading.dismiss();
+      },
+      () => {
+        this.buyerService.rateHouseAt(this.indexHouse, $rating, this.myAccount, this.house.descLocationAreaRoomsReview).subscribe(() => {
+          },
+          error1 => {
+            this.presentToast("Network Error!");
+            loading.dismiss();
+          }, () => {
+            this.buyerService.getHouseDetail(this.indexHouse).subscribe(
+              data => {
+                this.house = (data);
+                this.showRating();
+              },
+              error1 => {
+                this.presentToast("Network Error!");
+                loading.dismiss();
+              }, () => loading.dismiss());
+
+            this.presentToast("Rating updated");
+          });
       });
-      loading.present();
-      this.buyerService.getMyAccount().subscribe(acc => this.myAccount = acc,
-        error1 => {
-          this.presentToast("Network Error!");
-          loading.dismiss();
-        },
-        ()=> {
-          this.buyerService.rateHouseAt(this.indexHouse, $rating, this.myAccount, this.house.descLocationAreaRoomsReview).subscribe(() => {
-            },
-            error1 => {
-              this.presentToast("Network Error!");
-              loading.dismiss();
-            }, () => {
-              this.buyerService.getHouseDetail(this.indexHouse).subscribe(
-                data => {
-                  this.house = (data);
-                  this.showRating();
-                },
-                error1 => {
-                  this.presentToast("Network Error!");
-                  loading.dismiss();
-                }, () => loading.dismiss());
-
-              this.presentToast("Rating updated");
-            });
-        });
   }
 
-  showRating(){
+  showRating() {
     let _reviewTab = this.house.review.split("/");
     let _rates = _reviewTab[0].split(";");
     console.log(_rates);
     console.log(_rates.length);
-    if (_rates.length==1)
+    if (_rates.length == 1)
       this.rating = 0;
     else {
-      let _rateSum=0;
-      for (let i =0;i<_rates.length-1;i++) {
-        _rateSum=+_rates[i];
+      let _rateSum = 0;
+      for (let i = 0; i < _rates.length - 1; i++) {
+        _rateSum = +_rates[i];
       }
-      this.rating = _rateSum/(_rates.length-1);
+      this.rating = _rateSum / (_rates.length - 1);
     }
   }
+
   openTimeLine() {
     let myModal = this.modal.create(TimelinePage, {data: this.house.indexHouse});
     myModal.present();

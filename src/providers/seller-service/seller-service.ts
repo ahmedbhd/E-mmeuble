@@ -69,11 +69,11 @@ export class SellerServiceProvider {
     }, {headers: this.headers});
   }
 
-  setAsCancelled(indexHouse, indexPurchase,history) {
+  setAsCancelled(indexHouse, indexPurchase, history) {
     return this.http.post(this.sellerURL + "setCanceled", {
       "indexHouse": indexHouse,
       "purchaseIndex": indexPurchase,
-      "history":history
+      "history": history
     }, {headers: this.headers});
   }
 
@@ -84,7 +84,11 @@ export class SellerServiceProvider {
   deleteHouse(indexHouse) {
     return this.http.post(this.sellerURL + "deleteHouse", {"indexHouse": indexHouse}, {headers: this.headers});
   }
-  sellHouseAt(indexHouse,history) {
-    return this.http.post(this.sellerURL + "sellHouseAt", {"indexHouse": indexHouse,"history":history}, {headers: this.headers});
+
+  sellHouseAt(indexHouse, history) {
+    return this.http.post(this.sellerURL + "sellHouseAt", {
+      "indexHouse": indexHouse,
+      "history": history
+    }, {headers: this.headers});
   }
 }

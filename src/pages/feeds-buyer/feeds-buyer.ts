@@ -5,13 +5,6 @@ import {BuyerServiceProvider} from "../../providers/buyer-service/buyer-service"
 import {SortPopOverBuyerPage} from '../sort-pop-over-buyer/sort-pop-over-buyer';
 import {DetailsBuyerPage} from "../details-buyer/details-buyer";
 
-/**
- * Generated class for the FeedsBuyerPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @Component({
   selector: 'page-feeds-buyer',
   templateUrl: 'feeds-buyer.html',
@@ -80,6 +73,10 @@ export class FeedsBuyerPage {
       cssClass: 'toastClass'
     });
     toast.present();
+  }
+
+  logout() {
+    this.appCtrl.getRootNav().pop();
   }
 
   private presentPopOver(myEvent) {
@@ -157,15 +154,12 @@ export class FeedsBuyerPage {
       this.unfilteredHouses = data;
       console.log(this.houses);
       this.resultNbr = this.houses.length;
-
+      if (this.resultNbr==0)
+        this.presentToast("This list is empty");
     }, error1 => {
       this.presentToast("Network Error!");
       loading.dismiss();
     }, () => loading.dismiss());
-  }
-
-  logout() {
-    this.appCtrl.getRootNav().pop();
   }
 
 }

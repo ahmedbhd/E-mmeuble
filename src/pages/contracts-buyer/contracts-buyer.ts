@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, ToastController, LoadingController, PopoverController} from 'ionic-angular';
+import {LoadingController, NavController, NavParams, PopoverController, ToastController} from 'ionic-angular';
 import {Purchase} from "../../providers/purchase";
 import {BuyerServiceProvider} from "../../providers/buyer-service/buyer-service";
 import {DetailsBuyerPage} from "../details-buyer/details-buyer";
@@ -68,7 +68,7 @@ export class ContractsBuyerPage {
 
   cancelPurch() {
     let houseIndex = this.thisPurchase.indexHouse;
-    this.buyerService.setAsCancelled(houseIndex, this.purchaseIndex,this.thisPurchase.history).subscribe(data => {
+    this.buyerService.setAsCancelled(houseIndex, this.purchaseIndex, this.thisPurchase.history).subscribe(data => {
         this.presentToast("Cancellation success!")
       }, error1 => this.presentToast("Network Error!"),
       () => this.navCtrl.pop());

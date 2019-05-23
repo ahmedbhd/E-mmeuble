@@ -15,24 +15,18 @@
     </ion-buttons>
   </ion-navbar>
 
-  <!--  -->
   <ion-toolbar padding>
     <ion-searchbar (ionInput)="filterItems($event)" animated placeholder="Search for location">
     </ion-searchbar>
     <p class="text-secondary" ion-text no-margin>
       <strong>{{resultNbr}}</strong> results!
     </p>
-    <!--    <ion-fab  right top >-->
-    <!--      <button ion-fab  color="danger" (click)="openAddModal()"><ion-icon name="add"></ion-icon></button>-->
-    <!--    </ion-fab>-->
-
   </ion-toolbar>
 
 </ion-header>
 
-<
+
 <ion-content class="trips detail-bg" padding>
-  <!--list of trips-->
   <ion-refresher (ionRefresh)="refreshList($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
@@ -55,11 +49,9 @@
       <img *ngSwitchCase="'2'" class="status-icon" src="../../assets/img/house/blue.png">
       <img *ngSwitchCase="'3'" class="status-icon" src="../../assets/img/house/gold.png">
       <img *ngSwitchCase="'4'" class="status-icon" src="../../assets/img/house/red.png">
-      <!--      <span ion-text class="text-white">{{ trip.time }}</span>-->
-      <span class="pull-right" color="light" ion-text><strong>{{house.area}} m²</strong> (House has <span class="text-green bold"
-                                                                                                         ion-text>{{house.rooms}}  {{house.indexHouse}}
-
-        rooms</span>)</span>
+      <span class="pull-right" color="light" ion-text><strong>{{house.area}} m²</strong> (House has <span
+        class="text-green bold"
+        ion-text>{{house.rooms}} rooms</span>)</span>
     </div>
   </div>
 </ion-content>
