@@ -18,8 +18,8 @@ export class SortPopOverBuyerPage {
     lower: 1
   };
   public priceValues: any = {
-    upper: 10000,
-    lower: 1
+    upper: 1000000,
+    lower: 1000
   };
   public selectedFilter: string = "area";
 

@@ -64,10 +64,10 @@
             </ion-range>
           </ion-item>
 
-          <ion-item *ngSwitchCase="'price'">
+          <ion-item *ngSwitchCase="'price'" no-padding="true">
             <ion-badge color="danger" item-right>{{priceValues.upper}}</ion-badge>
             <ion-badge color="danger" item-left>{{priceValues.lower}}</ion-badge>
-            <ion-range [(ngModel)]="priceValues" dualKnobs="true" max="10000" min="0" snaps="true" step="100">
+            <ion-range [(ngModel)]="priceValues" dualKnobs="true" max="1000000" min="10000" snaps="true" step="1000">
             </ion-range>
           </ion-item>
         </div>
