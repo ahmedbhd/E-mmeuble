@@ -1,17 +1,17 @@
-import { Component } from '@angular/core';
-import {Config, Platform} from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import {Component} from '@angular/core';
+import {Platform} from 'ionic-angular';
+import {StatusBar} from '@ionic-native/status-bar';
+import {SplashScreen} from '@ionic-native/splash-screen';
 
-import  {StartPage } from '../pages/start/start';
-import { timer } from "rxjs/observable/timer";
+import {StartPage} from '../pages/start/start';
+import {timer} from "rxjs/observable/timer";
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = StartPage;
-  showSplash=true;
+  rootPage: any = StartPage;
+  showSplash = true;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen
               // ,private config: Config
@@ -25,6 +25,7 @@ export class MyApp {
       timer(3000).subscribe(() => this.showSplash = false);
     });
   }
+
   setCustomTransitions() {
     // this.config.setTransition('custom-popover-enter', PopoverEnterTransition);
   }

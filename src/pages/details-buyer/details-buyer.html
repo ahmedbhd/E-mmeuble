@@ -6,12 +6,12 @@
 
 <ion-content padding>
   <ion-fab right top>
-    <button (click)="openTimeLine()" color="dark" icon-only ion-fab><i class="fas fa-stream"></i></button>
+    <button (click)="openTimeLine()" color="dark" icon-only ion-fab><i class="fas fa-history"></i></button>
   </ion-fab>
   <ion-card>
     <img src="../../assets/img/house/thumb/{{house.image}}"/>
 
-    <rating (ngModelChange)="rateHouse($event)" [(ngModel)]="rating" class="rate"
+    <rating (ngModelChange)="rateHouse($event)" [(ngModel)]="rating"
             emptyStarIconName="star-outline"
             halfStarIconName="star-half"
             max="5"

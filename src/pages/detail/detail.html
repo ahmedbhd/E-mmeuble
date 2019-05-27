@@ -6,7 +6,7 @@
 
 <ion-content padding>
   <ion-fab right top>
-    <button (click)="openTimeLine()" color="dark" icon-only ion-fab><i class="fas fa-stream"></i></button>
+    <button (click)="openTimeLine()" color="dark" icon-only ion-fab><i class="fas fa-history"></i></button>
   </ion-fab>
   <ion-card>
     <img src="../../assets/img/house/thumb/{{house.image}}"/>
@@ -105,7 +105,7 @@
     <div [ngSwitch]="isTheBackPageHouses">
       <ion-grid>
         <ion-row>
-          <ion-col *ngIf="house.state==0">
+          <ion-col *ngIf="house.state==0||house.state==4">
             <button (click)="saleHouse()" block color="primary" ion-button>Sell</button>
           </ion-col>
           <ion-col>

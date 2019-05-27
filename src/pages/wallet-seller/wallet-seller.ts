@@ -21,7 +21,6 @@ export class WalletSellerPage {
   public hideMe: boolean = true;
 
   constructor(private toastCtrl: ToastController,
-              private navCtrl: NavController,
               private sellerService: SellerServiceProvider,
               private formBuilder: FormBuilder,
               private modal: ModalController,

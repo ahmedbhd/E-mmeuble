@@ -32,7 +32,6 @@ export class DetailPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private sellerService: SellerServiceProvider,
-              private buyerService: BuyerServiceProvider,
               private loadingCtrl: LoadingController,
               private toastCtrl: ToastController,
               private modal: ModalController,

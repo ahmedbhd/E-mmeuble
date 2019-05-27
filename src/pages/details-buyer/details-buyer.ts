@@ -27,7 +27,6 @@ export class DetailsBuyerPage {
   public isTheBackPageFeeds: string = "no";
   public isTheBackPageHouses: string = "no";
   public rating: any;
-  private canRate: boolean = true;
   private myAccount: string;
 
   constructor(public navCtrl: NavController,

@@ -1,17 +1,12 @@
 page-detail {
-  .md-grid-horizontal [class*="mbsc-col"] {
-    padding-top: .2em;
-    padding-bottom: .2em;
-    //background: #cfe0f3;
-    background-clip: padding-box;
-    border: 1px solid transparent;
-    color: #454b50;
+  ul.rating li {
+    display: inline;
+    border: 0;
+    background: none;
+    padding: 5px 10px;
+    color:#ffce00;
   }
-
-  .md-grid-horizontal .mbsc-row {
-    //margin: 1em 0;
-    //padding: 1px;
-    //background: rgba(188, 141, 224, 0.58);
+  ul.rating li i {
+    font-size: 100px;
   }
-
 }

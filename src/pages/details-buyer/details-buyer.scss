@@ -1,15 +1,12 @@
 page-details-buyer {
-  .rate {
-    padding: 0;
-
-    &.rating li {
-      padding: 5px 10px !important;
-      background: none;
-      color: #ffb400;
-
-      ion-icon {
-        font-size: 30px;
-      }
-    }
+  ul.rating li {
+    display: inline;
+    border: 0;
+    background: none;
+    padding: 5px 10px;
+    color:#ffce00;
+  }
+  ul.rating li i {
+    font-size: 100px;
   }
 }

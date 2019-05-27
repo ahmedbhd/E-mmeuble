@@ -25,9 +25,7 @@ export class WalletBuyerPage {
     theme: 'ios'
   };
 
-  constructor(private navCtrl: NavController,
-              private navParams: NavParams,
-              private toastCtrl: ToastController,
+  constructor(private toastCtrl: ToastController,
               private buyerService: BuyerServiceProvider,
               private formBuilder: FormBuilder,
               private modal: ModalController,

@@ -50,7 +50,8 @@
               <span class="mbsc-desc">Check this option if you want to sell your STT</span>
             </mbsc-radio>
             <mbsc-radio value="buy">Buy STT
-              <span class="mbsc-desc">Check this option if you want to buy some STT</span></mbsc-radio>
+              <span class="mbsc-desc">Check this option if you want to buy some STT</span>
+            </mbsc-radio>
           </mbsc-radio-group>
         </mbsc-form-group>
       </mbsc-form>
@@ -64,13 +65,13 @@
             </ion-range>
           </ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row text-center="rue">
           <ion-col right>
             <ion-label color="secondary" right style="text-align: center">({{amountTND | currency:'TND ':true}})
             </ion-label>
           </ion-col>
-          <ion-col text-center="true" vertical-align-top>
-            <ion-input (change)=changeValue($event) [ngModel]="amount" type="number"></ion-input>
+          <ion-col right vertical-align-top>
+            <ion-input right (change)=changeValue($event) [ngModel]="amount" type="number"></ion-input>
           </ion-col>
 
         </ion-row>
