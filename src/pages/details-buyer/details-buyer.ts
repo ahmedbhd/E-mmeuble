@@ -13,6 +13,7 @@ import {BuyerServiceProvider} from "../../providers/buyer-service/buyer-service"
 import {ContractsBuyerPage} from "../contracts-buyer/contracts-buyer";
 import {ContractsSellerPage} from "../contracts-seller/contracts-seller";
 import {TimelinePage} from "../timeline/timeline";
+import * as firebase from "firebase";
 
 
 @Component({
@@ -82,6 +83,7 @@ export class DetailsBuyerPage {
     this.buyerService.getHouseDetail(this.indexHouse).subscribe(
       data => {
         this.house = (data);
+        this.getPhotoURL();
         this.showRating();
       },
       error1 => {
@@ -128,6 +130,7 @@ export class DetailsBuyerPage {
             this.buyerService.getHouseDetail(this.indexHouse).subscribe(
               data => {
                 this.house = (data);
+                this.getPhotoURL();
                 this.showRating();
               },
               error1 => {
@@ -160,5 +163,11 @@ export class DetailsBuyerPage {
     let myModal = this.modal.create(TimelinePage, {data: this.house.indexHouse});
     myModal.present();
   }
-
+  getPhotoURL(){
+    firebase.storage().ref().child('pictures/'+this.house.image).getDownloadURL().then( url => {
+      this.house.image=url;
+    }, (err) => {
+      return `${err}`;
+    })
+  }
 }

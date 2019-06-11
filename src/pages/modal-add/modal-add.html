@@ -22,7 +22,19 @@
         <ion-label fixed>price (STT)</ion-label>
         <ion-input [(ngModel)]="house.price" type="number"></ion-input>
       </ion-item>
-
+      <ion-item>
+      <canvas [hidden]="!_pictureReady && !house.image" id="picture" width="300" height="300"></canvas>
+      </ion-item>
+      <ion-row padding-vertical nowrap>
+        <button ion-item text-end clear icon-end (click)="getPictureMedia()">
+          take Picture
+          <ion-icon name="camera"></ion-icon>
+        </button>
+        <button ion-item text-start clear icon-start  (click)="getPictureLibrary()">
+          from Library
+          <ion-icon name="image"></ion-icon>
+        </button>
+      </ion-row>
       <ion-item style="background: transparent ; bottom: 0">
         <ion-row align-items-start>
           <ion-col style="text-align: left">

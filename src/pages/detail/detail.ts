@@ -10,10 +10,10 @@ import {
 } from 'ionic-angular';
 import {House} from "../../providers/house";
 import {SellerServiceProvider} from "../../providers/seller-service/seller-service";
-import {BuyerServiceProvider} from "../../providers/buyer-service/buyer-service";
 import {ContractsBuyerPage} from "../contracts-buyer/contracts-buyer";
 import {ContractsSellerPage} from "../contracts-seller/contracts-seller";
 import {TimelinePage} from "../timeline/timeline";
+import * as firebase from "firebase";
 
 
 @Component({
@@ -79,6 +79,7 @@ export class DetailPage {
     this.sellerService.getHouseDetail(this.indexHouse).subscribe(
       data => {
         this.house = (data);
+        this.getPhotoURL();
         this.showRating();
       },
       error1 => {
@@ -131,5 +132,13 @@ export class DetailPage {
       data => this.presentToast("House has been put for sale"),
       error1 => this.presentToast("Network Error!"),
       () => this.navCtrl.pop());
+  }
+
+  getPhotoURL(){
+    firebase.storage().ref().child('pictures/'+this.house.image).getDownloadURL().then( url => {
+      this.house.image=url;
+    }, (err) => {
+      return `${err}`;
+    })
   }
 }

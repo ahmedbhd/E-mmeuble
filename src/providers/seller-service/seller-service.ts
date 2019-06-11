@@ -37,14 +37,15 @@ export class SellerServiceProvider {
     return this.http.get<House[]>(this.sellerURL + "getMyHouses", {headers: this.headers});
   }
 
-  addHouse(description: string, location: string, area: string, rooms: number, price: number) {
+  addHouse(description: string, location: string, area: string, rooms: number, price: number, image:string) {
     return this.http.post(this.sellerURL + 'addHouse',
       {
         description: description,
         location: location,
         area: area,
         rooms: rooms,
-        price: price
+        price: price,
+        image:image
       }
       , {headers: this.headers});
   }
@@ -91,4 +92,6 @@ export class SellerServiceProvider {
       "history": history
     }, {headers: this.headers});
   }
+
+
 }

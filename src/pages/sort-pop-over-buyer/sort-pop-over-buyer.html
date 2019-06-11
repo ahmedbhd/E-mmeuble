@@ -45,12 +45,33 @@
         <ion-item>
           <ion-label>FILTER BY</ion-label>
           <ion-select [(ngModel)]="selectedFilter">
+            <ion-option value="status">Status</ion-option>
             <ion-option value="area">Area (m²)</ion-option>
             <ion-option value="rooms">rooms n°</ion-option>
             <ion-option value="price">Price (STT)</ion-option>
           </ion-select>
         </ion-item>
         <div [ngSwitch]="selectedFilter">
+          <div *ngSwitchCase="'status'">
+            <ion-list [(ngModel)]="statusRadioResult" radio-group>
+              <ion-item>
+                <ion-label>Available</ion-label>
+                <ion-radio checked value="1"></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>pending</ion-label>
+                <ion-radio value="2"></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>In progress</ion-label>
+                <ion-radio value="3"></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>Sold</ion-label>
+                <ion-radio value="4"></ion-radio>
+              </ion-item>
+            </ion-list>
+          </div>
           <ion-item *ngSwitchCase="'area'">
             <ion-badge color="danger" item-right>{{areaValues.upper}}</ion-badge>
             <ion-badge color="danger" item-left>{{areaValues.lower}}</ion-badge>

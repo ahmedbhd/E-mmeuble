@@ -7,6 +7,7 @@ import {NavController, ViewController} from 'ionic-angular';
 })
 export class SortPopOverBuyerPage {
   public testRadioResult: string;
+  public statusRadioResult: string;
   public choice: string = "sort";
 
   public areaValues: any = {
@@ -21,10 +22,12 @@ export class SortPopOverBuyerPage {
     upper: 1000000,
     lower: 1000
   };
-  public selectedFilter: string = "area";
+
+  public selectedFilter: string = "status";
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController) {
     this.testRadioResult = 'area';
+    this.statusRadioResult = '1';
 
   }
 
@@ -45,6 +48,10 @@ export class SortPopOverBuyerPage {
       }
       case "price": {
         values = this.priceValues;
+        break;
+      }
+      case "status": {
+        values = this.statusRadioResult;
         break;
       }
     }

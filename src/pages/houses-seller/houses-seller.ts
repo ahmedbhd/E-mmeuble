@@ -8,10 +8,11 @@ import {
   NavController,
   ToastController
 } from 'ionic-angular';
-import {ModalAddPage} from '../modal-add/modal-add';
+import { ModalAddPage} from '../modal-add/modal-add';
 import {SellerServiceProvider} from '../../providers/seller-service/seller-service';
 import {House} from "../../providers/house";
 import {DetailPage} from "../detail/detail";
+import * as firebase from "firebase";
 
 @Component({
   selector: 'houses-seller',
@@ -27,6 +28,7 @@ export class HousesSellerPage {
     enableBackdropDismiss: false,
     showBackdrop: false
   };
+  arrDATA=[];
 
   constructor(public navCtrl: NavController,
               private sellerService: SellerServiceProvider,
@@ -36,6 +38,7 @@ export class HousesSellerPage {
               private appCtrl: App
   ) {
     this.house = new House();
+
   }
 
   openAddModal() {
@@ -45,13 +48,14 @@ export class HousesSellerPage {
       if (data != null) {
         console.log(data);
         this.house = data;
+
         this.addHouse();
       }
     })
   }
 
   addHouse() {
-    this.sellerService.addHouse(this.house.description, this.house.location, this.house.area, this.house.rooms, this.house.price).subscribe(data => {
+    this.sellerService.addHouse(this.house.description, this.house.location, this.house.area, this.house.rooms, this.house.price, this.house.image).subscribe(data => {
       }
       , Error => {
         this.presentToast("failed while adding new home!")
@@ -66,6 +70,12 @@ export class HousesSellerPage {
     this.sellerService.getMyHouses().subscribe(data => {
         this.unfilteredHouses = this.houses = data;
         this.resultNbr = this.houses.length;
+        if (this.resultNbr==0)
+          this.presentToast("This list is empty");
+        else
+          for (let i =0 ; i<this.unfilteredHouses.length;i++){
+            this.getPhotoURL(i);
+          }
       }, error1 => refresher.complete(),
       () => refresher.complete());
   }
@@ -123,9 +133,23 @@ export class HousesSellerPage {
       this.resultNbr = this.houses.length;
       if (this.resultNbr==0)
         this.presentToast("This list is empty");
+      else
+        for (let i =0 ; i<this.unfilteredHouses.length;i++){
+          this.getPhotoURL(i);
+        }
+
     }, error1 => {
       this.presentToast("Network Error!");
       loading.dismiss();
     }, () => loading.dismiss());
   }
+
+  getPhotoURL(number : number){
+    firebase.storage().ref().child('pictures/'+this.houses[number].image).getDownloadURL().then( url => {
+      this.houses[number].image=url;
+    }, (err) => {
+      return `${err}`;
+    })
+  }
+
 }

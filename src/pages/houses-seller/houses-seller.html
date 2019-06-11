@@ -33,7 +33,7 @@
   <div *ngFor="let house of houses" class="trip card" margin-bottom tappable>
 
     <div (click)="openDetail(house.indexHouse)"
-         [ngStyle]="{'background-image': 'url(assets/img/house/thumb/' + house.image + ')'}"
+         [ngStyle]="{'background-image': 'url(' + house.image + ')'}"
          class="background border-bottom">
       <div class="background-filter rlt">
         <div class="align-bottom" padding-left padding-right>

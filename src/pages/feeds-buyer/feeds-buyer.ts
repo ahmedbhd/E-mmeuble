@@ -4,6 +4,7 @@ import {House} from "../../providers/house";
 import {BuyerServiceProvider} from "../../providers/buyer-service/buyer-service";
 import {SortPopOverBuyerPage} from '../sort-pop-over-buyer/sort-pop-over-buyer';
 import {DetailsBuyerPage} from "../details-buyer/details-buyer";
+import * as firebase from "firebase";
 
 @Component({
   selector: 'page-feeds-buyer',
@@ -47,6 +48,12 @@ export class FeedsBuyerPage {
       data => {
         this.unfilteredHouses = this.houses = data;
         this.resultNbr = this.houses.length;
+        if (this.resultNbr==0)
+          this.presentToast("This list is empty");
+        else
+          for (let i =0 ; i<this.unfilteredHouses.length;i++){
+            this.getPhotoURL(i);
+          }
       },
       error1 => {
         refresher.complete();
@@ -141,6 +148,11 @@ export class FeedsBuyerPage {
         this.houses = this.unfilteredHouses.filter(value => parseFloat(value.area) >= $values.lower && parseFloat(value.area) <= $values.upper);
         break;
       }
+      case "status": {
+        console.log("status");
+        this.houses = this.unfilteredHouses.filter(value => value.state == parseInt($values));
+        break;
+      }
     }
   }
 
@@ -156,10 +168,22 @@ export class FeedsBuyerPage {
       this.resultNbr = this.houses.length;
       if (this.resultNbr==0)
         this.presentToast("This list is empty");
+      else
+        for (let i =0 ; i<this.unfilteredHouses.length;i++){
+          this.getPhotoURL(i);
+        }
     }, error1 => {
       this.presentToast("Network Error!");
       loading.dismiss();
     }, () => loading.dismiss());
   }
 
+
+  getPhotoURL(number : number){
+    firebase.storage().ref().child('pictures/'+this.houses[number].image).getDownloadURL().then( url => {
+      this.houses[number].image=url;
+    }, (err) => {
+      return `${err}`;
+    })
+  }
 }

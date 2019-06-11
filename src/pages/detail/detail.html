@@ -9,7 +9,7 @@
     <button (click)="openTimeLine()" color="dark" icon-only ion-fab><i class="fas fa-history"></i></button>
   </ion-fab>
   <ion-card>
-    <img src="../../assets/img/house/thumb/{{house.image}}"/>
+    <img src="{{house.image}}" height='300' width='200'/>
     <rating [(ngModel)]="rating" class="rate" emptyStarIconName="star-outline"
             halfStarIconName="star-half"
             max="5"

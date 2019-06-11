@@ -36,6 +36,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TimelinePage} from "../pages/timeline/timeline";
 import {Ionic2RatingModule} from 'ionic2-rating';
 
+import { Camera } from '@ionic-native/camera';
+import {MediaProvider} from "../providers/media-service";
+
 @NgModule({
   declarations: [
     MyApp,
@@ -69,9 +72,6 @@ import {Ionic2RatingModule} from 'ionic2-rating';
     ),
     IonicStepperModule,
     BrowserAnimationsModule,
-    IonicStepperModule,
-    IonicStepperModule,
-    IonicStepperModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -100,7 +100,9 @@ import {Ionic2RatingModule} from 'ionic2-rating';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SellerServiceProvider,
-    BuyerServiceProvider
+    BuyerServiceProvider,
+    Camera,
+    MediaProvider
   ]
 })
 export class AppModule {

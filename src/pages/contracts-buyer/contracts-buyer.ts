@@ -4,6 +4,7 @@ import {Purchase} from "../../providers/purchase";
 import {BuyerServiceProvider} from "../../providers/buyer-service/buyer-service";
 import {DetailsBuyerPage} from "../details-buyer/details-buyer";
 import {PopoverDescriptionPage} from "../popover-description/popover-description";
+import { AlertController } from 'ionic-angular';
 
 
 @Component({
@@ -21,9 +22,12 @@ export class ContractsBuyerPage {
               private toastCtrl: ToastController,
               private loadingCtrl: LoadingController,
               private buyerService: BuyerServiceProvider,
-              private popOverCtrl: PopoverController
+              private popOverCtrl: PopoverController,
+              private alertCtrl: AlertController
   ) {
-    this.info = "Upon the confirmation of the owner of this house, If the current buyer doesn't have the requested price/advance this purchase will be deleted and the house goes back to being available. We thank you for your understanding.";
+    this.info = " Upon the confirmation of the owner of this house, If the current buyer doesn't have the requested price/advance " +
+      "this purchase will be deleted and the house goes back to being available.\n " +
+      "When you have a debt with the bank, you have up to 3 chances to pay your debt or else the house will be frozen.";
     this.resetValues();
   }
 
@@ -108,5 +112,15 @@ export class ContractsBuyerPage {
       ev: myEvent,
       animate: true,
     });
+  }
+
+  private presentAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Please Read Carefully',
+      subTitle:'We thank for your understanding',
+      message: this.info,
+      buttons: ['DONE']
+    });
+    alert.present();
   }
 }
